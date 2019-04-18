@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE log4j:configuration SYSTEM "Log4j-events.dtd"> -->
+<!-- <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"> -->
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="Console" />
+		</Root>
+		<Logger name="RevisorLogger" level="info" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+	</Loggers>
+</Configuration>
+<!-- </log4j:configuration> -->

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.loria.orpailleur.revisor</groupId>
+		<artifactId>revisor</artifactId>
+		<version>3.0.0</version>
+	</parent>
+
+	<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+	<artifactId>revisorEngine</artifactId>
+	<!-- <version>3.0.0</version> -->
+	<packaging>pom</packaging>
+
+	<name>revisorEngine</name>
+
+	<properties>
+		<jflexAndCupDirectory>${basedir}${file.separator}src${file.separator}main${file.separator}resources${file.separator}parser</jflexAndCupDirectory>
+		<parserName>Parser</parserName>
+		<symbolsName>Symbols</symbolsName>
+	</properties>
+
+	<modules>
+		<module>revisorEngine-core</module>
+		<module>revisorEngine-pl</module>
+		<module>revisorEngine-plak</module>
+		<module>revisorEngine-qa</module>
+		<module>revisorEngine-clc</module>
+		<module>revisorEngine-rdfs</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Cup Runtime -->
+			<dependency>
+				<groupId>net.sourceforge.czt.dev</groupId>
+				<artifactId>java-cup-runtime</artifactId>
+				<version>0.11-a-czt01-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- Maven Dependency -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Cup -->
+				<plugin>
+					<groupId>net.sourceforge.czt.dev</groupId>
+					<artifactId>cup-maven-plugin</artifactId>
+					<version>1.6-SNAPSHOT</version>
+					<executions>
+						<execution>
+							<id>cup</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<configuration>
+								<backup>false</backup>
+								<sourceDirectory>${jflexAndCupDirectory}</sourceDirectory>
+								<outputDirectory>${project.build.sourceDirectory}</outputDirectory>
+								<suppressGeneratedJavaWarningsUnchecked>true</suppressGeneratedJavaWarningsUnchecked>
+								<suppressGeneratedJavaWarningsUnused>true</suppressGeneratedJavaWarningsUnused>
+								<className>${parserName}</className>
+								<symbolsName>${symbolsName}</symbolsName>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Jflex -->
+				<plugin>
+					<groupId>de.jflex</groupId>
+					<artifactId>jflex-maven-plugin</artifactId>
+					<version>1.5.0</version>
+					<executions>
+						<execution>
+							<id>jflex</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+							<configuration>
+								<backup>false</backup>
+								<inputStreamCtor>false</inputStreamCtor>
+								<outputDirectory>${project.build.sourceDirectory}</outputDirectory>
+								<lexDefinitions>
+									<lexDefinition>${jflexAndCupDirectory}</lexDefinition>
+								</lexDefinitions>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
