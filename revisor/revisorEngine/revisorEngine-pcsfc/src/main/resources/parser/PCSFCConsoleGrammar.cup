@@ -1,0 +1,203 @@
+package fr.loria.k.revisor.engine.revisorPCSFC.console.parser;
+
+import java_cup.runtime.Scanner;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.SymbolFactory;
+import java.util.ArrayList;
+import fr.loria.orpailleur.revisor.engine.core.console.exception.ParserException;
+import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Clear;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Display;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Load;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.RevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.*;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.instruction.*;
+
+/**
+ * This is the Revisor PCSFC console parser.
+ * @author Matthias Bertrand
+ */
+ 
+/* ---------- Custom code ---------- */
+
+parser code {:
+	
+	// Fields :
+	
+	private RevisorConsolePCSFC console;
+	private String inputText;
+	private String errorMessages;
+	
+	// Constructors :
+	
+	public PCSFCConsoleParser(final RevisorConsolePCSFC console, final String inputText) {
+		super();
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PCSFCConsoleParser(final RevisorConsolePCSFC console, final String inputText, final Scanner scanner) {
+		super(scanner);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PCSFCConsoleParser(final RevisorConsolePCSFC console, final String inputText, final Scanner scanner, final SymbolFactory factory) {
+		super(scanner, factory);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	// Getters :
+	
+	public RevisorConsolePCSFC getConsole() {
+		return this.console;
+	}
+	
+	public String getInputText() {
+		return this.inputText;
+	}
+	
+	public String getErrorMessage() {
+		return this.errorMessages;
+	}
+	
+	// Methods :
+	
+	private void addErrorMessage(String message) {
+		if(this.errorMessages == null || this.errorMessages.isEmpty()) {
+			this.errorMessages = message;
+		}
+		else {
+			this.errorMessages += "\n" + message;
+		}
+	}
+	
+	@Override
+	public void report_error(String message, Object info) {
+		StringBuffer buffer = new StringBuffer("Parsing Error");
+		
+		if(info instanceof Symbol) {
+			Symbol s = (Symbol) info;
+			
+			if(s.left >= 0) {
+				buffer.append(" at line " + (s.left + 1));
+				
+				if(s.right >= 0) {
+					buffer.append(", column " + (s.right + 1));
+				}
+			}
+		}
+		
+		buffer.append(" : " + message);
+		this.addErrorMessage(buffer.toString());
+	}
+	
+	@Override
+	public void report_fatal_error(String message, Object info) throws ParserException {
+		this.done_parsing();
+		this.report_error(message, info);
+		throw new ParserException(this.errorMessages);
+	}
+	
+:};
+
+/* ---------- Terminals and Non Terminals ---------- */
+
+terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, CONST_INITIALIZER_OPERATOR;
+terminal String INTEGER_DECLARATION_KEYWORD, REAL_DECLARATION_KEYWORD, FORMULA_DECLARATION_KEYWORD, CONST_DECLARATION_KEYWORD;
+terminal String REAL;
+
+nonterminal Instruction<RevisorConsolePCSFC> INSTRUCTION, RAW_INSTRUCTION, DECLARATION, DECLARE_INTEGER, DECLARE_REAL, DECLARE_FORMULA, DECLARE_CONSTANT;
+nonterminal ArrayList<String> IDENTIFIER_LIST;
+
+/* ---------- Precedence and Associativity ---------- */
+
+
+/* ---------- Grammar ---------- */
+
+start with INSTRUCTION;
+
+INSTRUCTION				::=	RAW_INSTRUCTION:raw_ins END_OF_INSTRUCTION
+							{:
+								RESULT = raw_ins;
+							:}
+							;
+					
+RAW_INSTRUCTION			::=	DECLARATION:decl
+							{:
+								RESULT = decl; 
+							:}
+							| 
+							LOAD FILE:file
+							{:
+								RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
+							:}
+                            |
+                            CLEAR
+                            {:
+								RESULT = new Clear<>(this.parser.getConsole(), this.parser.getInputText());
+							:}
+							;
+
+DECLARATION				::=	DECLARE_INTEGER:decl_int
+							{:
+								RESULT = decl_int; 
+							:}
+							|
+							DECLARE_REAL:decl_re
+							{:
+								RESULT = decl_re; 
+							:}
+							|
+							DECLARE_FORMULA:decl_form
+							{:
+								RESULT = decl_form; 
+							:}
+							|
+							DECLARE_CONSTANT:decl_const
+							{:
+								RESULT = decl_const; 
+							:}
+							;
+					
+DECLARE_INTEGER			::=	IDENTIFIER_LIST:alidf COLON INTEGER_DECLARATION_KEYWORD
+							{:
+								RESULT = new PCSFC_DeclarationInteger<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+							:}
+							;
+							
+DECLARE_REAL			::= IDENTIFIER_LIST:alidf COLON REAL_DECLARATION_KEYWORD
+							{:
+								RESULT = new PCSFC_DeclarationReal<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+							:}
+							;
+
+DECLARE_FORMULA			::= IDENTIFIER_LIST:alidf COLON FORMULA_DECLARATION_KEYWORD
+							{:
+								RESULT = new PCSFC_DeclarationFormula<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+							:}
+							;
+
+DECLARE_CONSTANT		::=	CONST_DECLARATION_KEYWORD IDENTIFIER:idf CONST_INITIALIZER_OPERATOR REAL:real
+							{:
+								RESULT = new PCSFC_DeclarationConstant<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, real);
+							:}
+							;
+
+IDENTIFIER_LIST			::=	IDENTIFIER_LIST:alidf COMMA IDENTIFIER:idf
+							{:
+								alidf.add(idf);
+								RESULT = alidf;
+							:}
+							|
+							IDENTIFIER:idf
+							{:
+								ArrayList<String> alidf = new ArrayList<>();
+								alidf.add(idf);
+								RESULT = alidf;
+							:}
+							;
+
+/* ---------- End ---------- */
