@@ -13,6 +13,8 @@ import fr.loria.orpailleur.revisor.engine.core.console.instruction.Load;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.RevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.*;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.instruction.*;
+import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.*;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.*;
 
 /**
  * This is the Revisor PCSFC console parser.
@@ -105,12 +107,21 @@ parser code {:
 
 /* ---------- Terminals and Non Terminals ---------- */
 
-terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, CONST_INITIALIZER_OPERATOR;
+terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, CONST_INITIALIZER_OPERATOR, ASSIGNMENT_OPERATOR;
 terminal String INTEGER_DECLARATION_KEYWORD, REAL_DECLARATION_KEYWORD, FORMULA_DECLARATION_KEYWORD, CONST_DECLARATION_KEYWORD;
-terminal String REAL;
+terminal String REAL, TAUTOLOGY_FORMULA, CONSTRAINT_OPERATOR, CONSTRAINT_TERM_OPERATOR, REVISE_KEYWORD, OPENING_PARENTHESIS;
+terminal String CLOSING_PARENTHESIS;
 
 nonterminal Instruction<RevisorConsolePCSFC> INSTRUCTION, RAW_INSTRUCTION, DECLARATION, DECLARE_INTEGER, DECLARE_REAL, DECLARE_FORMULA, DECLARE_CONSTANT;
+nonterminal Instruction<RevisorConsolePCSFC> ASSIGNMENT;
 nonterminal ArrayList<String> IDENTIFIER_LIST;
+
+nonterminal Formula<RevisorConsolePCSFC, PCSFCFormula> FORMULA, REVISE_FORMULA, BINARY_FORMULA, UNARY_FORMULA, CONSTRAINT_FORMULA;
+
+nonterminal LeftMember CONSTRAINT_LEFT_MEMBER, CONSTRAINT_TERM_LIST;
+nonterminal LeftMemberElementTerminal<Double, RevisorConsolePCSFC> CONSTRAINT_TERM;
+
+nonterminal RightMember<Double> CONSTRAINT_RIGHT_MEMBER;
 
 /* ---------- Precedence and Associativity ---------- */
 
@@ -119,85 +130,210 @@ nonterminal ArrayList<String> IDENTIFIER_LIST;
 
 start with INSTRUCTION;
 
-INSTRUCTION				::=	RAW_INSTRUCTION:raw_ins END_OF_INSTRUCTION
-							{:
-								RESULT = raw_ins;
-							:}
-							;
+INSTRUCTION					::=	RAW_INSTRUCTION:raw_ins END_OF_INSTRUCTION
+								{:
+									RESULT = raw_ins;
+								:}
+								;
 					
-RAW_INSTRUCTION			::=	DECLARATION:decl
-							{:
-								RESULT = decl; 
-							:}
-							| 
-							LOAD FILE:file
-							{:
+RAW_INSTRUCTION				::=	DECLARATION:decl
+								{:
+									RESULT = decl; 
+								:}
+								| 
+								ASSIGNMENT:ass
+								{:
+									RESULT = ass; 
+								:}
+								|
+								LOAD FILE:file
+								{:
 								RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
-							:}
-                            |
-                            CLEAR
-                            {:
-								RESULT = new Clear<>(this.parser.getConsole(), this.parser.getInputText());
-							:}
-							;
+								:}
+                           	 	|
+                           	 	CLEAR
+                           	 	{:
+									RESULT = new PCSFC_Clear<>(this.parser.getConsole(), this.parser.getInputText());
+								:}
+								;
 
-DECLARATION				::=	DECLARE_INTEGER:decl_int
-							{:
-								RESULT = decl_int; 
-							:}
-							|
-							DECLARE_REAL:decl_re
-							{:
-								RESULT = decl_re; 
-							:}
-							|
-							DECLARE_FORMULA:decl_form
-							{:
-								RESULT = decl_form; 
-							:}
-							|
-							DECLARE_CONSTANT:decl_const
-							{:
-								RESULT = decl_const; 
-							:}
-							;
+DECLARATION					::=	DECLARE_INTEGER:decl_int
+								{:
+									RESULT = decl_int; 
+								:}
+								|
+								DECLARE_REAL:decl_re
+								{:
+									RESULT = decl_re; 
+								:}
+								|
+								DECLARE_FORMULA:decl_form
+								{:
+									RESULT = decl_form; 
+								:}
+								|
+								DECLARE_CONSTANT:decl_const
+								{:
+									RESULT = decl_const; 
+								:}
+								;
 					
-DECLARE_INTEGER			::=	IDENTIFIER_LIST:alidf COLON INTEGER_DECLARATION_KEYWORD
-							{:
-								RESULT = new PCSFC_DeclarationInteger<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
-							:}
-							;
+DECLARE_INTEGER				::=	IDENTIFIER_LIST:alidf COLON INTEGER_DECLARATION_KEYWORD
+								{:
+									RESULT = new PCSFC_DeclarationInteger<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+								:}
+								;
 							
-DECLARE_REAL			::= IDENTIFIER_LIST:alidf COLON REAL_DECLARATION_KEYWORD
-							{:
-								RESULT = new PCSFC_DeclarationReal<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
-							:}
-							;
+DECLARE_REAL				::= IDENTIFIER_LIST:alidf COLON REAL_DECLARATION_KEYWORD
+								{:
+									RESULT = new PCSFC_DeclarationReal<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+								:}
+								;
 
-DECLARE_FORMULA			::= IDENTIFIER_LIST:alidf COLON FORMULA_DECLARATION_KEYWORD
-							{:
-								RESULT = new PCSFC_DeclarationFormula<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
-							:}
-							;
+DECLARE_FORMULA				::= IDENTIFIER_LIST:alidf COLON FORMULA_DECLARATION_KEYWORD
+								{:
+									RESULT = new PCSFC_DeclarationFormula<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+								:}
+								;
 
-DECLARE_CONSTANT		::=	CONST_DECLARATION_KEYWORD IDENTIFIER:idf CONST_INITIALIZER_OPERATOR REAL:real
-							{:
-								RESULT = new PCSFC_DeclarationConstant<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, real);
-							:}
-							;
+DECLARE_CONSTANT			::=	CONST_DECLARATION_KEYWORD IDENTIFIER:idf CONST_INITIALIZER_OPERATOR REAL:real
+								{:
+									RESULT = new PCSFC_DeclarationConstant<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, real);
+								:}
+								;
 
-IDENTIFIER_LIST			::=	IDENTIFIER_LIST:alidf COMMA IDENTIFIER:idf
-							{:
-								alidf.add(idf);
-								RESULT = alidf;
-							:}
-							|
-							IDENTIFIER:idf
-							{:
-								ArrayList<String> alidf = new ArrayList<>();
-								alidf.add(idf);
-								RESULT = alidf;
-							:}
-							;
+IDENTIFIER_LIST				::=	IDENTIFIER_LIST:alidf COMMA IDENTIFIER:idf
+								{:
+									alidf.add(idf);
+									RESULT = alidf;
+								:}
+								|
+								IDENTIFIER:idf
+								{:
+									ArrayList<String> alidf = new ArrayList<>();
+									alidf.add(idf);
+									RESULT = alidf;
+								:}
+								;
+							
+ASSIGNMENT					::=	IDENTIFIER:idf ASSIGNMENT_OPERATOR FORMULA:form
+								{:
+									RESULT = new PCSFC_Assignment<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), new PCSFC_Identifier<RevisorConsolePCSFC>(idf), form); 
+								:}
+								;
+							
+FORMULA						::=	REVISE_FORMULA:rev_form
+								{:
+									RESULT = rev_form;
+								:}
+								|
+								BINARY_FORMULA:bin_form
+								{:
+									RESULT = bin_form;
+								:}
+								;
+								
+REVISE_FORMULA				::= REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER:idf1 COMMA IDENTIFIER:idf2 COMMA IDENTIFIER:idf3 CLOSING_PARENTHESIS
+								{:
+									RESULT = new PCSFC_Revise(idf1, idf2, idf3);
+								:}
+								;
+							
+BINARY_FORMULA				::= UNARY_FORMULA:un_form
+								{:
+									RESULT = un_form;
+								:}
+								;
+							
+UNARY_FORMULA				::= CONSTRAINT_FORMULA:cf
+								{:
+									RESULT = cf;
+								:}
+								|
+								IDENTIFIER:idf
+								{:
+									RESULT = new PCSFC_IdentifierLitteral<RevisorConsolePCSFC>(new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+								:}
+								|
+								TAUTOLOGY_FORMULA
+								{:
+									RESULT = new PCSFC_TautologyLitteral<RevisorConsolePCSFC>();
+								:}
+								;
+
+CONSTRAINT_FORMULA			::=	CONSTRAINT_LEFT_MEMBER:left CONSTRAINT_OPERATOR:co CONSTRAINT_RIGHT_MEMBER:right
+								{:
+									ConstraintOperator operator;
+									switch (co) {
+										case "<=":
+											operator = new ConstraintOperatorLessEquals();
+											break;
+										case "<":
+											operator = new ConstraintOperatorLess();
+											break;
+										case ">=":
+											operator = new ConstraintOperatorMoreEquals();
+											break;
+										case ">":
+											operator = new ConstraintOperatorMore();
+											break;
+										case "!=":
+											operator = new ConstraintOperatorNotEquals();
+											break;
+										case "==":
+											operator = new ConstraintOperatorEquals();
+											break;
+										default:
+											operator = new ConstraintOperatorMore();
+									}
+									RESULT = new PCSFC_ConstraintLitteral<RevisorConsolePCSFC>(left, operator, right);
+								:}
+								;
+							
+CONSTRAINT_LEFT_MEMBER		::=	CONSTRAINT_TERM_LIST:ctl
+								{:
+									RESULT = ctl;
+								:}
+								;
+							
+CONSTRAINT_TERM_LIST		::=	CONSTRAINT_TERM_LIST:ctl CONSTRAINT_TERM_OPERATOR:oper CONSTRAINT_TERM:term
+								{:
+									LeftMemberArithmeticOperator operator;
+									switch (oper) {
+										case "+":
+											operator = new LeftMemberArithmeticOperatorAdd();
+											break;
+										case "-":
+											operator = new LeftMemberArithmeticOperatorSub();
+											break;
+										default:
+											operator = new LeftMemberArithmeticOperatorAdd();
+									}
+									RESULT = new LeftMemberElement(ctl, operator, term);
+								:}
+								|
+								CONSTRAINT_TERM:term
+								{:
+									RESULT = term;
+								:}
+								;
+							
+CONSTRAINT_TERM				::=	REAL:real IDENTIFIER:idf
+								{:
+									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+								:}
+								|
+								IDENTIFIER:idf
+								{:
+									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>((double)1, new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+								:}
+								;
+							
+CONSTRAINT_RIGHT_MEMBER		::=	REAL:real
+								{:
+									double d = Double.parseDouble(real);
+									RESULT = new RightMember<Double>(d);
+								:}
+								;
 
 /* ---------- End ---------- */

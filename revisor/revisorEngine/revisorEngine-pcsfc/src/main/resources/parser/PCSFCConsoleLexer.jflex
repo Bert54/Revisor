@@ -45,8 +45,10 @@ WhiteSpace = \s
 NotWhiteSpace = \S
 
 Integer = \-?[0-9]+
-Real = {Integer} | (\-?[0-9]+\.[0-9]*) | (\-?[0-9]*\.[0-9]+)
-
+Real = {Integer} | \-?(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+))
+Tautology = [tT]{1}[rR]{1}[uU]{1}[eE]{1}
+ConstraintOperators = (\=\=|\!\=|<\=?|>\=?)
+ArithmeticOperators = (\+|\-)
 Identifier = [a-zA-Z][a-zA-Z0-9]*
 
 File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
@@ -55,36 +57,50 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
 <YYINITIAL> {
     
-    ";"					{ return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION); }
+    ";"						{ return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION); }
     
-    "integer"			{ return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD); }
+    "integer"				{ return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD); }
     
-    "real"				{ return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD); }
+    "real"					{ return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD); }
     
-    "formula"			{ return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD); }   
+    "formula"				{ return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD); }   
     
-    "const"				{ return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD); }  
+    "const"					{ return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD); }  
     
-    "="					{ return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR); }
+    "revise"				{ return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD); } 
     
-    ":"					{ return symbol(PCSFCConsoleSymbols.COLON); }
+    {ConstraintOperators}	{ return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext()); }
     
-    ","					{ return symbol(PCSFCConsoleSymbols.COMMA); }
+    {ArithmeticOperators}	{ return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext()); }
     
-    "load"				{ yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD); }
+    ":="					{ return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR); }
     
-    "clear"				{ return symbol(PCSFCConsoleSymbols.CLEAR); }
+    "="						{ return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR); }
     
-    {Real}				{ return symbol(PCSFCConsoleSymbols.REAL, yytext()); }
+    ":"						{ return symbol(PCSFCConsoleSymbols.COLON); }
     
-    {Identifier}		{ return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext()); }
+    ","						{ return symbol(PCSFCConsoleSymbols.COMMA); }
+  
+  	"("						{ return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS); }
+  			
+  	")"						{ return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS); }
+  
+  	{Tautology}				{ return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext()); }
+    
+    "load"					{ yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD); }
+    
+    "clear"					{ return symbol(PCSFCConsoleSymbols.CLEAR); }
+    
+    {Real}					{ return symbol(PCSFCConsoleSymbols.REAL, yytext()); }
+    
+    {Identifier}			{ return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext()); }
 
 }
 
 <FILE> {
-    {File}              { return symbol(PCSFCConsoleSymbols.FILE, yytext()); }
+    {File}            		{ return symbol(PCSFCConsoleSymbols.FILE, yytext()); }
 }
 
-{WhiteSpace}            { /* Just skip what was found, do nothing */ }
+{WhiteSpace}            	{ /* Just skip what was found, do nothing */ }
 
-[^]                     { throw new LexerException("Illegal character '" + yytext() + "'."); }
+[^]                     	{ throw new LexerException("Illegal character '" + yytext() + "'."); }

@@ -9,6 +9,7 @@ import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Entry;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Symbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.VariableType;
+import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionExecutionException;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionValidationException;
 
 public class PCSFC_DeclarationConstant<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends PCSFC_Declaration<C> {
@@ -21,25 +22,16 @@ public class PCSFC_DeclarationConstant<C extends AbstractRevisorConcolePCSFC<C, 
 		this.constantValue = Double.parseDouble(value);
 	}
 
-
 	@Override
-	protected void doValidate() throws InstructionValidationException {
-		String latestIdf = "";
+	protected void doExecute() throws InstructionExecutionException {
 		try {
 			for (String idf: this.identifiers) {
-				latestIdf = idf;
 				TableOfSymbols.getInstance().addEntry(new Entry(idf), new ConstantSymbol(idf, VariableType.CONSTANT, this.constantValue));
 			}
-		} catch (DoubleDeclareException doubleDeclareExc) {
-			int i = 0;
-			while (this.identifiers.get(i) != latestIdf) {
-				String idf = this.identifiers.get(i);
-				TableOfSymbols.getInstance().removeEntry(new Entry(idf));
-				i++;
-			}
-			this.console.getLogger().logError(doubleDeclareExc);
-			this.addErrorMessage(String.format(VARIABLE_X_ALREADY_DECLARED, latestIdf));
-			throw new InstructionValidationException("Invalid Instruction.");
+		} catch (DoubleDeclareException doubleDeclareExcExec) {
+			this.console.getLogger().logError(doubleDeclareExcExec);
+			this.addErrorMessage(VARIABLE_ALREADY_DECLARED_EXEC);
+			throw new InstructionExecutionException("Exception while execution declaration.");
 		}
 	}
 
@@ -47,9 +39,10 @@ public class PCSFC_DeclarationConstant<C extends AbstractRevisorConcolePCSFC<C, 
 	public String createOutput(boolean latex) {
 		StringBuilder str = new StringBuilder();
 		for (String idf: this.identifiers) {
-			str.append("const " + idf + " = " + this.constantValue + "n");
+			str.append("constant " + idf + " = " + this.constantValue + "n");
 		}
 		return str.toString();
 	}
+
 	
 }

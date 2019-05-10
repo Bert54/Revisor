@@ -10,4 +10,8 @@ public class Symbol {
 		this.type = t;
 	}
 
+	public VariableType getVariableType() {
+		return this.type;
+	}
+	
 }

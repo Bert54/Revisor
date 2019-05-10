@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.DoubleDeclareException;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.ConstantSymbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Entry;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Symbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.VariableType;
+import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormulaVariableList;
+import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionExecutionException;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionValidationException;
 
 public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends PCSFC_Declaration<C> {
@@ -18,23 +21,16 @@ public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?
 
 
 	@Override
-	protected void doValidate() throws InstructionValidationException {
-		String latestIdf = "";
+	protected void doExecute() throws InstructionExecutionException {
 		try {
 			for (String idf: this.identifiers) {
-				latestIdf = idf;
 				TableOfSymbols.getInstance().addEntry(new Entry(idf), new Symbol(idf, VariableType.FORMULA));
+				PCSFCFormulaVariableList.getInstance().addNewFormulaVariable(idf);
 			}
-		} catch (DoubleDeclareException doubleDeclareExc) {
-			int i = 0;
-			while (this.identifiers.get(i) != latestIdf) {
-				String idf = this.identifiers.get(i);
-				TableOfSymbols.getInstance().removeEntry(new Entry(idf));
-				i++;
-			}
-			this.console.getLogger().logError(doubleDeclareExc);
-			this.addErrorMessage(String.format(VARIABLE_X_ALREADY_DECLARED, latestIdf));
-			throw new InstructionValidationException("Invalid Instruction.");
+		} catch (DoubleDeclareException doubleDeclareExcExec) {
+			this.console.getLogger().logError(doubleDeclareExcExec);
+			this.addErrorMessage(VARIABLE_ALREADY_DECLARED_EXEC);
+			throw new InstructionExecutionException("Exception while execution declaration.");
 		}
 	}
 

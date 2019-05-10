@@ -3,6 +3,7 @@ package fr.loria.k.revisor.engine.revisorPCSFC.console.tos;
 import java.util.HashMap;
 
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.DoubleDeclareException;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 
 public class TableOfSymbols {
 
@@ -27,14 +28,26 @@ public class TableOfSymbols {
 		this.table.put(e, s);
 	}
 	
-	public void removeEntry(Entry e) {
-		Entry entryToRemove = null;
+	public Symbol identify(Entry e) throws VariableNotDeclaredException {
 		for (Entry en : this.table.keySet()) {
 			if (en.getEntryName().equals(e.getEntryName())) {
-				entryToRemove = en;
+				return this.table.get(en);
 			}
 		}
-		this.table.remove(entryToRemove);
+		throw new VariableNotDeclaredException("Variable "+ e.getEntryName() +" has not been declared.");
+	}
+	
+	public boolean hasEntryByName(Entry e) {
+		for (Entry en : this.table.keySet()) {
+			if (en.getEntryName().equals(e.getEntryName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void resetTable() {
+		this.table.clear();
 	}
 	
 }
