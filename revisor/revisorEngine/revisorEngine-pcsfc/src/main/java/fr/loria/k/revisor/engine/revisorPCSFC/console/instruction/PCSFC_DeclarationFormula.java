@@ -19,7 +19,9 @@ public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?
 		super(console, inputText, idfs);
 	}
 
-
+	/**
+	 * Execution of a new declaration instruction: declaring a formula
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		try {

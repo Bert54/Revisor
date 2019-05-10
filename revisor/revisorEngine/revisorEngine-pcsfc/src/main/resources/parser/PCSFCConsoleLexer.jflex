@@ -73,6 +73,8 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     
     {ArithmeticOperators}	{ return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext()); }
     
+    "!"						{ return symbol(PCSFCConsoleSymbols.NEGATIVE_FORMULA_SYMBOL); }
+    
     ":="					{ return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR); }
     
     "="						{ return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR); }

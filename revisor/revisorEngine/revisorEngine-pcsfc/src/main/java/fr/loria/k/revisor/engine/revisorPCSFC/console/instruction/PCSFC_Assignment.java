@@ -26,11 +26,14 @@ public class PCSFC_Assignment<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>>
 		super(console, inputText, left, right);
 	}
 
+	/**
+	 * Semantic analysis of an assignment
+	 */
 	@Override
 	protected void doValidate() throws InstructionValidationException {
-		this.right.validate(this.console, this.newVars);
-		this.left.validateLeft(this.console, this.newVars);
-		try {
+		this.right.validate(this.console, this.newVars); // Basic semantic analysis on right operand of assignment
+		this.left.validateLeft(this.console, this.newVars); // Basic semantic analysis on left operand of assignment
+		try { // checks if identifier exists and if it is a formula
 			Symbol s = TableOfSymbols.getInstance().identify(new Entry(this.left.getName()));
 			if (s.getVariableType() != VariableType.FORMULA) {
 				throw new IncorrectVariableTypeException(ASSIGN_WRONG_VARIABLE_TYPE);
@@ -48,6 +51,9 @@ public class PCSFC_Assignment<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>>
 		this.addWarningMessages(this.right);
 	}
 	
+	/*
+	 * Execution of the instruction: assigning a PCSFC FOrmula to a variable that is a formula
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		this.console.registerVariables(this.newVars);

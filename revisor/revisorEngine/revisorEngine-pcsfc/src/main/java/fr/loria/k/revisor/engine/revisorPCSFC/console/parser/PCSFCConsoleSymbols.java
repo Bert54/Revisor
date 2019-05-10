@@ -8,6 +8,7 @@ package fr.loria.k.revisor.engine.revisorPCSFC.console.parser;
 /** CUP generated class containing symbol constants. */
 public class PCSFCConsoleSymbols {
   /* terminals */
+  public static final int NEGATIVE_FORMULA_SYMBOL = 22;
   public static final int INTEGER_DECLARATION_KEYWORD = 11;
   public static final int CONSTRAINT_TERM_OPERATOR = 18;
   public static final int END_OF_INSTRUCTION = 7;
@@ -52,7 +53,8 @@ public class PCSFCConsoleSymbols {
   "CONSTRAINT_TERM_OPERATOR",
   "REVISE_KEYWORD",
   "OPENING_PARENTHESIS",
-  "CLOSING_PARENTHESIS"
+  "CLOSING_PARENTHESIS",
+  "NEGATIVE_FORMULA_SYMBOL"
   };
 }
 

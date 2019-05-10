@@ -26,6 +26,12 @@ public class PCSFC_ConstraintLitteral<C extends AbstractRevisorConcolePCSFC<C, ?
 	private ConstraintOperator operator;
 	private RightMember<?> right;
 	
+	/**
+	 * Constructs a constraint as a litteral
+	 * @param l left member of constraint
+	 * @param o operand of constraint
+	 * @param r right member of constraint
+	 */
 	public PCSFC_ConstraintLitteral(LeftMember l, ConstraintOperator o, RightMember<Double> r) {
 		this.left = l;
 		this.operator = o;
@@ -48,6 +54,9 @@ public class PCSFC_ConstraintLitteral<C extends AbstractRevisorConcolePCSFC<C, ?
 		return new PCSFCConstraint(this.left, this.operator, (RightMember<Double>) this.right);
 	}
 	
+	/**
+	 * Semantic analysis of constraint
+	 */
 	@Override
 	public void validate(final C console, final Set<String> newVars) throws FormulaValidationException {
 		for(Expression<C, ?> child : this.getChildren()) {

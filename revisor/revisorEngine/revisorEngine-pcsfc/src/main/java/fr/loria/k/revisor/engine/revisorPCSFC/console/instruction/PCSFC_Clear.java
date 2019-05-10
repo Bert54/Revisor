@@ -13,6 +13,9 @@ public class PCSFC_Clear<C extends RevisorConsole<C, ?, ?, ?>> extends Clear<C> 
 		super(console, inputText);
 	}
 
+	/**
+	 * Executes the instruction: removes every variables
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		this.console.clear();

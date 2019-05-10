@@ -17,6 +17,9 @@ public class PCSFC_DeclarationInteger<C extends AbstractRevisorConcolePCSFC<C, ?
 		super(console, inputText, idfs);
 	}
 
+	/**
+	 * Execution of a new declaration instruction: declaring an integer
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		try {

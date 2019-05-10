@@ -57,10 +57,10 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\1\2\1\3\1\4\1\1\2\5\1\6"+
-    "\1\1\1\7\1\3\1\10\5\5\1\11\1\12\1\13"+
-    "\1\14\1\15\1\0\1\4\1\5\1\7\6\5\1\16"+
-    "\1\0\10\5\1\17\1\5\1\20\1\5\1\21\6\5"+
-    "\1\22\1\23\1\5\1\24\1\5\1\25\1\26";
+    "\1\7\1\10\1\3\1\11\5\5\1\12\1\13\1\14"+
+    "\1\15\1\16\1\0\1\4\1\5\1\10\6\5\1\17"+
+    "\1\0\10\5\1\20\1\5\1\21\1\5\1\22\6\5"+
+    "\1\23\1\24\1\5\1\25\1\5\1\26\1\27";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[62];
@@ -695,112 +695,117 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
             { throw new LexerException("Illegal character '" + yytext() + "'.");
             } 
             // fall through
-          case 23: break;
+          case 24: break;
           case 2: 
             { /* Just skip what was found, do nothing */
             } 
             // fall through
-          case 24: break;
+          case 25: break;
           case 3: 
             { return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext());
             } 
             // fall through
-          case 25: break;
+          case 26: break;
           case 4: 
             { return symbol(PCSFCConsoleSymbols.REAL, yytext());
             } 
             // fall through
-          case 26: break;
+          case 27: break;
           case 5: 
             { return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext());
             } 
             // fall through
-          case 27: break;
+          case 28: break;
           case 6: 
             { return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR);
             } 
             // fall through
-          case 28: break;
-          case 7: 
-            { return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext());
-            } 
-            // fall through
           case 29: break;
-          case 8: 
-            { return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION);
+          case 7: 
+            { return symbol(PCSFCConsoleSymbols.NEGATIVE_FORMULA_SYMBOL);
             } 
             // fall through
           case 30: break;
-          case 9: 
-            { return symbol(PCSFCConsoleSymbols.COLON);
+          case 8: 
+            { return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext());
             } 
             // fall through
           case 31: break;
-          case 10: 
-            { return symbol(PCSFCConsoleSymbols.COMMA);
+          case 9: 
+            { return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION);
             } 
             // fall through
           case 32: break;
-          case 11: 
-            { return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS);
+          case 10: 
+            { return symbol(PCSFCConsoleSymbols.COLON);
             } 
             // fall through
           case 33: break;
-          case 12: 
-            { return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS);
+          case 11: 
+            { return symbol(PCSFCConsoleSymbols.COMMA);
             } 
             // fall through
           case 34: break;
-          case 13: 
-            { return symbol(PCSFCConsoleSymbols.FILE, yytext());
+          case 12: 
+            { return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS);
             } 
             // fall through
           case 35: break;
-          case 14: 
-            { return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR);
+          case 13: 
+            { return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS);
             } 
             // fall through
           case 36: break;
-          case 15: 
-            { return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext());
+          case 14: 
+            { return symbol(PCSFCConsoleSymbols.FILE, yytext());
             } 
             // fall through
           case 37: break;
-          case 16: 
-            { return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD);
+          case 15: 
+            { return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR);
             } 
             // fall through
           case 38: break;
-          case 17: 
-            { yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD);
+          case 16: 
+            { return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext());
             } 
             // fall through
           case 39: break;
-          case 18: 
-            { return symbol(PCSFCConsoleSymbols.CLEAR);
+          case 17: 
+            { return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD);
             } 
             // fall through
           case 40: break;
-          case 19: 
-            { return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD);
+          case 18: 
+            { yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD);
             } 
             // fall through
           case 41: break;
-          case 20: 
-            { return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD);
+          case 19: 
+            { return symbol(PCSFCConsoleSymbols.CLEAR);
             } 
             // fall through
           case 42: break;
-          case 21: 
-            { return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD);
+          case 20: 
+            { return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD);
             } 
             // fall through
           case 43: break;
-          case 22: 
-            { return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD);
+          case 21: 
+            { return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD);
             } 
             // fall through
           case 44: break;
+          case 22: 
+            { return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 45: break;
+          case 23: 
+            { return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 46: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

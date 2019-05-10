@@ -25,6 +25,9 @@ public abstract class PCSFC_Declaration<C extends RevisorConsole<C, ?, ?, ?>> ex
 		this.identifiers = idfs;	
 	}
 
+	/**
+	 * Semantic analysis on a declaration
+	 */
 	@Override
 	protected void doValidate() throws InstructionValidationException {
 		String latestIdf = "";

@@ -18,6 +18,9 @@ public class PCSFC_DeclarationReal<C extends AbstractRevisorConcolePCSFC<C, ?, ?
 	}
 
 
+	/**
+	 * Execution of a new declaration instruction: declaring a real
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		try {

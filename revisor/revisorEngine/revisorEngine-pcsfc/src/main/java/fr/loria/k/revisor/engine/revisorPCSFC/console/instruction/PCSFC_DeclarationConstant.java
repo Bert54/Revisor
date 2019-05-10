@@ -22,6 +22,9 @@ public class PCSFC_DeclarationConstant<C extends AbstractRevisorConcolePCSFC<C, 
 		this.constantValue = Double.parseDouble(value);
 	}
 
+	/**
+	 * Execution of a new declaration instruction: declaring a constant
+	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
 		try {

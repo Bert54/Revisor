@@ -39,13 +39,18 @@ public class PCSFC_Revise<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> ext
 		this.epsilonName = epsilon;
 	}
 	
+	/**
+	 * Semantic analysis of a revision as a formula
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void validate(final C console, final Set<String> newVars) throws FormulaValidationException {
 		try {
+			// checks if the identifiers used as psi, mu and epsilon have been declared
 			Symbol sPsi = TableOfSymbols.getInstance().identify(new Entry(this.psiName));
 			Symbol sMu = TableOfSymbols.getInstance().identify(new Entry(this.muName));
 			Symbol sEps = TableOfSymbols.getInstance().identify(new Entry(this.epsilonName));
+			// checks if the identifiers used as psi and mu are formulas and epsilon a constant
 			if (sPsi.getVariableType() != VariableType.FORMULA) {
 				throw new IncorrectVariableTypeException(String.format(X_IS_OF_INCORRECT_VARIABLE_TYPE, this.psiName, "formula"));
 			}
@@ -70,6 +75,9 @@ public class PCSFC_Revise<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> ext
 		}
 	}
 	
+	/**
+	 * launches the revision
+	 */
 	@Override
 	public PCSFCFormula getValue(C console) {
 		final PCSFCFormula result = console.revise(this.psi, this.mu, this.epsilon);
