@@ -36,13 +36,14 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\2\1\1\2\2\1\1\22\0\1\2\1\13\11\0\1\15"+
-    "\1\37\1\3\1\5\1\0\12\4\1\36\1\17\1\14\1\12\1\14"+
-    "\2\0\4\16\1\11\14\16\1\7\1\16\1\6\1\10\5\16\6\0"+
-    "\1\26\1\16\1\34\1\40\1\23\1\30\1\24\1\16\1\20\2\16"+
-    "\1\27\1\32\1\21\1\31\2\16\1\25\1\35\1\22\1\33\5\16"+
-    "\12\0\1\2\32\0\1\2\u15df\0\1\2\u097f\0\13\2\35\0\2\2"+
-    "\5\0\1\2\57\0\1\2\u0fa0\0\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ud00f\0";
+    "\11\0\1\2\1\1\2\2\1\1\22\0\1\2\1\13\4\0\1\17"+
+    "\1\0\1\42\1\43\1\0\1\15\1\41\1\3\1\5\1\0\12\4"+
+    "\1\40\1\20\1\14\1\12\1\14\2\0\4\16\1\11\14\16\1\7"+
+    "\1\16\1\6\1\10\5\16\6\0\1\27\1\16\1\35\1\44\1\24"+
+    "\1\31\1\25\1\16\1\21\2\16\1\30\1\33\1\22\1\32\2\16"+
+    "\1\26\1\36\1\23\1\34\1\37\4\16\1\0\1\17\10\0\1\2"+
+    "\32\0\1\2\u15df\0\1\2\u097f\0\13\2\35\0\2\2\5\0\1\2"+
+    "\57\0\1\2\u0fa0\0\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ud00f\0";
 
   /** 
    * Translates characters to character classes
@@ -56,13 +57,13 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\1\2\1\3\1\4\1\1\2\5\1\6"+
-    "\1\1\1\7\1\3\1\10\5\5\1\11\1\12\1\13"+
-    "\1\0\1\4\1\5\1\7\6\5\1\14\1\0\7\5"+
-    "\1\15\1\5\1\16\1\17\5\5\1\20\1\21\2\5"+
-    "\1\22\1\23";
+    "\1\7\1\10\1\3\1\11\1\12\5\5\1\13\1\14"+
+    "\1\15\1\16\1\17\1\0\1\4\1\5\1\10\6\5"+
+    "\1\20\1\0\10\5\1\21\1\5\1\22\1\5\1\23"+
+    "\6\5\1\24\1\25\1\5\1\26\1\5\1\27\1\30";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[56];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -87,16 +88,17 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\41\0\102\0\102\0\143\0\204\0\245\0\306"+
-    "\0\347\0\u0108\0\u0108\0\u0108\0\102\0\102\0\u0129\0\u014a"+
-    "\0\u016b\0\u018c\0\u01ad\0\u01ce\0\102\0\u01ef\0\245\0\245"+
-    "\0\u0210\0\102\0\u0231\0\u0252\0\u0273\0\u0294\0\u02b5\0\u02d6"+
-    "\0\102\0\u01ef\0\u02f7\0\u0318\0\u0339\0\u035a\0\u037b\0\u039c"+
-    "\0\u03bd\0\347\0\u03de\0\347\0\347\0\u03ff\0\u0420\0\u0441"+
-    "\0\u0462\0\u0483\0\347\0\347\0\u04a4\0\u04c5\0\347\0\347";
+    "\0\0\0\45\0\112\0\112\0\157\0\224\0\271\0\336"+
+    "\0\u0103\0\u0128\0\u0128\0\u0128\0\112\0\112\0\112\0\u014d"+
+    "\0\u0172\0\u0197\0\u01bc\0\u01e1\0\u0206\0\112\0\112\0\112"+
+    "\0\u022b\0\271\0\271\0\u0250\0\112\0\u0275\0\u029a\0\u02bf"+
+    "\0\u02e4\0\u0309\0\u032e\0\112\0\u022b\0\u0353\0\u0378\0\u039d"+
+    "\0\u03c2\0\u03e7\0\u040c\0\u0431\0\u0456\0\u0103\0\u047b\0\u0103"+
+    "\0\u04a0\0\u0103\0\u04c5\0\u04ea\0\u050f\0\u0534\0\u0559\0\u057e"+
+    "\0\u0103\0\u0103\0\u05a3\0\u0103\0\u05c8\0\u0103\0\u0103";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[56];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -120,58 +122,63 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\3\2\4\1\5\1\6\1\7\1\10\3\11\1\12"+
-    "\1\13\1\14\1\15\1\11\1\16\1\17\1\11\1\10"+
-    "\2\11\1\20\1\11\1\21\1\22\3\11\1\23\1\11"+
-    "\1\24\1\25\1\11\1\26\2\4\36\26\45\0\1\6"+
-    "\1\27\37\0\1\6\1\30\37\0\1\30\40\0\1\11"+
-    "\1\0\1\11\1\31\2\11\4\0\1\11\1\0\5\11"+
-    "\1\31\10\11\2\0\1\11\4\0\1\11\1\0\4\11"+
-    "\4\0\1\11\1\0\16\11\2\0\1\11\12\0\1\32"+
-    "\32\0\1\11\1\0\4\11\4\0\1\11\1\0\1\11"+
-    "\1\33\14\11\2\0\1\11\4\0\1\11\1\0\4\11"+
-    "\4\0\1\11\1\0\3\11\1\34\12\11\2\0\1\11"+
-    "\4\0\1\11\1\0\4\11\4\0\1\11\1\0\11\11"+
-    "\1\35\4\11\2\0\1\11\4\0\1\11\1\0\4\11"+
-    "\4\0\1\11\1\0\11\11\1\36\4\11\2\0\1\11"+
-    "\4\0\1\11\1\0\4\11\4\0\1\11\1\0\7\11"+
-    "\1\37\1\11\1\40\4\11\2\0\1\11\12\0\1\41"+
-    "\26\0\1\26\1\0\1\42\36\26\4\0\1\11\1\0"+
-    "\2\11\1\43\1\11\4\0\1\11\1\0\13\11\1\43"+
-    "\2\11\2\0\1\11\4\0\1\11\1\0\4\11\4\0"+
-    "\1\11\1\0\2\11\1\44\13\11\2\0\1\11\4\0"+
-    "\1\11\1\0\4\11\4\0\1\11\1\0\6\11\1\45"+
-    "\7\11\2\0\1\11\4\0\1\11\1\0\4\11\4\0"+
-    "\1\11\1\0\6\11\1\46\7\11\2\0\1\11\4\0"+
-    "\1\11\1\0\4\11\4\0\1\11\1\0\5\11\1\47"+
-    "\10\11\2\0\1\11\4\0\1\11\1\0\4\11\4\0"+
-    "\1\11\1\0\3\11\1\50\12\11\2\0\1\11\4\0"+
-    "\1\11\1\0\4\11\4\0\1\11\1\0\1\11\1\51"+
-    "\14\11\2\0\1\11\4\0\1\11\1\0\3\11\1\52"+
-    "\4\0\1\11\1\0\3\11\1\52\12\11\2\0\1\11"+
-    "\4\0\1\11\1\0\4\11\4\0\1\11\1\0\3\11"+
-    "\1\53\12\11\2\0\1\11\4\0\1\11\1\0\4\11"+
-    "\4\0\1\11\1\0\7\11\1\54\6\11\2\0\1\11"+
-    "\4\0\1\11\1\0\4\11\4\0\1\11\1\0\16\11"+
-    "\2\0\1\55\4\0\1\11\1\0\4\11\4\0\1\11"+
-    "\1\0\12\11\1\56\3\11\2\0\1\11\4\0\1\11"+
-    "\1\0\4\11\4\0\1\11\1\0\6\11\1\57\7\11"+
-    "\2\0\1\11\4\0\1\11\1\0\4\11\4\0\1\11"+
-    "\1\0\15\11\1\60\2\0\1\11\4\0\1\11\1\0"+
-    "\4\11\4\0\1\11\1\0\4\11\1\61\11\11\2\0"+
-    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\1\0"+
-    "\13\11\1\62\2\11\2\0\1\11\4\0\1\11\1\0"+
-    "\4\11\4\0\1\11\1\0\5\11\1\63\10\11\2\0"+
-    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\1\0"+
-    "\2\11\1\64\13\11\2\0\1\11\4\0\1\11\1\0"+
-    "\4\11\4\0\1\11\1\0\3\11\1\65\12\11\2\0"+
-    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\1\0"+
-    "\7\11\1\66\6\11\2\0\1\11\4\0\1\11\1\0"+
-    "\4\11\4\0\1\11\1\0\5\11\1\67\10\11\2\0"+
-    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\1\0"+
-    "\6\11\1\70\7\11\2\0\1\11";
+    "\1\13\1\14\1\15\1\11\1\16\1\17\1\20\1\11"+
+    "\1\10\2\11\1\21\1\11\1\22\1\23\3\11\1\24"+
+    "\2\11\1\25\1\26\1\27\1\30\1\11\1\31\2\4"+
+    "\42\31\51\0\1\6\1\32\43\0\1\6\1\33\43\0"+
+    "\1\33\44\0\1\11\1\0\1\11\1\34\2\11\4\0"+
+    "\1\11\2\0\5\11\1\34\11\11\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\17\11\4\0"+
+    "\1\11\12\0\1\35\36\0\1\11\1\0\4\11\4\0"+
+    "\1\11\2\0\1\11\1\36\15\11\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\3\11\1\37"+
+    "\13\11\4\0\1\11\4\0\1\11\1\0\4\11\4\0"+
+    "\1\11\2\0\11\11\1\40\5\11\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\11\11\1\41"+
+    "\5\11\4\0\1\11\4\0\1\11\1\0\4\11\4\0"+
+    "\1\11\2\0\7\11\1\42\1\11\1\43\5\11\4\0"+
+    "\1\11\12\0\1\44\32\0\1\31\1\0\1\45\42\31"+
+    "\4\0\1\11\1\0\2\11\1\46\1\11\4\0\1\11"+
+    "\2\0\13\11\1\46\3\11\4\0\1\11\4\0\1\11"+
+    "\1\0\4\11\4\0\1\11\2\0\2\11\1\47\14\11"+
+    "\4\0\1\11\4\0\1\11\1\0\4\11\4\0\1\11"+
+    "\2\0\6\11\1\50\7\11\1\51\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\6\11\1\52"+
+    "\10\11\4\0\1\11\4\0\1\11\1\0\4\11\4\0"+
+    "\1\11\2\0\5\11\1\53\11\11\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\3\11\1\54"+
+    "\13\11\4\0\1\11\4\0\1\11\1\0\4\11\4\0"+
+    "\1\11\2\0\1\11\1\55\15\11\4\0\1\11\4\0"+
+    "\1\11\1\0\3\11\1\56\4\0\1\11\2\0\3\11"+
+    "\1\56\13\11\4\0\1\11\4\0\1\11\1\0\4\11"+
+    "\4\0\1\11\2\0\3\11\1\57\13\11\4\0\1\11"+
+    "\4\0\1\11\1\0\4\11\4\0\1\11\2\0\7\11"+
+    "\1\60\7\11\4\0\1\11\4\0\1\11\1\0\4\11"+
+    "\4\0\1\11\2\0\1\61\16\11\4\0\1\11\4\0"+
+    "\1\11\1\0\4\11\4\0\1\11\2\0\17\11\4\0"+
+    "\1\62\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\12\11\1\63\4\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\6\11\1\64\10\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\15\11\1\65\1\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\4\11\1\66\12\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\15\11\1\67\1\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\13\11\1\70\3\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\5\11\1\71\11\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\2\11\1\72\14\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\3\11\1\73\13\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\3\11\1\74\13\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\7\11\1\75\7\11\4\0\1\11\4\0\1\11\1\0"+
+    "\4\11\4\0\1\11\2\0\5\11\1\76\11\11\4\0"+
+    "\1\11\4\0\1\11\1\0\4\11\4\0\1\11\2\0"+
+    "\6\11\1\77\10\11\4\0\1\11";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1254];
+    int [] result = new int[1517];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -209,11 +216,11 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\2\11\10\1\2\11\6\1\1\11\1\1\1\0"+
-    "\2\1\1\11\6\1\1\11\1\0\26\1";
+    "\2\0\2\11\10\1\3\11\6\1\3\11\1\1\1\0"+
+    "\2\1\1\11\6\1\1\11\1\0\32\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[56];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -320,7 +327,7 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 166) {
+    while (i < 182) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -688,97 +695,122 @@ public class PCSFCConsoleLexer implements java_cup.runtime.Scanner {
             { throw new LexerException("Illegal character '" + yytext() + "'.");
             } 
             // fall through
-          case 20: break;
+          case 25: break;
           case 2: 
             { /* Just skip what was found, do nothing */
             } 
             // fall through
-          case 21: break;
+          case 26: break;
           case 3: 
             { return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext());
             } 
             // fall through
-          case 22: break;
+          case 27: break;
           case 4: 
             { return symbol(PCSFCConsoleSymbols.REAL, yytext());
             } 
             // fall through
-          case 23: break;
+          case 28: break;
           case 5: 
             { return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext());
             } 
             // fall through
-          case 24: break;
+          case 29: break;
           case 6: 
             { return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR);
             } 
             // fall through
-          case 25: break;
-          case 7: 
-            { return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext());
-            } 
-            // fall through
-          case 26: break;
-          case 8: 
-            { return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION);
-            } 
-            // fall through
-          case 27: break;
-          case 9: 
-            { return symbol(PCSFCConsoleSymbols.COLON);
-            } 
-            // fall through
-          case 28: break;
-          case 10: 
-            { return symbol(PCSFCConsoleSymbols.COMMA);
-            } 
-            // fall through
-          case 29: break;
-          case 11: 
-            { return symbol(PCSFCConsoleSymbols.FILE, yytext());
-            } 
-            // fall through
           case 30: break;
-          case 12: 
-            { return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR);
+          case 7: 
+            { return symbol(PCSFCConsoleSymbols.NEGATIVE_FORMULA_SYMBOL);
             } 
             // fall through
           case 31: break;
-          case 13: 
-            { return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext());
+          case 8: 
+            { return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext());
             } 
             // fall through
           case 32: break;
-          case 14: 
-            { return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD);
+          case 9: 
+            { return symbol(PCSFCConsoleSymbols.BINARY_FORMULA_OPERATOR, yytext());
             } 
             // fall through
           case 33: break;
-          case 15: 
-            { yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD);
+          case 10: 
+            { return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION);
             } 
             // fall through
           case 34: break;
-          case 16: 
-            { return symbol(PCSFCConsoleSymbols.CLEAR);
+          case 11: 
+            { return symbol(PCSFCConsoleSymbols.COLON);
             } 
             // fall through
           case 35: break;
-          case 17: 
-            { return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD);
+          case 12: 
+            { return symbol(PCSFCConsoleSymbols.COMMA);
             } 
             // fall through
           case 36: break;
-          case 18: 
-            { return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD);
+          case 13: 
+            { return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS);
             } 
             // fall through
           case 37: break;
-          case 19: 
-            { return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD);
+          case 14: 
+            { return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS);
             } 
             // fall through
           case 38: break;
+          case 15: 
+            { return symbol(PCSFCConsoleSymbols.FILE, yytext());
+            } 
+            // fall through
+          case 39: break;
+          case 16: 
+            { return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR);
+            } 
+            // fall through
+          case 40: break;
+          case 17: 
+            { return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext());
+            } 
+            // fall through
+          case 41: break;
+          case 18: 
+            { return symbol(PCSFCConsoleSymbols.REAL_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 42: break;
+          case 19: 
+            { yybegin(FILE); return symbol(PCSFCConsoleSymbols.LOAD);
+            } 
+            // fall through
+          case 43: break;
+          case 20: 
+            { return symbol(PCSFCConsoleSymbols.CLEAR);
+            } 
+            // fall through
+          case 44: break;
+          case 21: 
+            { return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 45: break;
+          case 22: 
+            { return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD);
+            } 
+            // fall through
+          case 46: break;
+          case 23: 
+            { return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 47: break;
+          case 24: 
+            { return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD);
+            } 
+            // fall through
+          case 48: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

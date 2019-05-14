@@ -23,7 +23,7 @@ public class ConsoleModePCSFC<C extends RevisorConsole<C, ?, ?, Instruction<C>>>
 			
 			String s1 = "          Console mode          ";
 			String s2 = "type \"exit\" to terminate";
-			String s3 = "type \"clear;\" to delete every variables";
+			String s3 = "type \"clear;\" to delete all variables";
 			this.print(this.getSeparator(s1, s2, s3));
 			
 			try(Scanner scanner = new Scanner(System.in)) {

@@ -8,20 +8,25 @@ package fr.loria.k.revisor.engine.revisorPCSFC.console.parser;
 /** CUP generated class containing symbol constants. */
 public class PCSFCConsoleSymbols {
   /* terminals */
+  public static final int NEGATIVE_FORMULA_SYMBOL = 22;
   public static final int INTEGER_DECLARATION_KEYWORD = 11;
   public static final int CONSTRAINT_TERM_OPERATOR = 18;
   public static final int END_OF_INSTRUCTION = 7;
+  public static final int REVISE_KEYWORD = 19;
   public static final int FORMULA_DECLARATION_KEYWORD = 13;
   public static final int CONST_INITIALIZER_OPERATOR = 9;
   public static final int CLEAR = 4;
   public static final int FILE = 3;
   public static final int CONST_DECLARATION_KEYWORD = 14;
+  public static final int OPENING_PARENTHESIS = 20;
   public static final int REAL_DECLARATION_KEYWORD = 12;
   public static final int IDENTIFIER = 8;
+  public static final int CLOSING_PARENTHESIS = 21;
   public static final int COLON = 5;
   public static final int TAUTOLOGY_FORMULA = 16;
   public static final int COMMA = 6;
   public static final int EOF = 0;
+  public static final int BINARY_FORMULA_OPERATOR = 23;
   public static final int CONSTRAINT_OPERATOR = 17;
   public static final int ASSIGNMENT_OPERATOR = 10;
   public static final int LOAD = 2;
@@ -46,7 +51,12 @@ public class PCSFCConsoleSymbols {
   "REAL",
   "TAUTOLOGY_FORMULA",
   "CONSTRAINT_OPERATOR",
-  "CONSTRAINT_TERM_OPERATOR"
+  "CONSTRAINT_TERM_OPERATOR",
+  "REVISE_KEYWORD",
+  "OPENING_PARENTHESIS",
+  "CLOSING_PARENTHESIS",
+  "NEGATIVE_FORMULA_SYMBOL",
+  "BINARY_FORMULA_OPERATOR"
   };
 }
 

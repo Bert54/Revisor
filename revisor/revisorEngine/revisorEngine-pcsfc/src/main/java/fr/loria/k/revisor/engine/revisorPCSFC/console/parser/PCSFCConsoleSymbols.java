@@ -26,6 +26,7 @@ public class PCSFCConsoleSymbols {
   public static final int TAUTOLOGY_FORMULA = 16;
   public static final int COMMA = 6;
   public static final int EOF = 0;
+  public static final int BINARY_FORMULA_OPERATOR = 23;
   public static final int CONSTRAINT_OPERATOR = 17;
   public static final int ASSIGNMENT_OPERATOR = 10;
   public static final int LOAD = 2;
@@ -54,7 +55,8 @@ public class PCSFCConsoleSymbols {
   "REVISE_KEYWORD",
   "OPENING_PARENTHESIS",
   "CLOSING_PARENTHESIS",
-  "NEGATIVE_FORMULA_SYMBOL"
+  "NEGATIVE_FORMULA_SYMBOL",
+  "BINARY_FORMULA_OPERATOR"
   };
 }
 

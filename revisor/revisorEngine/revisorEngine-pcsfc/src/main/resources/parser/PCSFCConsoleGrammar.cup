@@ -110,7 +110,7 @@ parser code {:
 terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, CONST_INITIALIZER_OPERATOR, ASSIGNMENT_OPERATOR;
 terminal String INTEGER_DECLARATION_KEYWORD, REAL_DECLARATION_KEYWORD, FORMULA_DECLARATION_KEYWORD, CONST_DECLARATION_KEYWORD;
 terminal String REAL, TAUTOLOGY_FORMULA, CONSTRAINT_OPERATOR, CONSTRAINT_TERM_OPERATOR, REVISE_KEYWORD, OPENING_PARENTHESIS;
-terminal String CLOSING_PARENTHESIS, NEGATIVE_FORMULA_SYMBOL;
+terminal String CLOSING_PARENTHESIS, NEGATIVE_FORMULA_SYMBOL, BINARY_FORMULA_OPERATOR;
 
 nonterminal Instruction<RevisorConsolePCSFC> INSTRUCTION, RAW_INSTRUCTION, DECLARATION, DECLARE_INTEGER, DECLARE_REAL, DECLARE_FORMULA, DECLARE_CONSTANT;
 nonterminal Instruction<RevisorConsolePCSFC> ASSIGNMENT;
@@ -125,6 +125,7 @@ nonterminal RightMember<Double> CONSTRAINT_RIGHT_MEMBER;
 
 /* ---------- Precedence and Associativity ---------- */
 
+precedence left OPENING_PARENTHESIS;
 
 /* ---------- Grammar ---------- */
 
@@ -247,6 +248,54 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 								NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENTHESIS
 								{:
 									RESULT = new PCSFC_Not<RevisorConsolePCSFC>(bin_form);
+								:}
+								|
+								BINARY_FORMULA:bin_form BINARY_FORMULA_OPERATOR:op UNARY_FORMULA:un_form
+								{:
+									Formula<RevisorConsolePCSFC, PCSFCFormula> formula;
+									switch (op) {
+										case "&":
+											formula = new PCSFC_And(bin_form, un_form);
+											break;
+										case "|":
+											formula = new PCSFC_Or(bin_form, un_form);
+											break;
+										default:
+											formula = new PCSFC_And(bin_form, un_form);
+									}
+									RESULT = formula;
+								:}
+								|
+								BINARY_FORMULA:bin_form_left BINARY_FORMULA_OPERATOR:op OPENING_PARENTHESIS BINARY_FORMULA:bin_form_right CLOSING_PARENTHESIS
+								{:
+									Formula<RevisorConsolePCSFC, PCSFCFormula> formula;
+									switch (op) {
+										case "&":
+											formula = new PCSFC_And(bin_form_left, bin_form_right);
+											break;
+										case "|":
+											formula = new PCSFC_Or(bin_form_left, bin_form_right);
+											break;
+										default:
+											formula = new PCSFC_And(bin_form_left, bin_form_right);
+									}
+									RESULT = formula;
+								:}
+								|
+								BINARY_FORMULA:bin_form_left BINARY_FORMULA_OPERATOR:op NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA:bin_form_right CLOSING_PARENTHESIS
+								{:
+									Formula<RevisorConsolePCSFC, PCSFCFormula> formula;
+									switch (op) {
+										case "&":
+											formula = new PCSFC_And(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "|":
+											formula = new PCSFC_Or(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										default:
+											formula = new PCSFC_And(bin_form_left, new PCSFC_Not(bin_form_right));
+									}
+									RESULT = formula;
 								:}
 								|
 								UNARY_FORMULA:un_form
