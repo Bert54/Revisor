@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.IncorrectVariableTypeException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.ConstraintOperator;
@@ -20,7 +20,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.FormulaValidati
 import fr.loria.orpailleur.revisor.engine.core.console.formula.AbstractFormula;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Expression;
 
-public class PCSFC_ConstraintLitteral<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends AbstractFormula<C, PCSFCFormula> {
+public class PCSFC_ConstraintLitteral<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends AbstractFormula<C, PCSFCFormula> {
 
 	private LeftMember left;
 	private ConstraintOperator operator;
@@ -69,8 +69,11 @@ public class PCSFC_ConstraintLitteral<C extends AbstractRevisorConcolePCSFC<C, ?
 
 	@Override
 	public String toString(boolean latex) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder str = new StringBuilder();
+		str.append(this.left + " ");
+		str.append(this.operator + " ");
+		str.append(this.right);
+		return str.toString();
 	}
 
 }

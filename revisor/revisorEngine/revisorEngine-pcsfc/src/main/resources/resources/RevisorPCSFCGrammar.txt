@@ -2,127 +2,146 @@ starts with INSTRUCTION
 
 # Kinds of instruction --------------------------------------------------------------------------------------
 
-INSTRUCTION			::=	RAW_INSTRUCTION END_OF_INSTRUCTION
-					|
-					RAW_INSTRUCTION END_OF_INSTRUCTION COMMENT
-					|
-					COMMENT
-					;
+INSTRUCTION					::=	RAW_INSTRUCTION END_OF_INSTRUCTION
+							|
+							RAW_INSTRUCTION END_OF_INSTRUCTION COMMENT
+							|
+							COMMENT
+							;
 
 # New possible instructions are added here
 
 RAW_INSTRUCTION	::=			DECLARATION
-					|
-					ASSIGNMENT
-					;
+							|
+							ASSIGNMENT
+							;
 
 # Comments --------------------------------------------------------------------------------------
 
-COMMENT				::=	START_OF_COMMENT .* END_OF_COMMENT
-					;
+COMMENT						::=	START_OF_COMMENT .* END_OF_COMMENT
+							;
 
 # Declarations --------------------------------------------------------------------------------------
 
 # New variable types are added here
 
-DECLARATION			::=	DECLARE_INTEGER
-					|
-					DECLARE_REAL
-					|
-					DECLARE_FORMULA
-					|
-					DECLARE_CONSTANT
-					;
+DECLARATION					::=	DECLARE_INTEGER
+							|
+							DECLARE_REAL
+							|
+							DECLARE_FORMULA
+							|
+							DECLARE_CONSTANT
+							|
+							DECLARE_BOOLEAN
+							|
+							DECLARE_ENUM
+							;
 
-DECLARE_INTEGER			::=	IDENTIFIER_LIST : INTEGER_DECLARATION_KEYWORD
-					;
+DECLARE_INTEGER				::=	IDENTIFIER_LIST : INTEGER_DECLARATION_KEYWORD
+							;
 
-DECLARE_REAL			::=	IDENTIFIER_LIST : REAL_DECLARATION_KEYWORD
-					;
+DECLARE_REAL				::=	IDENTIFIER_LIST : REAL_DECLARATION_KEYWORD
+							;
 
-DECLARE_FORMULA			::=	IDENTIFIER_LIST : FORMULA_DECLARATION_KEYWORD
-					;
+DECLARE_FORMULA				::=	IDENTIFIER_LIST : FORMULA_DECLARATION_KEYWORD
+							;
 
-DECLARE_CONSTANT		::=	CONST_DECLARATION_KEYWORD IDENTIFIER CONST_INITIALIZER_OPERATOR REAL
-					;
+DECLARE_CONSTANT			::=	CONST_DECLARATION_KEYWORD IDENTIFIER SIMPLE_EQUAL REAL
+							;
+					
+DECLARE_BOOLEAN				::=	IDENTIFIER_LIST : BOOLEAN_DECLARATION_KEYWORD
+							;
+						
+DECLARE_ENUM				::=	ENUM_DECLARATION_KEYWORD IDENTIFIER ( MODALITY_LIST )
+							;
+						
+MODALITY_LIST				::= MODALITY_LIST , MODALITY
+							|
+							MODALITY
+							;
 
 # Assignments --------------------------------------------------------------------------------------
 
-ASSIGNMENT			::=	IDENTIFIER ASSIGNMENT_OPERATOR FORMULA
-					;
+ASSIGNMENT					::=	IDENTIFIER ASSIGNMENT_OPERATOR FORMULA
+							;
 
-FORMULA				::=	REVISE_FORMULA
-					|
-					BINARY_FORMULA
-					;	
+FORMULA						::=	REVISE_FORMULA
+							|
+							BINARY_FORMULA
+							;	
 
-REVISE_FORMULA			::=	REVISE_KEYWORD ( IDENTIFIER , IDENTIFIER , IDENTIFIER )
-					;
+REVISE_FORMULA				::=	REVISE_KEYWORD ( IDENTIFIER , IDENTIFIER , IDENTIFIER )
+							|
+							REVISE_KEYWORD ( IDENTIFIER , IDENTIFIER , REAL )
+							;
 
-BINARY_FORMULA			::=	( BINARY_FORMULA )
-					|
-					NEGATIVE_FORMULA_SYMBOL ( BINARY_FORMULA )
-					|
-					BINARY_FORMULA BINARY_FORMULA_OPERATOR UNARY_FORMULA
-					|
-					BINARY_FORMULA BINARY_FORMULA_OPERATOR NEGATIVE_FORMULA_SYMBOL ( BINARY_FORMULA )
-					|
-					BINARY_FORMULA BINARY_FORMULA_OPERATOR ( BINARY_FORMULA )
-					|
-					UNARY_FORMULA
-					;
+BINARY_FORMULA				::=	( BINARY_FORMULA )
+							|
+							NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA
+							|
+							BINARY_FORMULA BINARY_FORMULA_OPERATOR UNARY_FORMULA
+							|
+							BINARY_FORMULA BINARY_FORMULA_OPERATOR ( BINARY_FORMULA )
+							|
+							BINARY_FORMULA BINARY_FORMULA_OPERATOR NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA
+							|
+							UNARY_FORMULA
+							;
 
 # New kinds of unary formula are added here
 
-UNARY_FORMULA			::=	CONSTRAINT_FORMULA
-					|
-					IDENTIFIER
-					|
-					TAUTOLOGY_FORMULA
-					;
+UNARY_FORMULA				::=	CONSTRAINT_FORMULA
+							|
+							IDENTIFIER
+							|
+							IDENTIFIER SIMPLE_EQUAL MODALITY
+							|
+							TAUTOLOGY_FORMULA
+							;
 
 # Linear constraint - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-CONSTRAINT_FORMULA		::=	CONSTRAINT_LEFT_MEMBER CONSTRAINT_OPERATOR CONSTRAINT_RIGHT_MEMBER
-					;
+CONSTRAINT_FORMULA			::=	CONSTRAINT_LEFT_MEMBER CONSTRAINT_OPERATOR CONSTRAINT_RIGHT_MEMBER
+							;
 
 CONSTRAINT_LEFT_MEMBER		::=	CONSTRAINT_TERM_LIST 
-					;
+							;
 
 CONSTRAINT_TERM_LIST		::=	CONSTRAINT_TERM_LIST CONSTRAINT_TERM_OPERATOR CONSTRAINT_TERM
-					|
-					CONSTRAINT_TERM
-					;
+							|
+							CONSTRAINT_TERM
+							;
 
-CONSTRAINT_TERM			::=	REAL IDENTIFIER
-					|
-					IDENTIFIER
-					;
+CONSTRAINT_TERM				::=	REAL IDENTIFIER
+							|
+							IDENTIFIER
+							;
 
 CONSTRAINT_RIGHT_MEMBER		::=	REAL
-					;
+							;
 
 # Variables identifiers --------------------------------------------------------------------------------------
 
-IDENTIFIER_LIST			::=	IDENTIFIER_LIST , IDENTIFIER
-					|
-					IDENTIFIER
-					; 
+IDENTIFIER_LIST				::=	IDENTIFIER_LIST , IDENTIFIER
+							|
+							IDENTIFIER
+							; 
 
-IDENTIFIER			::=	[a-zA-Z][a-zA-Z0-9]*
-					;
+IDENTIFIER					::=	[a-zA-Z_][a-zA-Z0-9_]*
+							;
 
 # Variables content --------------------------------------------------------------------------------------
 
-INTEGER				::=	\-?[0-9]+
-					;
+INTEGER						::=	\-?[0-9]+
+							;
 
-REAL				::=	INTEGER
-					|
-					\-?[0-9]+\.[0-9]*
-					|
-					\-?[0-9]*\.[0-9]+
-					;
+REAL						::=	INTEGER
+							|
+							\-?[0-9]+\.[0-9]*
+							|
+							\-?[0-9]*\.[0-9]+
+							;
 
 # Every single rule starting from this point forward are character or string terminals used by the non-terminals above. These have all been put here
 # in order to make the modification of a single keyword quick and easy.
@@ -131,81 +150,99 @@ REAL				::=	INTEGER
 
 
 INTEGER_DECLARATION_KEYWORD	::=	integer
-					;
+							;
 
 REAL_DECLARATION_KEYWORD	::=	real
-					;
+							;
 
 FORMULA_DECLARATION_KEYWORD	::=	formula
-					;
+							;
 
 CONST_DECLARATION_KEYWORD	::=	const
-					;
+							;
+							
+BOOLEAN_DECLARATION_KEYWORD	::=	bool
+							;
+							
+ENUM_DECLARATION_KEYWORD	::=	enum
+							;
 
-# Constant initialization operator --------------------------------------------------------------------------------------
+# Constant initialization operator && Operator used in assignments with enumeration(s) --------------------------------------------------------------------------------------
 
-CONST_INITIALIZER_OPERATOR 	::=	=
-					;
+SIMPLE_EQUAL 				::=	=
+							;
 
 # Assignment operator --------------------------------------------------------------------------------------
 
-ASSIGNMENT_OPERATOR		::=	:=
-					;
+ASSIGNMENT_OPERATOR			::=	:=
+							;
 
 # Keyword used in order to call the revision algorithm --------------------------------------------------------------------------------------
 
-REVISE_KEYWORD			::=	revise
-					;
+REVISE_KEYWORD				::=	revise
+							;
 
 # Character or string ending an instruction --------------------------------------------------------------------------------------
 
-END_OF_INSTRUCTION		::=	`;`
-					;
+END_OF_INSTRUCTION			::=	`;`
+							;
 
 # Beginning and ending of a comment --------------------------------------------------------------------------------------
 
-START_OF_COMMENT		::=	#
-					;
+START_OF_COMMENT			::=	#
+							;
 
-END_OF_COMMENT			::=	\n
-					;
+END_OF_COMMENT				::=	\n
+							;
 
 # Symbol used to make a negative formula  --------------------------------------------------------------------------------------
 
 NEGATIVE_FORMULA_SYMBOL		::=	!
-					;
+							;
 
 # Keyword used that designates a tautology formula  --------------------------------------------------------------------------------------		
 
-TAUTOLOGY_FORMULA		::=	[tT]{1}[rR]{1}[uU]{1}[eE]{1}
-					;
+TAUTOLOGY_FORMULA			::=	[tT]{1}[rR]{1}[uU]{1}[eE]{1}
+							;
 
-# Bnary operators used in non-atomic formulas  --------------------------------------------------------------------------------------
+# Binary operators used in non-atomic formulas  --------------------------------------------------------------------------------------
 # New binary formula operators are added here
 
 BINARY_FORMULA_OPERATOR		::=	&
-					|
-					`|`
-					;
+							|
+							`|`
+							|
+							=>
+							|
+							<=>
+							|
+							^
+							;
 
 # Arithmetic operators used between constraint terms  --------------------------------------------------------------------------------------
 
 CONSTRAINT_TERM_OPERATOR	::=	+
-					|
-					-
-					;
+							|
+							-
+							;
 
 # Symbols used as constraint operators  --------------------------------------------------------------------------------------
 
-CONSTRAINT_OPERATOR		::=	<
-					|
-					<=
-					|
-					=
-					|
-					!=
-					|
-					>=
-					|
-					>
-					;
+CONSTRAINT_OPERATOR			::=	<
+							|
+							<=
+							|
+							=
+							|
+							!=
+							|
+							>=
+							|
+							>
+							;
+
+# Syntax of a modalities used in enumerations  --------------------------------------------------------------------------------------
+
+MODALITY					::=	\"[a-zA-Z0-9_]+\"
+							;
+					

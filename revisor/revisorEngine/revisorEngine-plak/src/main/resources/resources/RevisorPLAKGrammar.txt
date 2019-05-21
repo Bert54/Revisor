@@ -1,0 +1,112 @@
+<Instruction>                       ::= help
+                                      | load <File>
+                                      | clear
+                                      | reset weights
+                                      | reset flipcosts
+                                      | reset rulecosts
+                                      | weights
+                                      | flipcosts
+                                      | rules
+                                      | rulesets
+                                      | use default ruleset
+                                      | use default ruleset := <Boolean>
+                                      | default rulecost
+                                      | default rulecost := <PositiveReal>
+                                      | <Identifier>
+                                      | <PropositionalExpressionNotId>
+                                      | <RuleDef>
+                                      | <RuleSetDef>
+                                      | <Identifier> := <Identifier>
+                                      | <Identifier> := <Boolean>
+                                      | <Identifier> := <PropositionalExpressionNotId>
+                                      | <Identifier> := <RuleDef>
+                                      | <Identifier> := <RuleSetDef>
+                                      | <Identifier> += <RuleExpression>
+                                      | <Identifier> -= <RuleExpression>
+                                      | <VariableWeight>
+                                      | <VariableWeight> := <PositiveReal>
+                                      | <VariableFlipCost>
+                                      | <VariableFlipCost> := <PositiveReal>
+                                      | <RuleCost>
+                                      | <RuleCost> := <PositiveReal>
+
+<VariableWeight>                    ::= weight "(" <Identifier> ")"
+                                      | <Identifier>.weight
+
+<VariableFlipCost>                  ::= flipcost "(" <Literal> ")"
+                                      | <Literal>.flipcost
+
+<RuleCost>                          ::= rulecost "(" <Identifier> ")"
+                                      | <Identifier>.rulecost
+
+<PropositionalExpression>           ::= <UnaryPropositionalExpression>
+                                      | <NaryPropositionalExpression>
+
+<PropositionalExpressionNotId>      ::= <UnaryPropositionalExpressionNotId>
+                                      | <BinaryPropositionalExpression>
+
+<UnaryPropositionalExpression>      ::= <Identifier>
+                                      | <Boolean>
+                                      | <UnaryPropositionalExpressionNotId>
+
+<UnaryPropositionalExpressionNotId> ::= "(" <PropositionalExpression> ")"
+                                      | "!" <UnaryPropositionalExpression>
+                                      | dnf "(" <PropositionalExpression> ")"
+                                      | adapt "(" <PropositionalExpression:dk> "," <PropositionalExpression:source> "," <PropositionalExpression:target> ")"
+                                      | revise "(" <PropositionalExpression:psi> "," <PropositionalExpression:mu> ")"
+                                      | adapt "(" <PropositionalExpression:dk> "," <PropositionalExpression:source> "," <PropositionalExpression:target>, <RuleSetExpression> ")"
+                                      | revise "(" <PropositionalExpression:psi> "," <PropositionalExpression:mu>, <RuleSetExpression> ")"
+
+<BinaryPropositionalExpression>     ::= <PropositionalExpression> "&" <PropositionalExpression>
+                                      | <PropositionalExpression> "|" <PropositionalExpression>
+                                      | <PropositionalExpression> "=>" <PropositionalExpression>
+                                      | <PropositionalExpression> "<=>" <PropositionalExpression>
+                                      | <PropositionalExpression> "^" <PropositionalExpression>
+
+<RuleSetExpression>                 ::= <Identifier>
+                                      | <RuleSetDef>
+
+<RuleSetDef>                        ::= "{" "}"
+                                      | "{" <RuleSetNotEmpty> "}"
+
+<RuleSetNotEmpty>                   ::= <RuleExpression>
+                                      | <RuleExpression> "," <RuleSetNotEmpty>
+
+<RuleExpression>                    ::= <Identifier>
+                                      | <RuleDef>
+
+<RuleDef>                           ::= "[" <RuleDefCost> "]" <LiteralSet> ":" <LiteralSet> "~>" <LiteralSet>
+                                      | "[" <RuleDefCost> "]" <LiteralSet> "~>" <LiteralSet>
+
+<RuleDefCost>                       ::=
+                                      | <PositiveReal>
+
+<LiteralSet>                        ::=
+                                      | <LiteralSetNotEmpty>
+
+<LiteralSetNotEmpty>                ::= <Literal>
+                                      | <Literal> "&" <LiteralSetNotEmpty>
+
+<Literal>                           ::= <Identifier>
+                                      | "!" <Identifier>
+
+<Boolean>                           ::= true
+                                      | false
+
+<Digit>                             ::= [0-9]
+
+<PositiveInteger>                   ::= 0
+                                      | [1-9] <Digit>*
+
+<PositiveReal>                      ::= <PositiveInteger> "."?
+                                      | <PositiveInteger>? "." <Digit>+
+
+<IdentifierStartChar>               ::= [a-zA-Z_]
+
+<IdentifierChar>                    ::= <IdentifierStartChar>
+                                      | <Digit>
+                                      | "-"
+
+<Identifier>                        ::= <IdentifierStartChar> <IdentifierChar>*
+
+<File>                              ::= .*

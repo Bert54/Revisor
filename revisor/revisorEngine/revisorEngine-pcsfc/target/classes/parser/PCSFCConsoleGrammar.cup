@@ -100,32 +100,37 @@ parser code {:
 	public void report_fatal_error(String message, Object info) throws ParserException {
 		this.done_parsing();
 		this.report_error(message, info);
-		throw new ParserException(this.errorMessages);
+		throw new ParserException(this.errorMessages, null, true, false);
 	}
 	
 :};
 
 /* ---------- Terminals and Non Terminals ---------- */
 
-terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, CONST_INITIALIZER_OPERATOR, ASSIGNMENT_OPERATOR;
+terminal String LOAD, FILE, CLEAR, COLON, COMMA, END_OF_INSTRUCTION, IDENTIFIER, SIMPLE_EQUAL, ASSIGNMENT_OPERATOR;
 terminal String INTEGER_DECLARATION_KEYWORD, REAL_DECLARATION_KEYWORD, FORMULA_DECLARATION_KEYWORD, CONST_DECLARATION_KEYWORD;
 terminal String REAL, TAUTOLOGY_FORMULA, CONSTRAINT_OPERATOR, CONSTRAINT_TERM_OPERATOR, REVISE_KEYWORD, OPENING_PARENTHESIS;
-terminal String CLOSING_PARENTHESIS, NEGATIVE_FORMULA_SYMBOL, BINARY_FORMULA_OPERATOR;
+terminal String CLOSING_PARENTHESIS, NEGATIVE_FORMULA_SYMBOL, BINARY_FORMULA_OPERATOR, PRINTVARS, BOOLEAN_DECLARATION_KEYWORD;
+terminal String MODALITY, ENUM_DECLARATION_KEYWORD;
 
 nonterminal Instruction<RevisorConsolePCSFC> INSTRUCTION, RAW_INSTRUCTION, DECLARATION, DECLARE_INTEGER, DECLARE_REAL, DECLARE_FORMULA, DECLARE_CONSTANT;
-nonterminal Instruction<RevisorConsolePCSFC> ASSIGNMENT;
-nonterminal ArrayList<String> IDENTIFIER_LIST;
+nonterminal Instruction<RevisorConsolePCSFC> ASSIGNMENT, DECLARE_BOOLEAN, DECLARE_ENUM, LOAD_INS, CLEAR_INS, PRINTVARS_INS, PRINTIDF_INS;
+
+nonterminal ArrayList<String> IDENTIFIER_LIST, MODALITY_LIST;
 
 nonterminal Formula<RevisorConsolePCSFC, PCSFCFormula> FORMULA, REVISE_FORMULA, BINARY_FORMULA, UNARY_FORMULA, CONSTRAINT_FORMULA;
 
 nonterminal LeftMember CONSTRAINT_LEFT_MEMBER, CONSTRAINT_TERM_LIST;
+
 nonterminal LeftMemberElementTerminal<Double, RevisorConsolePCSFC> CONSTRAINT_TERM;
 
 nonterminal RightMember<Double> CONSTRAINT_RIGHT_MEMBER;
 
 /* ---------- Precedence and Associativity ---------- */
 
+precedence left NEGATIVE_FORMULA_SYMBOL;
 precedence left OPENING_PARENTHESIS;
+
 
 /* ---------- Grammar ---------- */
 
@@ -134,6 +139,26 @@ start with INSTRUCTION;
 INSTRUCTION					::=	RAW_INSTRUCTION:raw_ins END_OF_INSTRUCTION
 								{:
 									RESULT = raw_ins;
+								:}
+								|
+								LOAD_INS:load_ins
+								{:
+									RESULT = load_ins;
+								:}
+                           	 	|
+                           	 	CLEAR_INS:clear_ins
+                           	 	{:
+									RESULT = clear_ins;
+								:}
+								|
+								PRINTVARS_INS:printvrs_ins
+								{:
+									RESULT = printvrs_ins;
+								:}
+								|
+								PRINTIDF_INS:pridf_ins
+								{:
+									RESULT = pridf_ins;
 								:}
 								;
 					
@@ -147,14 +172,48 @@ RAW_INSTRUCTION				::=	DECLARATION:decl
 									RESULT = ass; 
 								:}
 								|
-								LOAD FILE:file
+								LOAD_INS:load_ins
 								{:
-								RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
+									RESULT = load_ins;
 								:}
                            	 	|
-                           	 	CLEAR
+                           	 	CLEAR_INS:clear_ins
                            	 	{:
+									RESULT = clear_ins;
+								:}
+								|
+								PRINTVARS_INS:printvrs_ins
+								{:
+									RESULT = printvrs_ins;
+								:}
+								|
+								PRINTIDF_INS:pridf_ins
+								{:
+									RESULT = pridf_ins;
+								:}
+								;
+
+LOAD_INS						::= LOAD FILE:file
+								{:
+									RESULT = new PCSFC_Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
+								:}
+								;
+								
+CLEAR_INS						::= CLEAR
+								{:
 									RESULT = new PCSFC_Clear<>(this.parser.getConsole(), this.parser.getInputText());
+								:}
+								;
+
+PRINTVARS_INS					::=	PRINTVARS
+								{:
+									RESULT = new PCSFC_PrintVars<>(this.parser.getConsole(), this.parser.getInputText());
+								:}
+								;
+								
+PRINTIDF_INS					::= IDENTIFIER:idf
+								{:
+									RESULT = new PCSFC_PrintIdf<>(this.parser.getConsole(), this.parser.getInputText(), idf);
 								:}
 								;
 
@@ -177,6 +236,16 @@ DECLARATION					::=	DECLARE_INTEGER:decl_int
 								{:
 									RESULT = decl_const; 
 								:}
+								|
+								DECLARE_BOOLEAN:decl_bool
+								{:
+									RESULT = decl_bool; 
+								:}
+								|
+								DECLARE_ENUM:decl_enum
+								{:
+									RESULT = decl_enum; 
+								:}
 								;
 					
 DECLARE_INTEGER				::=	IDENTIFIER_LIST:alidf COLON INTEGER_DECLARATION_KEYWORD
@@ -197,9 +266,35 @@ DECLARE_FORMULA				::= IDENTIFIER_LIST:alidf COLON FORMULA_DECLARATION_KEYWORD
 								:}
 								;
 
-DECLARE_CONSTANT			::=	CONST_DECLARATION_KEYWORD IDENTIFIER:idf CONST_INITIALIZER_OPERATOR REAL:real
+DECLARE_CONSTANT			::=	CONST_DECLARATION_KEYWORD IDENTIFIER:idf SIMPLE_EQUAL REAL:real
 								{:
 									RESULT = new PCSFC_DeclarationConstant<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, real);
+								:}
+								;
+								
+DECLARE_BOOLEAN				::=	IDENTIFIER_LIST:alidf COLON BOOLEAN_DECLARATION_KEYWORD
+								{:
+									RESULT = new PCSFC_DeclarationBoolean<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+								:}
+								;
+								
+DECLARE_ENUM				::=	ENUM_DECLARATION_KEYWORD IDENTIFIER:idf OPENING_PARENTHESIS MODALITY_LIST:almod CLOSING_PARENTHESIS
+								{:
+									RESULT = new PCSFC_DeclarationEnum<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, almod);
+								:}
+								;
+								
+MODALITY_LIST				::=	MODALITY_LIST:almod COMMA MODALITY:mod
+								{:
+									almod.add(mod);
+									RESULT = almod;
+								:}
+								|
+								MODALITY:mod
+								{:
+									ArrayList<String> almod = new ArrayList<>();
+									almod.add(mod);
+									RESULT = almod;
 								:}
 								;
 
@@ -238,6 +333,23 @@ REVISE_FORMULA				::= REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER:idf1 COMMA I
 								{:
 									RESULT = new PCSFC_Revise(idf1, idf2, idf3);
 								:}
+								|
+								REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER:idf1 COMMA IDENTIFIER:idf2 COMMA REAL:real CLOSING_PARENTHESIS
+								{:
+									boolean isDouble = true;
+									double realP = 0.0;
+        							try {
+            							realP = Double.parseDouble(real);
+        							} catch (NumberFormatException e) {
+           								 isDouble = false;
+        							}
+        							if (isDouble) {
+            							RESULT = new PCSFC_Revise(idf1, idf2, realP);
+            						}
+        							else {
+            							RESULT = new PCSFC_Revise(idf1, idf2, real);
+            						}
+								:}
 								;
 							
 BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENTHESIS
@@ -245,7 +357,7 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 									RESULT = bin_form;
 								:}
 								|
-								NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENTHESIS
+								NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA:bin_form
 								{:
 									RESULT = new PCSFC_Not<RevisorConsolePCSFC>(bin_form);
 								:}
@@ -259,6 +371,15 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 											break;
 										case "|":
 											formula = new PCSFC_Or(bin_form, un_form);
+											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form, un_form);
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form, un_form);
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form, un_form);
 											break;
 										default:
 											formula = new PCSFC_And(bin_form, un_form);
@@ -276,13 +397,22 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 										case "|":
 											formula = new PCSFC_Or(bin_form_left, bin_form_right);
 											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form_left, bin_form_right);
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form_left, bin_form_right);
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form_left, bin_form_right);
+											break;
 										default:
 											formula = new PCSFC_And(bin_form_left, bin_form_right);
 									}
 									RESULT = formula;
 								:}
 								|
-								BINARY_FORMULA:bin_form_left BINARY_FORMULA_OPERATOR:op NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA:bin_form_right CLOSING_PARENTHESIS
+								BINARY_FORMULA:bin_form_left BINARY_FORMULA_OPERATOR:op NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA:bin_form_right
 								{:
 									Formula<RevisorConsolePCSFC, PCSFCFormula> formula;
 									switch (op) {
@@ -291,6 +421,15 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 											break;
 										case "|":
 											formula = new PCSFC_Or(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form_left, new PCSFC_Not(bin_form_right));
 											break;
 										default:
 											formula = new PCSFC_And(bin_form_left, new PCSFC_Not(bin_form_right));
@@ -307,6 +446,11 @@ BINARY_FORMULA				::= OPENING_PARENTHESIS BINARY_FORMULA:bin_form CLOSING_PARENT
 UNARY_FORMULA				::= CONSTRAINT_FORMULA:cf
 								{:
 									RESULT = cf;
+								:}
+								|
+								IDENTIFIER:idf SIMPLE_EQUAL MODALITY:mod
+								{:
+									RESULT = new PCSFC_EnumIdentifierLitteral<RevisorConsolePCSFC>(new PCSFC_Identifier<RevisorConsolePCSFC>(idf), mod);
 								:}
 								|
 								IDENTIFIER:idf

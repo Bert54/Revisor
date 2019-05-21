@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.loria.orpailleur.revisor.platform</groupId>
+		<artifactId>revisorPlatform</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>revisorPlatform-swing</artifactId>
+	<packaging>jar</packaging>
+
+	<name>revisorPlatform-swing</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-pl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-plak</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-qa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-clc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+			<artifactId>revisorEngine-rdfs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.scilab.forge</groupId>
+			<artifactId>jlatexmath</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>fr.loria.orpailleur.revisor.platform.swing.RevisorPlatformSwingApp</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

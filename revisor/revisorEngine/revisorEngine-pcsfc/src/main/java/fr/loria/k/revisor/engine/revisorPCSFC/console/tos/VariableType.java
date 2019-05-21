@@ -4,5 +4,7 @@ public enum VariableType {
 	INTEGER,
 	REAL,
 	FORMULA,
-	CONSTANT;
+	CONSTANT,
+	BOOLEAN,
+	ENUMERATION;
 }

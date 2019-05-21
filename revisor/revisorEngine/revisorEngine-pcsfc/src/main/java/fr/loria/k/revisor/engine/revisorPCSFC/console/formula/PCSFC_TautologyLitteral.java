@@ -3,13 +3,13 @@ package fr.loria.k.revisor.engine.revisorPCSFC.console.formula;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormula;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCTautology;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.AbstractFormula;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Expression;
 
-public class PCSFC_TautologyLitteral<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends AbstractFormula<C, PCSFCFormula> {
+public class PCSFC_TautologyLitteral<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends AbstractFormula<C, PCSFCFormula> {
 
 	@Override
 	public boolean isUnary() {
@@ -28,8 +28,7 @@ public class PCSFC_TautologyLitteral<C extends AbstractRevisorConcolePCSFC<C, ?,
 
 	@Override
 	public String toString(boolean latex) {
-		// TODO Auto-generated method stub
-		return null;
+		return "true";
 	}
 	
 }

@@ -1,6 +1,6 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.IncorrectVariableTypeException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.PCSFC_Identifier;
@@ -10,7 +10,7 @@ import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.VariableType;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.FormulaValidationException;
 
-public class LeftMemberElementTerminal<T, C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends LeftMember {
+public class LeftMemberElementTerminal<T, C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends LeftMember {
 
 	protected static final String MALFORMED_COEFFICIENT = "Coefficient in left member of constraint not an integer or real.";
 	protected static final String VARIABLE_X_OF_WRONG_TYPE = "Variable '%s' not an integer or real.";
@@ -54,6 +54,22 @@ public class LeftMemberElementTerminal<T, C extends AbstractRevisorConcolePCSFC<
 		} catch (IncorrectVariableTypeException ivte) {
 			throw new FormulaValidationException(WRONG_TYPE_OF_CONSTRAINT_VARIABLE);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		if (((double)coefficient == Math.floor((double)coefficient)) && !Double.isInfinite((double)coefficient)) {
+			int coeffInt = ((Double) this.coefficient).intValue();
+			if (coeffInt != 1) {
+				str.append(coeffInt);
+			}
+		}
+		else {
+			str.append(this.coefficient.toString());
+		}
+		str.append(this.identifier.getName());
+		return str.toString();
 	}
 
 }

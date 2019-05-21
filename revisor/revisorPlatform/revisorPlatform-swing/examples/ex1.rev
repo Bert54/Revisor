@@ -1,0 +1,19 @@
+# Cible
+Cible := dessert & kiwi & !cerise # Pourtant c'est bon la cerise :(
+
+# Source
+Source := dessert & beurre & cerise & laitvache & oeuf & farine & sucre
+
+# Connaissances du dommaine
+CD := (laitamandes | laitvache | laitsoja) <=> lait
+CD := CD & ((cerise | kiwi) <=> fruit)
+CD := CD & ((kiwi & (beurre | laitvache | laitsoja)) => amer)
+CD := CD & (dessert => !amer)
+
+# Règles du substitutions
+AR1 := [0.2] dessert : beurre ~> margarine
+CA := {}
+CA += AR1
+
+# Cible complétée
+CibleCompletee := adapt(CD, Source, Cible, CA)

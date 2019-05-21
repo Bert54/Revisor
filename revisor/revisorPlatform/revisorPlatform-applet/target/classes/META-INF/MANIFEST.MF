@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: kyunichi
+Class-Path: . revisorPlatform-swing-1.0.0.jar revisorEngine-core-3.0.0
+ .jar log4j-api-2.0-rc1.jar log4j-core-2.0-rc1.jar revisorEngine-pl-3.
+ 0.0.jar java-cup-runtime-0.11-a-czt01-SNAPSHOT.jar revisorEngine-plak
+ -3.0.0.jar revisorEngine-qa-3.0.0.jar revisorEngine-clc-3.0.0.jar rev
+ isorEngine-rdfs-3.0.0.jar jlatexmath-1.0.2.jar
+Build-Jdk: 1.8.0_201
+Created-By: Maven Integration for Eclipse
+

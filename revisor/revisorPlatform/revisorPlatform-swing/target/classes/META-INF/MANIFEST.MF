@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: kyunichi
+Class-Path: . revisorEngine-core-3.0.0.jar log4j-api-2.0-rc1.jar log4j
+ -core-2.0-rc1.jar revisorEngine-pl-3.0.0.jar java-cup-runtime-0.11-a-
+ czt01-SNAPSHOT.jar revisorEngine-plak-3.0.0.jar revisorEngine-qa-3.0.
+ 0.jar revisorEngine-clc-3.0.0.jar revisorEngine-rdfs-3.0.0.jar jlatex
+ math-1.0.2.jar
+Build-Jdk: 1.8.0_201
+Created-By: Maven Integration for Eclipse
+Main-Class: fr.loria.orpailleur.revisor.platform.swing.RevisorPlatform
+ SwingApp
+

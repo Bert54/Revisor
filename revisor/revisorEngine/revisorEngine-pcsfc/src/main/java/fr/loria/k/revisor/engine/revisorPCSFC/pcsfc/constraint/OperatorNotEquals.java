@@ -6,7 +6,10 @@ public class OperatorNotEquals extends Operator {
 	}
 
 	@Override
-	public String toString() {
+	public String toString(final boolean latex) {
+		if (latex) {
+			return "{\\neq}";
+		}
 		return "!=";
 	}
 

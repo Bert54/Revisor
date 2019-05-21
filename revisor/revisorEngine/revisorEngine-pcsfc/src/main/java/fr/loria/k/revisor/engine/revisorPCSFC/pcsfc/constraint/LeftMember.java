@@ -4,4 +4,6 @@ public abstract class LeftMember {
 
 	public abstract String toString();
 
+	public abstract boolean isTerminal();
+	
 }

@@ -1,6 +1,6 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.console.instruction;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.IncorrectVariableTypeException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.PCSFC_Identifier;
@@ -15,7 +15,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionVali
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
 import fr.loria.orpailleur.revisor.engine.core.console.instruction.Assignment;
 
-public class PCSFC_Assignment<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends Assignment<C, PCSFC_Identifier<C>, Formula<C, PCSFCFormula>, PCSFCFormula> {
+public class PCSFC_Assignment<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends Assignment<C, PCSFC_Identifier<C>, Formula<C, PCSFCFormula>, PCSFCFormula> {
 
 	protected static final String CANT_ASSIGN_UNDECLARED_VARIABLE = "Can't assign variables that have not been declared.";
 	protected static final String CAN_ONLY_ASSIGN_FORMULA_VARIABLES = "Only formula variables can be assigned.";
@@ -36,23 +36,23 @@ public class PCSFC_Assignment<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>>
 		try { // checks if identifier exists and if it is a formula
 			Symbol s = TableOfSymbols.getInstance().identify(new Entry(this.left.getName()));
 			if (s.getVariableType() != VariableType.FORMULA) {
-				throw new IncorrectVariableTypeException(ASSIGN_WRONG_VARIABLE_TYPE);
+				throw new IncorrectVariableTypeException(ASSIGN_WRONG_VARIABLE_TYPE, null, true, false);
 			}
 		} catch (VariableNotDeclaredException vnde) {
 			this.console.getLogger().logError(vnde);
 			this.addErrorMessage(CANT_ASSIGN_UNDECLARED_VARIABLE);
-			throw new InstructionValidationException("Invalid Instruction.");
+			throw new InstructionValidationException("Invalid Instruction.", null, true, false);
 		} catch (IncorrectVariableTypeException ivte) {
 			this.console.getLogger().logError(ivte);
 			this.addErrorMessage(CAN_ONLY_ASSIGN_FORMULA_VARIABLES);
-			throw new InstructionValidationException("Invalid Instruction.");
+			throw new InstructionValidationException("Invalid Instruction.", null, true, false);
 		}
 		this.addWarningMessages(this.left);
 		this.addWarningMessages(this.right);
 	}
 	
 	/*
-	 * Execution of the instruction: assigning a PCSFC FOrmula to a variable that is a formula
+	 * Execution of the instruction: assigning a PCSFC Formula to a variable that is a formula
 	 */
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
@@ -61,6 +61,10 @@ public class PCSFC_Assignment<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>>
 		PCSFCFormulaVariableList.getInstance().updateFormulaVariable(left.getName(), this.result);
 		this.sideNotes.addAll(this.right.getSideNotes());
 		this.registerMacro(this.left.getName(), this.result);
+	}
+	
+	protected String createFormatedInputText() {
+		return String.format("%s %s %s;", this.left, this.operator(), this.right);
 	}
 	
 	@Override

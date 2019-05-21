@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.loria.orpailleur.revisor</groupId>
+		<artifactId>revisor</artifactId>
+		<version>3.0.0</version>
+	</parent>
+
+	<groupId>fr.loria.orpailleur.revisor.platform</groupId>
+	<artifactId>revisorPlatform</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>revisorPlatform</name>
+
+	<modules>
+		<module>revisorPlatform-swing</module>
+		<module>revisorPlatform-webstart</module>
+		<module>revisorPlatform-applet</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Swing child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorPlatform-swing</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- Applet child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorPlatform-applet</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- JLaTeXMath -->
+			<dependency>
+				<groupId>org.scilab.forge</groupId>
+				<artifactId>jlatexmath</artifactId>
+				<version>1.0.2</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- Maven Dependency -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Java Web Start -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<version>1.0-beta-6</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>jnlp</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<excludeTransitive>false</excludeTransitive>
+						<resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory>
+						<codebase>http://revisor.loria.fr/java-web-start/</codebase>
+
+						<jnlp>
+							<spec>7.0</spec>
+							<j2seVersion>1.7</j2seVersion>
+							<outputFile>RevisorPlatform.jnlp</outputFile>
+							<mainClass>fr.loria.orpailleur.revisor.platform.swing.RevisorPlatformSwingApp</mainClass>
+						</jnlp>
+
+						<!-- SIGNING -->
+						<sign>
+							<keystore>${project.basedir}/keystore</keystore>
+							<keypass>revisor</keypass>
+							<storepass>revisor</storepass>
+							<alias>revisor</alias>
+							<dnameCn>Revisor Team</dnameCn>
+							<dnameOu>Orpailleur Team</dnameOu>
+							<dnameO>Loria</dnameO>
+							<dnameL>Vanoeuvre-les-Nancy</dnameL>
+							<dnameSt>Lorraine</dnameSt>
+							<dnameC>France</dnameC>
+							<verify>true</verify>
+							<keystoreConfig>
+								<delete>true</delete>
+								<gen>true</gen>
+							</keystoreConfig>
+						</sign>
+
+						<!-- BUILDING PROCESS -->
+
+						<!-- <pack200>true</pack200> <gzip>true</gzip> -->
+						<outputJarVersions>false</outputJarVersions>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

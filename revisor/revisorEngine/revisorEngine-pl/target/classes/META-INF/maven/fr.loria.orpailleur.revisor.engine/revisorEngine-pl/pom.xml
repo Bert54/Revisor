@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+		<artifactId>revisorEngine</artifactId>
+		<version>3.0.0</version>
+	</parent>
+
+	<artifactId>revisorEngine-pl</artifactId>
+	<packaging>jar</packaging>
+
+	<name>revisorEngine-pl</name>
+
+	<properties>
+		<parserName>PLConsoleParser</parserName>
+		<symbolsName>PLConsoleSymbols</symbolsName>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>revisorEngine-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.czt.dev</groupId>
+			<artifactId>java-cup-runtime</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.sourceforge.czt.dev</groupId>
+				<artifactId>cup-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>de.jflex</groupId>
+				<artifactId>jflex-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>fr.loria.orpailleur.revisor.engine.revisorPL.RevisorPLConsoleMode</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

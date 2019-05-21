@@ -1,12 +1,12 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.console.formula;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormula;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCNot;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.UnaryOperator;
 
-public class PCSFC_Not<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends UnaryOperator<C, PCSFCFormula> {
+public class PCSFC_Not<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends UnaryOperator<C, PCSFCFormula> {
 
 	public PCSFC_Not(Formula<C, PCSFCFormula> child) {
 		super(child);
@@ -19,7 +19,7 @@ public class PCSFC_Not<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extend
 
 	@Override
 	public String operator(boolean latex) {
-		return PCSFCNot.NOT_SYMBOL;
+		return "!";
 	}
 
 }

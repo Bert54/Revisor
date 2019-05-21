@@ -1,0 +1,297 @@
+package fr.loria.orpailleur.revisor.engine.revisorPLAK.console.parser;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+import java_cup.runtime.Scanner;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.SymbolFactory;
+import fr.loria.orpailleur.revisor.engine.core.console.exception.ParserException;
+import fr.loria.orpailleur.revisor.engine.core.console.formula.Expression;
+import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Clear;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Display;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Load;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Adapt;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_And;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Equ;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Identifier;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Impl;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Literal;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_LiteralSet;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Not;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Or;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Revise;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_SimplifiedDNF;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Xor;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_Assignment;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_GetWeight;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_ResetWeights;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_SetWeight;
+import fr.loria.orpailleur.revisor.engine.revisorPL.pl.formulae.PLFormula;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.RevisorConsolePLAK;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_Adapt;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_Identifier;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_Revise;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_Rule;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_RuleIdentifier;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_RuleSet;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.formula.PLAK_RuleSetIdentifier;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_AddRule;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_Assignment;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_FlipCosts;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_GetDefaultRuleCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_GetFlipCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_GetRuleCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_GetUseDefaultRuleSet;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_Help;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_RemoveRule;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_ResetFlipCosts;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_ResetRuleCosts;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_RuleAssignment;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_RuleSetAssignment;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_RuleSets;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_Rules;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_SetDefaultRuleCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_SetFlipCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_SetRuleCost;
+import fr.loria.orpailleur.revisor.engine.revisorPLAK.console.instruction.PLAK_SetUseDefaultRuleSet;
+
+/**
+ * This is the Revisor PLAK console parser.
+ * @author William Philbert
+ */
+ 
+/* ---------- Custom code ---------- */
+
+parser code {:
+	
+	// Fields :
+	
+	private RevisorConsolePLAK console;
+	private String inputText;
+	private String errorMessages;
+	
+	// Constructors :
+	
+	public PLAKConsoleParser(final RevisorConsolePLAK console, final String inputText) {
+		super();
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PLAKConsoleParser(final RevisorConsolePLAK console, final String inputText, final Scanner scanner) {
+		super(scanner);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PLAKConsoleParser(final RevisorConsolePLAK console, final String inputText, final Scanner scanner, final SymbolFactory factory) {
+		super(scanner, factory);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	// Getters :
+	
+	public RevisorConsolePLAK getConsole() {
+		return this.console;
+	}
+	
+	public String getInputText() {
+		return this.inputText;
+	}
+	
+	public String getErrorMessage() {
+		return this.errorMessages;
+	}
+	
+	// Methods :
+	
+	private void addErrorMessage(String message) {
+		if(this.errorMessages == null || this.errorMessages.isEmpty()) {
+			this.errorMessages = message;
+		}
+		else {
+			this.errorMessages += "\n" + message;
+		}
+	}
+	
+	@Override
+	public void report_error(String message, Object info) {
+		StringBuffer buffer = new StringBuffer("Parsing Error");
+		
+		if(info instanceof Symbol) {
+			Symbol s = (Symbol) info;
+			
+			if(s.left >= 0) {
+				buffer.append(" at line " + (s.left + 1));
+				
+				if(s.right >= 0) {
+					buffer.append(", column " + (s.right + 1));
+				}
+			}
+		}
+		
+		buffer.append(" : " + message);
+		this.addErrorMessage(buffer.toString());
+	}
+	
+	@Override
+	public void report_fatal_error(String message, Object info) throws ParserException {
+		this.done_parsing();
+		this.report_error(message, info);
+		throw new ParserException(this.errorMessages);
+	}
+	
+:};
+
+/* ---------- Terminals and Non Terminals ---------- */
+
+terminal ASSIGN, ADD, REMOVE, REPLACE, COMMA, DOT, COLON;
+terminal L_PAR, R_PAR, L_BRACE, R_BRACE, L_BRACKET, R_BRACKET;
+terminal NOT, AND, OR, IMPL, EQU, XOR;
+terminal HELP, LOAD, CLEAR, RESET, WEIGHTS, WEIGHT, FLIPCOSTS, FLIPCOST, RULECOSTS, RULECOST, RULES, RULESETS, RULESET, USE, DEFAULT, DNF, ADAPT, REVISE;
+terminal Boolean BOOLEAN;
+terminal String IDENTIFIER, FILE;
+terminal Double POSITIVE_REAL;
+
+nonterminal Instruction<RevisorConsolePLAK> Instruction;
+nonterminal PL_Identifier<RevisorConsolePLAK> VariableWeight;
+nonterminal PLAK_RuleIdentifier<RevisorConsolePLAK> RuleCost;
+nonterminal Formula<RevisorConsolePLAK, PLFormula> PropExpression, PropExpressionNotId, UnaryPropExpression, UnaryPropExpressionNotId, BinaryPropExpression;
+nonterminal PL_Literal<RevisorConsolePLAK> Literal, VariableFlipCost;
+nonterminal PL_LiteralSet<RevisorConsolePLAK> LiteralSet;
+nonterminal Expression<RevisorConsolePLAK, PLAK_Rule<RevisorConsolePLAK>> RuleExpression;
+nonterminal Expression<RevisorConsolePLAK, PLAK_RuleSet<RevisorConsolePLAK>> RuleSetExpression;
+nonterminal PLAK_Rule<RevisorConsolePLAK> RuleDef;
+nonterminal PLAK_RuleSet<RevisorConsolePLAK> RuleSetDef;
+nonterminal Set<Expression<RevisorConsolePLAK, PLAK_Rule<RevisorConsolePLAK>>> RuleSetNotEmpty;
+nonterminal Set<PL_Literal<RevisorConsolePLAK>> LiteralSetNotEmpty;
+nonterminal Double RuleDefCost;
+
+/* ---------- Precedence and Associativity ---------- */
+
+precedence left IMPL, EQU;
+precedence left AND, OR, XOR;
+precedence left DOT;
+precedence right NOT;
+
+/* ---------- Grammar ---------- */
+
+start with Instruction;
+
+Instruction                  ::= HELP {: RESULT = new PLAK_Help<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | LOAD FILE:file {: RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file); :}
+                               | CLEAR {: RESULT = new Clear<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RESET WEIGHTS {: RESULT = new PL_ResetWeights<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RESET FLIPCOSTS {: RESULT = new PLAK_ResetFlipCosts<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RESET RULECOSTS {: RESULT = new PLAK_ResetRuleCosts<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | WEIGHTS {: RESULT = new PLAK_FlipCosts<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | FLIPCOSTS {: RESULT = new PLAK_FlipCosts<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RULES {: RESULT = new PLAK_Rules<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RULESETS {: RESULT = new PLAK_RuleSets<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | USE DEFAULT RULESET {: RESULT = new PLAK_GetUseDefaultRuleSet<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | USE DEFAULT RULESET ASSIGN BOOLEAN:flag {: RESULT = new PLAK_SetUseDefaultRuleSet<>(this.parser.getConsole(), this.parser.getInputText(), flag); :}
+                               | DEFAULT RULECOST {: RESULT = new PLAK_GetDefaultRuleCost<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | DEFAULT RULECOST ASSIGN POSITIVE_REAL:val {: RESULT = new PLAK_SetDefaultRuleCost<>(this.parser.getConsole(), this.parser.getInputText(), val); :}
+                               | IDENTIFIER:id {: RESULT = new Display<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_Identifier<RevisorConsolePLAK>(id)); :}
+                               | PropExpressionNotId:e {: RESULT = new Display<>(this.parser.getConsole(), this.parser.getInputText(), e); :}
+                               | RuleDef:def {: RESULT = new Display<>(this.parser.getConsole(), this.parser.getInputText(), def); :}
+                               | RuleSetDef:def {: RESULT = new Display<>(this.parser.getConsole(), this.parser.getInputText(), def); :}
+                               | IDENTIFIER:id ASSIGN IDENTIFIER:id2 {: RESULT = new PLAK_Assignment<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_Identifier<RevisorConsolePLAK>(id), new PLAK_Identifier<RevisorConsolePLAK>(id2)); :}
+                               | IDENTIFIER:id ASSIGN BOOLEAN:b {: RESULT = new PL_Assignment<>(this.parser.getConsole(), this.parser.getInputText(), new PL_Identifier<RevisorConsolePLAK>(id), new PL_Identifier<RevisorConsolePLAK>(b ? "true" : "false")); :}
+                               | IDENTIFIER:id ASSIGN PropExpressionNotId:e {: RESULT = new PL_Assignment<>(this.parser.getConsole(), this.parser.getInputText(), new PL_Identifier<RevisorConsolePLAK>(id), e); :}
+                               | IDENTIFIER:id ASSIGN RuleDef:def {: RESULT = new PLAK_RuleAssignment<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_RuleIdentifier<RevisorConsolePLAK>(id), def); :}
+                               | IDENTIFIER:id ASSIGN RuleSetDef:def {: RESULT = new PLAK_RuleSetAssignment<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_RuleSetIdentifier<RevisorConsolePLAK>(id), def); :}
+                               | IDENTIFIER:id ADD RuleExpression:e {: RESULT = new PLAK_AddRule<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_RuleSetIdentifier<RevisorConsolePLAK>(id), e); :}
+                               | IDENTIFIER:id REMOVE RuleExpression:e {: RESULT = new PLAK_RemoveRule<>(this.parser.getConsole(), this.parser.getInputText(), new PLAK_RuleSetIdentifier<RevisorConsolePLAK>(id), e); :}
+                               | VariableWeight:id {: RESULT = new PL_GetWeight<>(this.parser.getConsole(), this.parser.getInputText(), id); :}
+                               | VariableWeight:id ASSIGN POSITIVE_REAL:val {: RESULT = new PL_SetWeight<>(this.parser.getConsole(), this.parser.getInputText(), id, val); :}
+                               | VariableFlipCost:lit {: RESULT = new PLAK_GetFlipCost<>(this.parser.getConsole(), this.parser.getInputText(), lit); :}
+                               | VariableFlipCost:lit ASSIGN POSITIVE_REAL:val {: RESULT = new PLAK_SetFlipCost<>(this.parser.getConsole(), this.parser.getInputText(), lit, val); :}
+                               | RuleCost:id {: RESULT = new PLAK_GetRuleCost<>(this.parser.getConsole(), this.parser.getInputText(), id); :}
+                               | RuleCost:id ASSIGN POSITIVE_REAL:val {: RESULT = new PLAK_SetRuleCost<>(this.parser.getConsole(), this.parser.getInputText(), id, val); :}
+                               ;
+
+VariableWeight               ::= WEIGHT L_PAR IDENTIFIER:id R_PAR {: RESULT = new PL_Identifier<>(id); :}
+                               | IDENTIFIER:id DOT WEIGHT {: RESULT = new PL_Identifier<>(id); :}
+                               ;
+
+VariableFlipCost             ::= FLIPCOST L_PAR IDENTIFIER:id R_PAR {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), false); :}
+                               | FLIPCOST L_PAR NOT IDENTIFIER:id R_PAR {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), true); :}
+                               | IDENTIFIER:id DOT FLIPCOST {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), false); :}
+                               | NOT IDENTIFIER:id DOT FLIPCOST {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), true); :}
+                               ;
+
+RuleCost                     ::= RULECOST L_PAR IDENTIFIER:id R_PAR {: RESULT = new PLAK_RuleIdentifier<>(id); :}
+                               | IDENTIFIER:id DOT RULECOST {: RESULT = new PLAK_RuleIdentifier<>(id); :}
+                               ;
+
+PropExpression               ::= UnaryPropExpression:e {: RESULT = e; :}
+                               | BinaryPropExpression:e {: RESULT = e; :}
+                               ;
+
+PropExpressionNotId          ::= UnaryPropExpressionNotId:e {: RESULT = e; :}
+                               | BinaryPropExpression:e {: RESULT = e; :}
+                               ;
+
+UnaryPropExpression          ::= IDENTIFIER:id {: RESULT = new PL_Identifier<>(id); :}
+                               | BOOLEAN:b {: RESULT = new PL_Identifier<>(b ? "true" : "false"); :}
+                               | UnaryPropExpressionNotId:e {: RESULT = e; :}
+                               ;
+
+UnaryPropExpressionNotId     ::= L_PAR PropExpression:e R_PAR {: RESULT = e; :}
+                               | NOT UnaryPropExpression:e {: RESULT = new PL_Not<>(e); :}
+                               | DNF L_PAR PropExpression:e R_PAR {: RESULT = new PL_SimplifiedDNF<>(e); :}
+                               | ADAPT L_PAR PropExpression:dk COMMA PropExpression:source COMMA PropExpression:target R_PAR {: RESULT = new PL_Adapt<>(dk, source, target); :}
+                               | REVISE L_PAR PropExpression:psi COMMA PropExpression:mu R_PAR {: RESULT = new PL_Revise<>(psi, mu); :}
+                               | ADAPT L_PAR PropExpression:dk COMMA PropExpression:source COMMA PropExpression:target COMMA RuleSetExpression:ruleSet R_PAR {: RESULT = new PLAK_Adapt<>(dk, source, target, ruleSet); :}
+                               | REVISE L_PAR PropExpression:psi COMMA PropExpression:mu COMMA RuleSetExpression:ruleSet R_PAR {: RESULT = new PLAK_Revise<>(psi, mu, ruleSet); :}
+                               ;
+
+BinaryPropExpression         ::= PropExpression:e1 AND PropExpression:e2 {: RESULT = new PL_And<>(e1, e2); :}
+                               | PropExpression:e1 OR PropExpression:e2 {: RESULT = new PL_Or<>(e1, e2); :}
+                               | PropExpression:e1 IMPL PropExpression:e2 {: RESULT = new PL_Impl<>(e1, e2); :}
+                               | PropExpression:e1 EQU PropExpression:e2 {: RESULT = new PL_Equ<>(e1, e2); :}
+                               | PropExpression:e1 XOR PropExpression:e2 {: RESULT = new PL_Xor<>(e1, e2); :}
+                               ;
+
+RuleSetExpression            ::= IDENTIFIER:id {: RESULT = new PLAK_RuleSetIdentifier<>(id); :}
+                               | RuleSetDef:def {: RESULT = def; :}
+                               ;
+
+RuleSetDef                   ::= L_BRACE R_BRACE {: RESULT = new PLAK_RuleSet<>(); :}
+                               | L_BRACE RuleSetNotEmpty:rules R_BRACE {: RESULT = new PLAK_RuleSet<>(rules); :}
+                               ;
+
+RuleSetNotEmpty              ::= RuleExpression:rule {: RESULT = new TreeSet<>(); RESULT.add(rule); :}
+                               | RuleExpression:rule COMMA RuleSetNotEmpty:set {: RESULT = set; RESULT.add(rule); :}
+                               ;
+
+RuleExpression               ::= IDENTIFIER:id {: RESULT = new PLAK_RuleIdentifier<>(id); :}
+                               | RuleDef:def {: RESULT = def; :}
+                               ;
+
+RuleDef                      ::= L_BRACKET RuleDefCost:cost R_BRACKET LiteralSet:context COLON LiteralSet:left REPLACE LiteralSet:right {: RESULT = new PLAK_Rule<>(context, left, right, cost); :}
+                               | L_BRACKET RuleDefCost:cost R_BRACKET LiteralSet:left REPLACE LiteralSet:right {: RESULT = new PLAK_Rule<>(new PL_LiteralSet<RevisorConsolePLAK>(), left, right, cost); :}
+                               ;
+
+RuleDefCost                  ::= {: RESULT = this.parser.getConsole().getDefaultRuleCost(); :}
+                               | POSITIVE_REAL:cost {: RESULT = cost; :}
+                               ;
+
+LiteralSet                   ::= {: RESULT = new PL_LiteralSet<>(); :}
+                               | LiteralSetNotEmpty:literals {: RESULT = new PL_LiteralSet<>(literals); :}
+                               ;
+
+LiteralSetNotEmpty           ::= Literal:lit {: RESULT = new TreeSet<>(); RESULT.add(lit); :}
+                               | Literal:lit AND LiteralSetNotEmpty:set {: RESULT = set; RESULT.add(lit); :}
+                               ;
+
+Literal                      ::= IDENTIFIER:id {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), false); :}
+                               | NOT IDENTIFIER:id {: RESULT = new PL_Literal<>(new PL_Identifier<RevisorConsolePLAK>(id), true); :}
+                               ;
+
+/* ---------- End ---------- */

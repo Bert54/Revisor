@@ -1,0 +1,3 @@
+dk := true
+load ex3-parts.rev
+result := adapt(dk, source, target)

@@ -45,18 +45,23 @@ public class PCSFCConsoleParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\044\000\002\002\004\000\002\002\004\000\002\003" +
-    "\003\000\002\003\003\000\002\003\004\000\002\003\003" +
+    "\000\066\000\002\002\004\000\002\002\004\000\002\002" +
+    "\003\000\002\002\003\000\002\002\003\000\002\002\003" +
+    "\000\002\003\003\000\002\003\003\000\002\003\003\000" +
+    "\002\003\003\000\002\003\003\000\002\003\003\000\002" +
+    "\014\004\000\002\015\003\000\002\016\003\000\002\017" +
+    "\003\000\002\004\003\000\002\004\003\000\002\004\003" +
     "\000\002\004\003\000\002\004\003\000\002\004\003\000" +
-    "\002\004\003\000\002\005\005\000\002\006\005\000\002" +
-    "\007\005\000\002\010\006\000\002\012\005\000\002\012" +
-    "\003\000\002\011\005\000\002\013\003\000\002\013\003" +
-    "\000\002\014\012\000\002\015\005\000\002\015\006\000" +
-    "\002\015\005\000\002\015\007\000\002\015\010\000\002" +
-    "\015\003\000\002\016\003\000\002\016\003\000\002\016" +
-    "\003\000\002\017\005\000\002\020\003\000\002\021\005" +
-    "\000\002\021\003\000\002\022\004\000\002\022\003\000" +
-    "\002\023\003" });
+    "\002\005\005\000\002\006\005\000\002\007\005\000\002" +
+    "\010\006\000\002\012\005\000\002\013\007\000\002\021" +
+    "\005\000\002\021\003\000\002\020\005\000\002\020\003" +
+    "\000\002\011\005\000\002\022\003\000\002\022\003\000" +
+    "\002\023\012\000\002\023\012\000\002\024\005\000\002" +
+    "\024\004\000\002\024\005\000\002\024\007\000\002\024" +
+    "\006\000\002\024\003\000\002\025\003\000\002\025\005" +
+    "\000\002\025\003\000\002\025\003\000\002\026\005\000" +
+    "\002\027\003\000\002\030\005\000\002\030\003\000\002" +
+    "\031\004\000\002\031\003\000\002\032\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -64,49 +69,59 @@ public class PCSFCConsoleParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\105\000\012\004\016\006\004\012\015\020\007\001" +
-    "\002\000\004\011\ufffc\001\002\000\004\011\ufffe\001\002" +
-    "\000\004\011\107\001\002\000\004\012\104\001\002\000" +
-    "\004\011\ufffb\001\002\000\004\002\103\001\002\000\006" +
-    "\007\076\010\075\001\002\000\004\011\ufff9\001\002\000" +
-    "\004\011\ufff8\001\002\000\010\007\ufff2\010\ufff2\014\022" +
-    "\001\002\000\004\005\021\001\002\000\004\011\uffff\001" +
-    "\002\000\004\011\ufffa\001\002\000\004\011\ufffd\001\002" +
-    "\000\016\012\034\021\032\022\035\025\030\026\023\030" +
-    "\033\001\002\000\014\012\034\021\032\022\035\026\023" +
-    "\030\033\001\002\000\006\011\uffef\031\051\001\002\000" +
-    "\004\011\ufff1\001\002\000\010\011\uffe7\027\uffe7\031\uffe7" +
-    "\001\002\000\006\023\uffe1\024\uffe1\001\002\000\004\026" +
-    "\064\001\002\000\004\011\ufff0\001\002\000\004\012\063" +
-    "\001\002\000\004\026\047\001\002\000\014\011\uffe6\023" +
-    "\uffdf\024\uffdf\027\uffe6\031\uffe6\001\002\000\010\011\uffe5" +
-    "\027\uffe5\031\uffe5\001\002\000\004\023\044\001\002\000" +
-    "\010\011\uffe8\027\uffe8\031\uffe8\001\002\000\006\023\uffe3" +
-    "\024\041\001\002\000\006\012\042\021\032\001\002\000" +
-    "\006\023\uffdf\024\uffdf\001\002\000\006\023\uffe2\024\uffe2" +
-    "\001\002\000\004\021\046\001\002\000\010\011\uffe4\027" +
-    "\uffe4\031\uffe4\001\002\000\010\011\uffde\027\uffde\031\uffde" +
-    "\001\002\000\014\012\034\021\032\022\035\026\023\030" +
-    "\033\001\002\000\006\027\052\031\051\001\002\000\014" +
-    "\012\034\021\032\022\035\026\053\030\054\001\002\000" +
-    "\010\011\uffec\027\uffec\031\uffec\001\002\000\014\012\034" +
-    "\021\032\022\035\026\023\030\033\001\002\000\004\026" +
-    "\056\001\002\000\010\011\uffeb\027\uffeb\031\uffeb\001\002" +
-    "\000\014\012\034\021\032\022\035\026\023\030\033\001" +
-    "\002\000\006\027\060\031\051\001\002\000\010\011\uffe9" +
-    "\027\uffe9\031\uffe9\001\002\000\006\027\062\031\051\001" +
-    "\002\000\010\011\uffea\027\uffea\031\uffea\001\002\000\006" +
-    "\023\uffe0\024\uffe0\001\002\000\004\012\065\001\002\000" +
-    "\004\010\066\001\002\000\004\012\067\001\002\000\004" +
-    "\010\070\001\002\000\004\012\071\001\002\000\004\027" +
-    "\072\001\002\000\004\011\uffee\001\002\000\006\027\074" +
-    "\031\051\001\002\000\010\011\uffed\027\uffed\031\uffed\001" +
-    "\002\000\004\012\102\001\002\000\010\015\077\016\100" +
-    "\017\101\001\002\000\004\011\ufff7\001\002\000\004\011" +
-    "\ufff6\001\002\000\004\011\ufff5\001\002\000\006\007\ufff3" +
-    "\010\ufff3\001\002\000\004\002\001\001\002\000\004\013" +
-    "\105\001\002\000\004\021\106\001\002\000\004\011\ufff4" +
-    "\001\002\000\004\002\000\001\002" });
+    "\000\125\000\016\004\020\006\004\012\007\020\006\032" +
+    "\012\035\017\001\002\000\006\002\ufff4\011\ufff4\001\002" +
+    "\000\004\011\uffed\001\002\000\004\012\125\001\002\000" +
+    "\014\002\ufff2\007\uffe2\010\uffe2\011\ufff2\014\052\001\002" +
+    "\000\006\007\044\010\043\001\002\000\004\011\042\001" +
+    "\002\000\006\002\ufff3\011\ufff3\001\002\000\006\002\ufffe" +
+    "\011\ufff8\001\002\000\004\011\ufff1\001\002\000\004\002" +
+    "\041\001\002\000\006\002\ufffc\011\ufff6\001\002\000\004" +
+    "\012\032\001\002\000\004\005\031\001\002\000\004\011" +
+    "\uffee\001\002\000\004\011\uffec\001\002\000\004\011\ufffb" +
+    "\001\002\000\006\002\ufffd\011\ufff7\001\002\000\004\011" +
+    "\uffef\001\002\000\004\011\ufffa\001\002\000\006\002\uffff" +
+    "\011\ufff9\001\002\000\004\011\ufff0\001\002\000\006\002" +
+    "\ufff5\011\ufff5\001\002\000\004\026\033\001\002\000\004" +
+    "\034\035\001\002\000\006\010\036\027\037\001\002\000" +
+    "\006\010\uffe4\027\uffe4\001\002\000\004\034\040\001\002" +
+    "\000\004\011\uffe6\001\002\000\006\010\uffe5\027\uffe5\001" +
+    "\002\000\004\002\001\001\002\000\004\002\000\001\002" +
+    "\000\004\012\051\001\002\000\012\015\045\016\046\017" +
+    "\050\033\047\001\002\000\004\011\uffeb\001\002\000\004" +
+    "\011\uffea\001\002\000\004\011\uffe7\001\002\000\004\011" +
+    "\uffe9\001\002\000\006\007\uffe3\010\uffe3\001\002\000\016" +
+    "\012\064\021\061\022\065\025\060\026\053\030\063\001" +
+    "\002\000\014\012\064\021\061\022\065\026\053\030\063" +
+    "\001\002\000\006\011\uffdf\031\102\001\002\000\004\011" +
+    "\uffe1\001\002\000\010\011\uffd6\027\uffd6\031\uffd6\001\002" +
+    "\000\006\023\uffcf\024\uffcf\001\002\000\004\026\112\001" +
+    "\002\000\004\012\111\001\002\000\004\011\uffe0\001\002" +
+    "\000\014\012\064\021\061\022\065\026\053\030\063\001" +
+    "\002\000\016\011\uffd4\013\077\023\uffcd\024\uffcd\027\uffd4" +
+    "\031\uffd4\001\002\000\010\011\uffd3\027\uffd3\031\uffd3\001" +
+    "\002\000\004\023\074\001\002\000\010\011\uffd7\027\uffd7" +
+    "\031\uffd7\001\002\000\006\023\uffd1\024\071\001\002\000" +
+    "\006\012\073\021\061\001\002\000\006\023\uffd0\024\uffd0" +
+    "\001\002\000\006\023\uffcd\024\uffcd\001\002\000\004\021" +
+    "\076\001\002\000\010\011\uffd2\027\uffd2\031\uffd2\001\002" +
+    "\000\010\011\uffcc\027\uffcc\031\uffcc\001\002\000\004\034" +
+    "\100\001\002\000\010\011\uffd5\027\uffd5\031\uffd5\001\002" +
+    "\000\010\011\uffdb\027\uffdb\031\uffdb\001\002\000\014\012" +
+    "\064\021\061\022\065\026\103\030\104\001\002\000\014" +
+    "\012\064\021\061\022\065\026\053\030\063\001\002\000" +
+    "\014\012\064\021\061\022\065\026\053\030\063\001\002" +
+    "\000\010\011\uffda\027\uffda\031\uffda\001\002\000\010\011" +
+    "\uffd8\027\uffd8\031\uffd8\001\002\000\006\027\110\031\102" +
+    "\001\002\000\010\011\uffd9\027\uffd9\031\uffd9\001\002\000" +
+    "\006\023\uffce\024\uffce\001\002\000\004\012\113\001\002" +
+    "\000\004\010\114\001\002\000\004\012\115\001\002\000" +
+    "\004\010\116\001\002\000\006\012\120\021\117\001\002" +
+    "\000\004\027\122\001\002\000\004\027\121\001\002\000" +
+    "\004\011\uffde\001\002\000\004\011\uffdd\001\002\000\006" +
+    "\027\124\031\102\001\002\000\010\011\uffdc\027\uffdc\031" +
+    "\uffdc\001\002\000\004\013\126\001\002\000\004\021\127" +
+    "\001\002\000\004\011\uffe8\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -114,29 +129,35 @@ public class PCSFCConsoleParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\105\000\024\002\010\003\005\004\016\005\007\006" +
-    "\017\007\012\010\013\011\004\012\011\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\000\125\000\040\002\014\003\010\004\022\005\013\006" +
+    "\027\007\024\010\020\011\025\012\004\013\021\014\026" +
+    "\015\012\016\023\017\015\020\007\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\022\013\024\014\030\015\023\016\036\017" +
-    "\025\020\035\021\037\022\026\001\001\000\016\015\072" +
-    "\016\036\017\025\020\035\021\037\022\026\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\022\042\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\023\044\001\001\000\002\001\001\000\002\001" +
-    "\001\000\016\015\047\016\036\017\025\020\035\021\037" +
-    "\022\026\001\001\000\002\001\001\000\014\016\054\017" +
-    "\025\020\035\021\037\022\026\001\001\000\002\001\001" +
-    "\000\016\015\060\016\036\017\025\020\035\021\037\022" +
-    "\026\001\001\000\002\001\001\000\002\001\001\000\016" +
-    "\015\056\016\036\017\025\020\035\021\037\022\026\001" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\021\033\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\022\022\054\023" +
+    "\061\024\053\025\066\026\055\027\065\030\067\031\056" +
+    "\001\001\000\016\024\122\025\066\026\055\027\065\030" +
+    "\067\031\056\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\016\024\100\025\066" +
+    "\026\055\027\065\030\067\031\056\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\031\071\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\032\074\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\014\025\104\026\055\027\065" +
+    "\030\067\031\056\001\001\000\016\024\106\025\066\026" +
+    "\055\027\065\030\067\031\056\001\001\000\016\024\105" +
+    "\025\066\026\055\027\065\030\067\031\056\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
@@ -257,7 +278,7 @@ public class PCSFCConsoleParser extends java_cup.runtime.lr_parser {
 	public void report_fatal_error(String message, Object info) throws ParserException {
 		this.done_parsing();
 		this.report_error(message, info);
-		throw new ParserException(this.errorMessages);
+		throw new ParserException(this.errorMessages, null, true, false);
 	}
 	
 
@@ -315,7 +336,63 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // RAW_INSTRUCTION ::= DECLARATION 
+          case 2: // INSTRUCTION ::= LOAD_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int load_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int load_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> load_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = load_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",0, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // INSTRUCTION ::= CLEAR_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int clear_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int clear_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> clear_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = clear_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",0, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 4: // INSTRUCTION ::= PRINTVARS_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int printvrs_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int printvrs_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> printvrs_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = printvrs_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",0, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // INSTRUCTION ::= PRINTIDF_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int pridf_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int pridf_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> pridf_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = pridf_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",0, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // RAW_INSTRUCTION ::= DECLARATION 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int declleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -329,7 +406,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // RAW_INSTRUCTION ::= ASSIGNMENT 
+          case 7: // RAW_INSTRUCTION ::= ASSIGNMENT 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int assleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -343,32 +420,113 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // RAW_INSTRUCTION ::= LOAD FILE 
+          case 8: // RAW_INSTRUCTION ::= LOAD_INS 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
-		int fileleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
-		int fileright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
-		String file = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		int load_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int load_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> load_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
 		
-								RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
-								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("RAW_INSTRUCTION",1, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
-            }
-          return CUP$PCSFCConsoleParser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // RAW_INSTRUCTION ::= CLEAR 
-            {
-              Instruction<RevisorConsolePCSFC> RESULT =null;
-		
-									RESULT = new PCSFC_Clear<>(this.parser.getConsole(), this.parser.getInputText());
+									RESULT = load_ins;
 								
               CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("RAW_INSTRUCTION",1, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // DECLARATION ::= DECLARE_INTEGER 
+          case 9: // RAW_INSTRUCTION ::= CLEAR_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int clear_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int clear_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> clear_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = clear_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("RAW_INSTRUCTION",1, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // RAW_INSTRUCTION ::= PRINTVARS_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int printvrs_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int printvrs_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> printvrs_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = printvrs_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("RAW_INSTRUCTION",1, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 11: // RAW_INSTRUCTION ::= PRINTIDF_INS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int pridf_insleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int pridf_insright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> pridf_ins = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = pridf_ins;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("RAW_INSTRUCTION",1, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 12: // LOAD_INS ::= LOAD FILE 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int fileleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int fileright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		String file = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = new PCSFC_Load<>(this.parser.getConsole(), this.parser.getInputText(), file);
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("LOAD_INS",10, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // CLEAR_INS ::= CLEAR 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		
+									RESULT = new PCSFC_Clear<>(this.parser.getConsole(), this.parser.getInputText());
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CLEAR_INS",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // PRINTVARS_INS ::= PRINTVARS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		
+									RESULT = new PCSFC_PrintVars<>(this.parser.getConsole(), this.parser.getInputText());
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("PRINTVARS_INS",12, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // PRINTIDF_INS ::= IDENTIFIER 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int idfright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		String idf = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = new PCSFC_PrintIdf<>(this.parser.getConsole(), this.parser.getInputText(), idf);
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("PRINTIDF_INS",13, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 16: // DECLARATION ::= DECLARE_INTEGER 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int decl_intleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -382,7 +540,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // DECLARATION ::= DECLARE_REAL 
+          case 17: // DECLARATION ::= DECLARE_REAL 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int decl_releft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -396,7 +554,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // DECLARATION ::= DECLARE_FORMULA 
+          case 18: // DECLARATION ::= DECLARE_FORMULA 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int decl_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -410,7 +568,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // DECLARATION ::= DECLARE_CONSTANT 
+          case 19: // DECLARATION ::= DECLARE_CONSTANT 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int decl_constleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -424,7 +582,35 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // DECLARE_INTEGER ::= IDENTIFIER_LIST COLON INTEGER_DECLARATION_KEYWORD 
+          case 20: // DECLARATION ::= DECLARE_BOOLEAN 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int decl_boolleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int decl_boolright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> decl_bool = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = decl_bool; 
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("DECLARATION",2, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 21: // DECLARATION ::= DECLARE_ENUM 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int decl_enumleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int decl_enumright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Instruction<RevisorConsolePCSFC> decl_enum = (Instruction<RevisorConsolePCSFC>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = decl_enum; 
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("DECLARATION",2, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 22: // DECLARE_INTEGER ::= IDENTIFIER_LIST COLON INTEGER_DECLARATION_KEYWORD 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int alidfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -438,7 +624,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // DECLARE_REAL ::= IDENTIFIER_LIST COLON REAL_DECLARATION_KEYWORD 
+          case 23: // DECLARE_REAL ::= IDENTIFIER_LIST COLON REAL_DECLARATION_KEYWORD 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int alidfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -452,7 +638,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // DECLARE_FORMULA ::= IDENTIFIER_LIST COLON FORMULA_DECLARATION_KEYWORD 
+          case 24: // DECLARE_FORMULA ::= IDENTIFIER_LIST COLON FORMULA_DECLARATION_KEYWORD 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int alidfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -466,7 +652,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // DECLARE_CONSTANT ::= CONST_DECLARATION_KEYWORD IDENTIFIER CONST_INITIALIZER_OPERATOR REAL 
+          case 25: // DECLARE_CONSTANT ::= CONST_DECLARATION_KEYWORD IDENTIFIER SIMPLE_EQUAL REAL 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -483,7 +669,72 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // IDENTIFIER_LIST ::= IDENTIFIER_LIST COMMA IDENTIFIER 
+          case 26: // DECLARE_BOOLEAN ::= IDENTIFIER_LIST COLON BOOLEAN_DECLARATION_KEYWORD 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int alidfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
+		int alidfright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).right;
+		ArrayList<String> alidf = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).value;
+		
+									RESULT = new PCSFC_DeclarationBoolean<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), alidf);
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("DECLARE_BOOLEAN",8, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 27: // DECLARE_ENUM ::= ENUM_DECLARATION_KEYWORD IDENTIFIER OPENING_PARENTHESIS MODALITY_LIST CLOSING_PARENTHESIS 
+            {
+              Instruction<RevisorConsolePCSFC> RESULT =null;
+		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).left;
+		int idfright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).right;
+		String idf = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).value;
+		int almodleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
+		int almodright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).right;
+		ArrayList<String> almod = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).value;
+		
+									RESULT = new PCSFC_DeclarationEnum<RevisorConsolePCSFC>(this.parser.getConsole(), this.parser.getInputText(), idf, almod);
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("DECLARE_ENUM",9, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 28: // MODALITY_LIST ::= MODALITY_LIST COMMA MODALITY 
+            {
+              ArrayList<String> RESULT =null;
+		int almodleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
+		int almodright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).right;
+		ArrayList<String> almod = (ArrayList<String>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).value;
+		int modleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int modright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		String mod = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									almod.add(mod);
+									RESULT = almod;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("MODALITY_LIST",15, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 29: // MODALITY_LIST ::= MODALITY 
+            {
+              ArrayList<String> RESULT =null;
+		int modleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int modright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		String mod = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									ArrayList<String> almod = new ArrayList<>();
+									almod.add(mod);
+									RESULT = almod;
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("MODALITY_LIST",15, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 30: // IDENTIFIER_LIST ::= IDENTIFIER_LIST COMMA IDENTIFIER 
             {
               ArrayList<String> RESULT =null;
 		int alidfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -496,12 +747,12 @@ class CUP$PCSFCConsoleParser$actions {
 									alidf.add(idf);
 									RESULT = alidf;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("IDENTIFIER_LIST",8, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("IDENTIFIER_LIST",14, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // IDENTIFIER_LIST ::= IDENTIFIER 
+          case 31: // IDENTIFIER_LIST ::= IDENTIFIER 
             {
               ArrayList<String> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -512,12 +763,12 @@ class CUP$PCSFCConsoleParser$actions {
 									alidf.add(idf);
 									RESULT = alidf;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("IDENTIFIER_LIST",8, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("IDENTIFIER_LIST",14, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // ASSIGNMENT ::= IDENTIFIER ASSIGNMENT_OPERATOR FORMULA 
+          case 32: // ASSIGNMENT ::= IDENTIFIER ASSIGNMENT_OPERATOR FORMULA 
             {
               Instruction<RevisorConsolePCSFC> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -534,7 +785,7 @@ class CUP$PCSFCConsoleParser$actions {
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // FORMULA ::= REVISE_FORMULA 
+          case 33: // FORMULA ::= REVISE_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int rev_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -543,12 +794,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = rev_form;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("FORMULA",9, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("FORMULA",16, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // FORMULA ::= BINARY_FORMULA 
+          case 34: // FORMULA ::= BINARY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int bin_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -557,12 +808,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = bin_form;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("FORMULA",9, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("FORMULA",16, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // REVISE_FORMULA ::= REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER COMMA IDENTIFIER COMMA IDENTIFIER CLOSING_PARENTHESIS 
+          case 35: // REVISE_FORMULA ::= REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER COMMA IDENTIFIER COMMA IDENTIFIER CLOSING_PARENTHESIS 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int idf1left = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).left;
@@ -577,12 +828,44 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = new PCSFC_Revise(idf1, idf2, idf3);
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("REVISE_FORMULA",10, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-7)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("REVISE_FORMULA",17, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-7)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // BINARY_FORMULA ::= OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
+          case 36: // REVISE_FORMULA ::= REVISE_KEYWORD OPENING_PARENTHESIS IDENTIFIER COMMA IDENTIFIER COMMA REAL CLOSING_PARENTHESIS 
+            {
+              Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
+		int idf1left = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).left;
+		int idf1right = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).right;
+		String idf1 = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).value;
+		int idf2left = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).left;
+		int idf2right = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).right;
+		String idf2 = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).value;
+		int realleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
+		int realright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).right;
+		String real = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).value;
+		
+									boolean isDouble = true;
+									double realP = 0.0;
+        							try {
+            							realP = Double.parseDouble(real);
+        							} catch (NumberFormatException e) {
+           								 isDouble = false;
+        							}
+        							if (isDouble) {
+            							RESULT = new PCSFC_Revise(idf1, idf2, realP);
+            						}
+        							else {
+            							RESULT = new PCSFC_Revise(idf1, idf2, real);
+            						}
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("REVISE_FORMULA",17, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-7)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 37: // BINARY_FORMULA ::= OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int bin_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
@@ -591,26 +874,26 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = bin_form;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // BINARY_FORMULA ::= NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
+          case 38: // BINARY_FORMULA ::= NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
-		int bin_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
-		int bin_formright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).right;
-		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).value;
+		int bin_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int bin_formright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
 		
 									RESULT = new PCSFC_Not<RevisorConsolePCSFC>(bin_form);
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR UNARY_FORMULA 
+          case 39: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR UNARY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int bin_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -631,17 +914,26 @@ class CUP$PCSFCConsoleParser$actions {
 										case "|":
 											formula = new PCSFC_Or(bin_form, un_form);
 											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form, un_form);
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form, un_form);
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form, un_form);
+											break;
 										default:
 											formula = new PCSFC_And(bin_form, un_form);
 									}
 									RESULT = formula;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
+          case 40: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int bin_form_leftleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)).left;
@@ -662,28 +954,37 @@ class CUP$PCSFCConsoleParser$actions {
 										case "|":
 											formula = new PCSFC_Or(bin_form_left, bin_form_right);
 											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form_left, bin_form_right);
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form_left, bin_form_right);
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form_left, bin_form_right);
+											break;
 										default:
 											formula = new PCSFC_And(bin_form_left, bin_form_right);
 									}
 									RESULT = formula;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR NEGATIVE_FORMULA_SYMBOL OPENING_PARENTHESIS BINARY_FORMULA CLOSING_PARENTHESIS 
+          case 41: // BINARY_FORMULA ::= BINARY_FORMULA BINARY_FORMULA_OPERATOR NEGATIVE_FORMULA_SYMBOL BINARY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
-		int bin_form_leftleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).left;
-		int bin_form_leftright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).right;
-		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form_left = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)).value;
-		int opleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)).left;
-		int opright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)).right;
-		String op = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-4)).value;
-		int bin_form_rightleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
-		int bin_form_rightright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).right;
-		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form_right = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).value;
+		int bin_form_leftleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).left;
+		int bin_form_leftright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).right;
+		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form_left = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)).value;
+		int opleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
+		int opright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).right;
+		String op = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).value;
+		int bin_form_rightleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int bin_form_rightright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		Formula<RevisorConsolePCSFC,PCSFCFormula> bin_form_right = (Formula<RevisorConsolePCSFC,PCSFCFormula>)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
 		
 									Formula<RevisorConsolePCSFC, PCSFCFormula> formula;
 									switch (op) {
@@ -693,17 +994,26 @@ class CUP$PCSFCConsoleParser$actions {
 										case "|":
 											formula = new PCSFC_Or(bin_form_left, new PCSFC_Not(bin_form_right));
 											break;
+										case "=>":
+											formula = new PCSFC_Impl(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "<=>":
+											formula = new PCSFC_Equiv(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
+										case "^":
+											formula = new PCSFC_Xor(bin_form_left, new PCSFC_Not(bin_form_right));
+											break;
 										default:
 											formula = new PCSFC_And(bin_form_left, new PCSFC_Not(bin_form_right));
 									}
 									RESULT = formula;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-5)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-3)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // BINARY_FORMULA ::= UNARY_FORMULA 
+          case 42: // BINARY_FORMULA ::= UNARY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int un_formleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -712,12 +1022,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = un_form;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",11, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("BINARY_FORMULA",18, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // UNARY_FORMULA ::= CONSTRAINT_FORMULA 
+          case 43: // UNARY_FORMULA ::= CONSTRAINT_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int cfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -726,12 +1036,29 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = cf;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",12, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",19, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // UNARY_FORMULA ::= IDENTIFIER 
+          case 44: // UNARY_FORMULA ::= IDENTIFIER SIMPLE_EQUAL MODALITY 
+            {
+              Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
+		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
+		int idfright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).right;
+		String idf = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).value;
+		int modleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
+		int modright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
+		String mod = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
+		
+									RESULT = new PCSFC_EnumIdentifierLitteral<RevisorConsolePCSFC>(new PCSFC_Identifier<RevisorConsolePCSFC>(idf), mod);
+								
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",19, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+            }
+          return CUP$PCSFCConsoleParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 45: // UNARY_FORMULA ::= IDENTIFIER 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -740,23 +1067,23 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = new PCSFC_IdentifierLitteral<RevisorConsolePCSFC>(new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",12, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",19, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // UNARY_FORMULA ::= TAUTOLOGY_FORMULA 
+          case 46: // UNARY_FORMULA ::= TAUTOLOGY_FORMULA 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		
 									RESULT = new PCSFC_TautologyLitteral<RevisorConsolePCSFC>();
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",12, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("UNARY_FORMULA",19, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // CONSTRAINT_FORMULA ::= CONSTRAINT_LEFT_MEMBER CONSTRAINT_OPERATOR CONSTRAINT_RIGHT_MEMBER 
+          case 47: // CONSTRAINT_FORMULA ::= CONSTRAINT_LEFT_MEMBER CONSTRAINT_OPERATOR CONSTRAINT_RIGHT_MEMBER 
             {
               Formula<RevisorConsolePCSFC,PCSFCFormula> RESULT =null;
 		int leftleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -794,12 +1121,12 @@ class CUP$PCSFCConsoleParser$actions {
 									}
 									RESULT = new PCSFC_ConstraintLitteral<RevisorConsolePCSFC>(left, operator, right);
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_FORMULA",13, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_FORMULA",20, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // CONSTRAINT_LEFT_MEMBER ::= CONSTRAINT_TERM_LIST 
+          case 48: // CONSTRAINT_LEFT_MEMBER ::= CONSTRAINT_TERM_LIST 
             {
               LeftMember RESULT =null;
 		int ctlleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -808,12 +1135,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = ctl;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_LEFT_MEMBER",14, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_LEFT_MEMBER",21, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // CONSTRAINT_TERM_LIST ::= CONSTRAINT_TERM_LIST CONSTRAINT_TERM_OPERATOR CONSTRAINT_TERM 
+          case 49: // CONSTRAINT_TERM_LIST ::= CONSTRAINT_TERM_LIST CONSTRAINT_TERM_OPERATOR CONSTRAINT_TERM 
             {
               LeftMember RESULT =null;
 		int ctlleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)).left;
@@ -839,12 +1166,12 @@ class CUP$PCSFCConsoleParser$actions {
 									}
 									RESULT = new LeftMemberElement(ctl, operator, term);
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM_LIST",15, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM_LIST",22, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-2)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // CONSTRAINT_TERM_LIST ::= CONSTRAINT_TERM 
+          case 50: // CONSTRAINT_TERM_LIST ::= CONSTRAINT_TERM 
             {
               LeftMember RESULT =null;
 		int termleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -853,12 +1180,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = term;
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM_LIST",15, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM_LIST",22, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // CONSTRAINT_TERM ::= REAL IDENTIFIER 
+          case 51: // CONSTRAINT_TERM ::= REAL IDENTIFIER 
             {
               LeftMemberElementTerminal<Double,RevisorConsolePCSFC> RESULT =null;
 		int realleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)).left;
@@ -870,12 +1197,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM",16, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM",23, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // CONSTRAINT_TERM ::= IDENTIFIER 
+          case 52: // CONSTRAINT_TERM ::= IDENTIFIER 
             {
               LeftMemberElementTerminal<Double,RevisorConsolePCSFC> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -884,12 +1211,12 @@ class CUP$PCSFCConsoleParser$actions {
 		
 									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>((double)1, new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM",16, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM",23, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // CONSTRAINT_RIGHT_MEMBER ::= REAL 
+          case 53: // CONSTRAINT_RIGHT_MEMBER ::= REAL 
             {
               RightMember<Double> RESULT =null;
 		int realleft = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).left;
@@ -899,7 +1226,7 @@ class CUP$PCSFCConsoleParser$actions {
 									double d = Double.parseDouble(real);
 									RESULT = new RightMember<Double>(d);
 								
-              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_RIGHT_MEMBER",17, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
+              CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_RIGHT_MEMBER",24, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }
           return CUP$PCSFCConsoleParser$result;
 

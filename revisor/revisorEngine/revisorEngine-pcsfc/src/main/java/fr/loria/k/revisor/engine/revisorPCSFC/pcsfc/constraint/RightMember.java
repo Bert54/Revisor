@@ -9,6 +9,19 @@ public class RightMember<T> {
 		this.numberType = (T) rm.getNumber();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public RightMember(RightMember<?> rm) {
+		this.numberType = (T) rm.getNumber();
+	}
+	
+	public RightMember(T num) {
+		this.numberType = (T) num;
+	}
+	
+	public T getNumber() {
+		return this.numberType;
+	}
+
 	public String toString() {
 		if ((double)numberType % 1 != 0) {
 			return this.numberType.toString();

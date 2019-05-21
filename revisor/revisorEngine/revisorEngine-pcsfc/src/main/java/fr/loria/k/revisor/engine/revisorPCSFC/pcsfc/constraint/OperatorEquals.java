@@ -6,8 +6,8 @@ public class OperatorEquals extends Operator {
 	}
 
 	@Override
-	public String toString() {
-		return "==";
+	public String toString(final boolean latex) {
+		return "=";
 	}
 
 }

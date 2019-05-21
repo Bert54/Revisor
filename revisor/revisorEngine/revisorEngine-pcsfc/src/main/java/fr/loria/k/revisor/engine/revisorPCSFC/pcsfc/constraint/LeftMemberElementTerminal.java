@@ -1,8 +1,5 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.constraint;
-
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
-import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.PCSFC_Identifier;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Entry;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Symbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
@@ -30,6 +27,25 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 			}
 	}
 
+	public LeftMemberElementTerminal(LeftMemberElementTerminal<T> lm) {
+		this.coefficient = lm.getCoefficient();
+		this.variable = lm.getVariable();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public LeftMemberElementTerminal(String termName) {
+		this.coefficient = (T)new Double(1);
+		this.variable = new RealVariable(termName);
+	}
+
+	protected T getCoefficient() {
+		return this.coefficient;
+	}
+	
+	protected Variable getVariable() {
+		return this.variable;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
@@ -44,6 +60,11 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 		}
 		str.append(this.variable);
 		return str.toString();
+	}
+
+	@Override
+	public boolean isTerminal() {
+		return true;
 	}
 
 }

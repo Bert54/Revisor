@@ -9,13 +9,14 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.RevisorPCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormula;
 import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormulaVariableList;
 
-public class PCSFC_Identifier<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends Identifier<C, PCSFCFormula> {
+public class PCSFC_Identifier<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends Identifier<C, PCSFCFormula> {
 
 	public PCSFC_Identifier(String name) {
 		super(name);
@@ -44,8 +45,7 @@ public class PCSFC_Identifier<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>>
 
 	@Override
 	public String formatNameToLatex(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return RevisorPCSFC.formatNameToLatex(this.name);
 	}
 	
 }

@@ -11,7 +11,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
 import fr.loria.orpailleur.revisor.engine.core.console.instruction.InvalidInstruction;
 import fr.loria.orpailleur.revisor.engine.core.utils.config.storage.ConfigFileStorage;
 
-public class RevisorConsolePCSFC extends AbstractRevisorConcolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>> {
+public class RevisorConsolePCSFC extends AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>> {
 
 	public RevisorConsolePCSFC () throws ConsoleInitializationException {
 		super();

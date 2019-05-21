@@ -20,7 +20,7 @@ public class LeftMemberElement extends LeftMember {
 		return this.left;
 	}
 	
-	public LeftMemberArithmeticOperator getBInaryArithmeticOperator() {
+	public LeftMemberArithmeticOperator getBinaryArithmeticOperator() {
 		return this.operator;
 	}
 	
@@ -42,4 +42,13 @@ public class LeftMemberElement extends LeftMember {
 		this.right.validate();
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append(this.left.toString());
+		str.append(" " + this.operator.toString() + " ");
+		str.append(this.right.toString());
+		return str.toString();
+	}
+	
 }

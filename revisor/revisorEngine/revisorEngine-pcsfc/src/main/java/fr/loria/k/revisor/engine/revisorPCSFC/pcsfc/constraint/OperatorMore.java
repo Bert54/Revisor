@@ -6,7 +6,7 @@ public class OperatorMore extends Operator {
 	}
 
 	@Override
-	public String toString() {
+	public String toString(final boolean latex) {
 		return ">";
 	}
 

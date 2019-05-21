@@ -1,0 +1,181 @@
+package fr.loria.orpailleur.revisor.engine.revisorPL.console.parser;
+
+import java_cup.runtime.Scanner;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.SymbolFactory;
+import fr.loria.orpailleur.revisor.engine.core.console.exception.ParserException;
+import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Clear;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Display;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Load;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.RevisorConsolePL;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Adapt;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_And;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Equ;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Identifier;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Impl;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Not;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Or;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Revise;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_SimplifiedDNF;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.formula.PL_Xor;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_Assignment;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_GetWeight;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_Help;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_ResetWeights;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_SetWeight;
+import fr.loria.orpailleur.revisor.engine.revisorPL.console.instruction.PL_Weights;
+import fr.loria.orpailleur.revisor.engine.revisorPL.pl.formulae.PLFormula;
+
+/**
+ * This is the Revisor PL console parser.
+ * @author William Philbert
+ */
+ 
+/* ---------- Custom code ---------- */
+
+parser code {:
+	
+	// Fields :
+	
+	private RevisorConsolePL console;
+	private String inputText;
+	private String errorMessages;
+	
+	// Constructors :
+	
+	public PLConsoleParser(final RevisorConsolePL console, final String inputText) {
+		super();
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PLConsoleParser(final RevisorConsolePL console, final String inputText, final Scanner scanner) {
+		super(scanner);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	public PLConsoleParser(final RevisorConsolePL console, final String inputText, final Scanner scanner, final SymbolFactory factory) {
+		super(scanner, factory);
+		this.console = console;
+		this.inputText = inputText;
+	}
+	
+	// Getters :
+	
+	public RevisorConsolePL getConsole() {
+		return this.console;
+	}
+	
+	public String getInputText() {
+		return this.inputText;
+	}
+	
+	public String getErrorMessage() {
+		return this.errorMessages;
+	}
+	
+	// Methods :
+	
+	private void addErrorMessage(String message) {
+		if(this.errorMessages == null || this.errorMessages.isEmpty()) {
+			this.errorMessages = message;
+		}
+		else {
+			this.errorMessages += "\n" + message;
+		}
+	}
+	
+	@Override
+	public void report_error(String message, Object info) {
+		StringBuffer buffer = new StringBuffer("Parsing Error");
+		
+		if(info instanceof Symbol) {
+			Symbol s = (Symbol) info;
+			
+			if(s.left >= 0) {
+				buffer.append(" at line " + (s.left + 1));
+				
+				if(s.right >= 0) {
+					buffer.append(", column " + (s.right + 1));
+				}
+			}
+		}
+		
+		buffer.append(" : " + message);
+		this.addErrorMessage(buffer.toString());
+	}
+	
+	@Override
+	public void report_fatal_error(String message, Object info) throws ParserException {
+		this.done_parsing();
+		this.report_error(message, info);
+		throw new ParserException(this.errorMessages);
+	}
+	
+:};
+
+/* ---------- Terminals and Non Terminals ---------- */
+
+terminal ASSIGN, L_PAR, R_PAR, COMMA, DOT;
+terminal NOT, AND, OR, IMPL, EQU, XOR;
+terminal HELP, LOAD, CLEAR, RESET, WEIGHTS, WEIGHT, DNF, ADAPT, REVISE;
+terminal Boolean BOOLEAN;
+terminal String IDENTIFIER, FILE;
+terminal Double POSITIVE_REAL;
+
+nonterminal Instruction<RevisorConsolePL> Instruction;
+nonterminal PL_Identifier<RevisorConsolePL> VariableWeight;
+nonterminal Formula<RevisorConsolePL, PLFormula> PropExpression, UnaryPropExpression, UnaryPropExpressionNotId, BinaryPropExpression;
+
+/* ---------- Precedence and Associativity ---------- */
+
+precedence left IMPL, EQU;
+precedence left AND, OR, XOR;
+precedence right NOT;
+
+/* ---------- Grammar ---------- */
+
+start with Instruction;
+
+Instruction                  ::= HELP {: RESULT = new PL_Help<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | LOAD FILE:file {: RESULT = new Load<>(this.parser.getConsole(), this.parser.getInputText(), file); :}
+                               | CLEAR {: RESULT = new Clear<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | RESET WEIGHTS {: RESULT = new PL_ResetWeights<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | WEIGHTS {: RESULT = new PL_Weights<>(this.parser.getConsole(), this.parser.getInputText()); :}
+                               | PropExpression:e {: RESULT = new Display<>(this.parser.getConsole(), this.parser.getInputText(), e); :}
+                               | IDENTIFIER:id ASSIGN PropExpression:e {: RESULT = new PL_Assignment<>(this.parser.getConsole(), this.parser.getInputText(), new PL_Identifier<RevisorConsolePL>(id), e); :}
+                               | VariableWeight:id {: RESULT = new PL_GetWeight<>(this.parser.getConsole(), this.parser.getInputText(), id); :}
+                               | VariableWeight:id ASSIGN POSITIVE_REAL:val {: RESULT = new PL_SetWeight<>(this.parser.getConsole(), this.parser.getInputText(), id, val); :}
+                               ;
+
+VariableWeight               ::= WEIGHT L_PAR IDENTIFIER:id R_PAR {: RESULT = new PL_Identifier<>(id); :}
+                               | IDENTIFIER:id DOT WEIGHT {: RESULT = new PL_Identifier<>(id); :}
+                               ;
+
+PropExpression               ::= UnaryPropExpression:e {: RESULT = e; :}
+                               | BinaryPropExpression:e {: RESULT = e; :}
+                               ;
+
+UnaryPropExpression          ::= IDENTIFIER:id {: RESULT = new PL_Identifier<>(id); :}
+                               | BOOLEAN:b {: RESULT = new PL_Identifier<>(b ? "true" : "false"); :}
+                               | UnaryPropExpressionNotId:e {: RESULT = e; :}
+                               ;
+
+UnaryPropExpressionNotId     ::= L_PAR PropExpression:e R_PAR {: RESULT = e; :}
+                               | NOT UnaryPropExpression:e {: RESULT = new PL_Not<>(e); :}
+                               | DNF L_PAR PropExpression:e R_PAR {: RESULT = new PL_SimplifiedDNF<>(e); :}
+                               | ADAPT L_PAR PropExpression:dk COMMA PropExpression:source COMMA PropExpression:target R_PAR {: RESULT = new PL_Adapt<>(dk, source, target); :}
+                               | REVISE L_PAR PropExpression:psi COMMA PropExpression:mu R_PAR {: RESULT = new PL_Revise<>(psi, mu); :}
+                               ;
+
+BinaryPropExpression         ::= PropExpression:e1 AND PropExpression:e2 {: RESULT = new PL_And<>(e1, e2); :}
+                               | PropExpression:e1 OR PropExpression:e2 {: RESULT = new PL_Or<>(e1, e2); :}
+                               | PropExpression:e1 IMPL PropExpression:e2 {: RESULT = new PL_Impl<>(e1, e2); :}
+                               | PropExpression:e1 EQU PropExpression:e2 {: RESULT = new PL_Equ<>(e1, e2); :}
+                               | PropExpression:e1 XOR PropExpression:e2 {: RESULT = new PL_Xor<>(e1, e2); :}
+                               ;
+
+/* ---------- End ---------- */

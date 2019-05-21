@@ -2,9 +2,27 @@ package fr.loria.k.revisor.engine.revisorPCSFC.pcsfc;
 
 public class PCSFCTautology extends PCSFCFormula {
 
-	public String toString() {
+	public static final String LATEX_TAUTOLOGY = "{\\top}";
+	public static final String TAUTOLOGY = "tautology";
+	
+	public String toString(boolean latex) {
 		StringBuilder str = new StringBuilder();
-		str.append("tautology");
+		if (latex) {
+			str.append(LATEX_TAUTOLOGY);
+		}
+		else {
+			str.append(TAUTOLOGY);
+		}
 		return str.toString();
+	}
+
+	@Override
+	public PCSFCFormula toPCLC() {
+		return new PCSFCTautology();
+	}
+
+	@Override
+	public boolean canRevise() {
+		return true;
 	}
 }

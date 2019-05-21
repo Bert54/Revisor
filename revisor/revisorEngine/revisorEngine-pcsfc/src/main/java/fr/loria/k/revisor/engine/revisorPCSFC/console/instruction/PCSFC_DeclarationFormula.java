@@ -1,8 +1,10 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.console.instruction;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
-import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConcolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.RevisorPCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.DoubleDeclareException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.ConstantSymbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Entry;
@@ -13,7 +15,7 @@ import fr.loria.k.revisor.engine.revisorPCSFC.pcsfc.PCSFCFormulaVariableList;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionExecutionException;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionValidationException;
 
-public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?, ?, ?>> extends PCSFC_Declaration<C> {
+public class PCSFC_DeclarationFormula<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends PCSFC_Declaration<C> {
 
 	public PCSFC_DeclarationFormula(C console, String inputText, ArrayList<String> idfs) {
 		super(console, inputText, idfs);
@@ -32,7 +34,7 @@ public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?
 		} catch (DoubleDeclareException doubleDeclareExcExec) {
 			this.console.getLogger().logError(doubleDeclareExcExec);
 			this.addErrorMessage(VARIABLE_ALREADY_DECLARED_EXEC);
-			throw new InstructionExecutionException("Exception while execution declaration.");
+			throw new InstructionExecutionException("Exception while execution declaration.", null, true, false);
 		}
 	}
 
@@ -40,8 +42,26 @@ public class PCSFC_DeclarationFormula<C extends AbstractRevisorConcolePCSFC<C, ?
 	public String createOutput(boolean latex) {
 		StringBuilder str = new StringBuilder();
 		for (String idf: this.identifiers) {
-			str.append(idf + " : formula\n");
+			if (latex) {
+				str.append(RevisorPCSFC.formatNameToLatex(idf) + ": formula" + System.lineSeparator());
+			}
+			else {
+				str.append(idf + ": formula" + System.lineSeparator());
+			}
 		}
+		return str.toString();
+	}
+
+	@Override
+	protected String createFormatedInputText() {
+		StringBuilder str = new StringBuilder();
+		int i = 0;
+		while (i < this.identifiers.size() - 1) {
+			str.append(this.identifiers.get(i) + ", ");
+			i++;
+		}
+		str.append(this.identifiers.get(i));
+		str.append(": formula;");
 		return str.toString();
 	}
 

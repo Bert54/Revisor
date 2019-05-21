@@ -14,14 +14,15 @@ public class PCSFCConsoleSymbols {
   public static final int END_OF_INSTRUCTION = 7;
   public static final int REVISE_KEYWORD = 19;
   public static final int FORMULA_DECLARATION_KEYWORD = 13;
-  public static final int CONST_INITIALIZER_OPERATOR = 9;
   public static final int CLEAR = 4;
   public static final int FILE = 3;
   public static final int CONST_DECLARATION_KEYWORD = 14;
   public static final int OPENING_PARENTHESIS = 20;
   public static final int REAL_DECLARATION_KEYWORD = 12;
   public static final int IDENTIFIER = 8;
+  public static final int BOOLEAN_DECLARATION_KEYWORD = 25;
   public static final int CLOSING_PARENTHESIS = 21;
+  public static final int PRINTVARS = 24;
   public static final int COLON = 5;
   public static final int TAUTOLOGY_FORMULA = 16;
   public static final int COMMA = 6;
@@ -29,9 +30,12 @@ public class PCSFCConsoleSymbols {
   public static final int BINARY_FORMULA_OPERATOR = 23;
   public static final int CONSTRAINT_OPERATOR = 17;
   public static final int ASSIGNMENT_OPERATOR = 10;
+  public static final int ENUM_DECLARATION_KEYWORD = 27;
   public static final int LOAD = 2;
   public static final int error = 1;
   public static final int REAL = 15;
+  public static final int SIMPLE_EQUAL = 9;
+  public static final int MODALITY = 26;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -42,7 +46,7 @@ public class PCSFCConsoleSymbols {
   "COMMA",
   "END_OF_INSTRUCTION",
   "IDENTIFIER",
-  "CONST_INITIALIZER_OPERATOR",
+  "SIMPLE_EQUAL",
   "ASSIGNMENT_OPERATOR",
   "INTEGER_DECLARATION_KEYWORD",
   "REAL_DECLARATION_KEYWORD",
@@ -56,7 +60,11 @@ public class PCSFCConsoleSymbols {
   "OPENING_PARENTHESIS",
   "CLOSING_PARENTHESIS",
   "NEGATIVE_FORMULA_SYMBOL",
-  "BINARY_FORMULA_OPERATOR"
+  "BINARY_FORMULA_OPERATOR",
+  "PRINTVARS",
+  "BOOLEAN_DECLARATION_KEYWORD",
+  "MODALITY",
+  "ENUM_DECLARATION_KEYWORD"
   };
 }
 

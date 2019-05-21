@@ -1,0 +1,5 @@
+clear
+dk := true
+source := a & b
+target := !a | !b
+result := adapt(dk, source, target)

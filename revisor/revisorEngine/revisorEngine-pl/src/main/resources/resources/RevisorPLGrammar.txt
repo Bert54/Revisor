@@ -1,0 +1,52 @@
+<Instruction>                       ::= help
+                                      | load <File>
+                                      | clear
+                                      | reset weights
+                                      | weights
+                                      | <PropositionalExpression>
+                                      | <Identifier> := <PropositionalExpression>
+                                      | <VariableWeight>
+                                      | <VariableWeight> := <PositiveReal>
+
+<VariableWeight>                    ::= weight "(" <Identifier> ")"
+                                      | <Identifier>.weight
+
+<PropositionalExpression>           ::= <UnaryPropositionalExpression>
+                                      | <NaryPropositionalExpression>
+
+<UnaryPropositionalExpression>      ::= <Identifier>
+                                      | <Boolean>
+                                      | <UnaryPropositionalExpressionNotId>
+
+<UnaryPropositionalExpressionNotId> ::= "(" <PropositionalExpression> ")"
+                                      | "!" <UnaryPropositionalExpression>
+                                      | dnf "(" <PropositionalExpression> ")"
+                                      | adapt "(" <PropositionalExpression:dk> "," <PropositionalExpression:source> "," <PropositionalExpression:target> ")"
+                                      | revise "(" <PropositionalExpression:psi> "," <PropositionalExpression:mu> ")"
+
+<BinaryPropositionalExpression>     ::= <PropositionalExpression> "&" <PropositionalExpression>
+                                      | <PropositionalExpression> "|" <PropositionalExpression>
+                                      | <PropositionalExpression> "=>" <PropositionalExpression>
+                                      | <PropositionalExpression> "<=>" <PropositionalExpression>
+                                      | <PropositionalExpression> "^" <PropositionalExpression>
+
+<Boolean>                           ::= true
+                                      | false
+
+<Digit>                             ::= [0-9]
+
+<PositiveInteger>                   ::= 0
+                                      | [1-9] <Digit>*
+
+<PositiveReal>                      ::= <PositiveInteger> "."?
+                                      | <PositiveInteger>? "." <Digit>+
+
+<IdentifierStartChar>               ::= [a-zA-Z_]
+
+<IdentifierChar>                    ::= <IdentifierStartChar>
+                                      | <Digit>
+                                      | "-"
+
+<Identifier>                        ::= <IdentifierStartChar> <IdentifierChar>*
+
+<File>                              ::= .*

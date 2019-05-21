@@ -51,8 +51,9 @@ Real = {Integer} | \-?(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+))
 Tautology = [tT]{1}[rR]{1}[uU]{1}[eE]{1}
 ConstraintOperators = (\=\=|\!\=|<\=?|>\=?)
 ArithmeticOperators = (\+|\-)
-Identifier = [a-zA-Z][a-zA-Z0-9]*
-BinaryFormulaOperators = (\&|\|)
+Identifier = [a-zA-Z_][a-zA-Z0-9_]*
+BinaryFormulaOperators = (\&|\||\=>|<\=>|\^)
+Modality = \"[a-zA-Z0-9_]+\"
 
 File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
@@ -60,7 +61,7 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
 <YYINITIAL> {
 
-	{Comment}						{/* This is a comment, therefore we do nothing */}
+	{Comment}					{/* This is a comment, therefore we do nothing */}
     
     ";"							{ return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION); }
     
@@ -71,6 +72,10 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     "formula"					{ return symbol(PCSFCConsoleSymbols.FORMULA_DECLARATION_KEYWORD); }   
     
     "const"						{ return symbol(PCSFCConsoleSymbols.CONST_DECLARATION_KEYWORD); }  
+    
+    "boolean"					{ return symbol(PCSFCConsoleSymbols.BOOLEAN_DECLARATION_KEYWORD); } 
+    
+    "enum"						{ return symbol(PCSFCConsoleSymbols.ENUM_DECLARATION_KEYWORD); } 
     
     "revise"					{ return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD); } 
     
@@ -83,8 +88,8 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     {BinaryFormulaOperators}	{ return symbol(PCSFCConsoleSymbols.BINARY_FORMULA_OPERATOR, yytext()); }
     
     ":="						{ return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR); }
-    
-    "="							{ return symbol(PCSFCConsoleSymbols.CONST_INITIALIZER_OPERATOR); }
+        
+    "="							{ return symbol(PCSFCConsoleSymbols.SIMPLE_EQUAL); }
     
     ":"							{ return symbol(PCSFCConsoleSymbols.COLON); }
     
@@ -93,6 +98,8 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
   	"("							{ return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS); }
   			
   	")"							{ return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS); }
+	
+    {Modality}            		{ return symbol(PCSFCConsoleSymbols.MODALITY, yytext()); }
   
   	{Tautology}					{ return symbol(PCSFCConsoleSymbols.TAUTOLOGY_FORMULA, yytext()); }
     
@@ -100,15 +107,20 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     
     "clear"						{ return symbol(PCSFCConsoleSymbols.CLEAR); }
     
+    "printvars"					{ return symbol(PCSFCConsoleSymbols.PRINTVARS); }
+    
     {Real}						{ return symbol(PCSFCConsoleSymbols.REAL, yytext()); }
     
     {Identifier}				{ return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext()); }
+    
 }
 
 <FILE> {
+
     {File}            			{ return symbol(PCSFCConsoleSymbols.FILE, yytext()); }
+    
 }
 
 {WhiteSpace}            		{ /* Just skip what was found, do nothing */ }
 
-[^]                     		{ throw new LexerException("Illegal character '" + yytext() + "'."); }
+[^]                     		{ throw new LexerException("Illegal character '" + yytext() + "'.", null, true, false); }

@@ -8,4 +8,15 @@ public abstract class PCSFCUnaryFormula extends PCSFCFormula {
 		this.child = f;
 	}
 
+	@Override
+	public String toString(boolean latex) {
+		StringBuilder str = new StringBuilder();
+		str.append(this.operator(latex) + "(");
+		str.append(this.child.toString(latex));
+		str.append(")");
+		return str.toString();
+	}
+	
+	public abstract String operator(boolean latex);
+	
 }
