@@ -1,0 +1,3 @@
+% Target for to the classroom schedule problem
+
+not( english { m, mi } mathematics )

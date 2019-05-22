@@ -1,0 +1,23 @@
+% Temporal organisation of time periods
+
+8-9 { m } 9-10
+9-10 { m } 10-11
+10-11 { m } 11-12
+
+
+% All courses occur during an allowable time period
+
+or( english { eq } 8-9 ; english { eq } 9-10 ; english { eq } 10-11 ; english { eq } 11-12 )
+or( biology { eq } 8-9 ; biology { eq } 9-10 ; biology { eq } 10-11 ; biology { eq } 11-12 )
+or( history { eq } 8-9 ; history { eq } 9-10 ; history { eq } 10-11 ; history { eq } 11-12 )
+or( mathematics { eq } 8-9 ; mathematics { eq } 9-10 ; mathematics { eq } 10-11 ; mathematics { eq } 11-12 )
+
+
+% No two courses may occur at the same time
+
+not( english { eq } biology )
+not( english { eq } history )
+not( english { eq } mathematics )
+not( biology { eq } history )
+not( biology { eq } mathematics )
+not( history { eq } mathematics )

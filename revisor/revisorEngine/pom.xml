@@ -27,6 +27,7 @@
 		<module>revisorEngine-plak</module>
 		<module>revisorEngine-qa</module>
 		<module>revisorEngine-clc</module>
+		<module>revisorEngine-pcsfc</module>
 		<module>revisorEngine-rdfs</module>
 	</modules>
 

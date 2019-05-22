@@ -1,0 +1,29 @@
+This file specifies the acceptable grammar for specifying QCNs for use with 
+Revisor/QA and generalised QCNs for use with Revisor/PCQA.
+
+Starting with Revisor version 2.1, the characters that can be used in 
+variable, parameter, and relation names is restricted to the UTF-8 [:word:] 
+character class plus "-" --- i.e. all digits and letters of any alphabet, 
+plus "_" and "-", with the addition of "=", which is used in Craqpot functor 
+names. The parser may tolerate more characters, but compatibility with 
+future versions is not guaranteed.
+
+
+qcn         ::=  expression [ newline expression ]*
+expression  ::=  formula | '%' comment | formula '%' comment
+formula     ::=  disjunction | negation | literal
+disjunction ::=  'or(' literal [ ';' literal ]* ')'
+negation    ::=  DM1-form | DM2-form
+DM1-form    ::=  'not(' literal [ '&' literal ]+ ')'
+DM2-form    ::=  'not(' literal [ '|' literal ]+ ')'
+literal     ::=  atom | neg-atom
+neg-atom    ::=  'not(' atom ')'
+atom        ::=  variable '{' relation '}' variable
+variable    ::=  p-variable | np-variable
+p-variable  ::=  np-variable '(' parameters ')'
+parameters  ::=  parameter [ '+' parameter ]
+relation    ::=  base-relation [ ',' base-relation ]*
+
+np-variable   ::= [-=[:word:]]+
+parameter     ::= [-[:word:]]+
+base-relation ::= [-<>=[:word:]]+

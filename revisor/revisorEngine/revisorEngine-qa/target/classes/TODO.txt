@@ -1,0 +1,9 @@
+The normalisation process for extended QC formulas is very innefficient: 
+first a list of all possible disjunctive QCNs is created, then impossible 
+QCNs are deleted, and finally duplicated QCNs are removed. The complexity of 
+the latter two steps is determined by the amount of possible disjuncts, 
+which is exponential with respect to the amount of disjunctions. For 
+instance, the example DK before cleaning has 13824 QCNs generated. 13776 are 
+deleted at step 2, and a further 42 are deleted at step 3. The whole process 
+takes about 8 s. For little extra cost, those steps could be integrated into 
+the first step.

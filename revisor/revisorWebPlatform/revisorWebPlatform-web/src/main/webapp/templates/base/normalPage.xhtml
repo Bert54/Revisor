@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="/templates/base/basePage.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="logBar">
+		<h:panelGroup layout="block" id="loggedOut" rendered="#{!sessionManager.connected}">
+			<ui:include src="/templates/includes/loggedOut.xhtml" />
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" id="loggedIn" rendered="#{sessionManager.connected}">
+			<ui:include src="/templates/includes/loggedIn.xhtml" />
+		</h:panelGroup>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+	<p:panelGrid id="userInfoGrid" styleClass="noBorder">
+		<p:row>
+			<p:column>
+				<p:outputLabel value="First name : " />
+			</p:column>
+			<p:column>
+				<p:inputText id="firstName" value="#{user.firstname}" required="true" requiredMessage="Please enter your first name">
+					<f:ajax event="blur" render="firstNameMessage" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<p:message id="firstNameMessage" for="firstName" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Last name : " />
+			</p:column>
+			<p:column>
+				<p:inputText id="lastName" value="#{user.lastname}" required="true" requiredMessage="Please enter your last name">
+					<f:ajax event="blur" render="lastNameMessage" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<p:message id="lastNameMessage" for="lastName" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Email : " />
+			</p:column>
+			<p:column>
+				<p:inputText id="email" value="#{user.email}" required="true" requiredMessage="Please enter your email">
+					<f:validator binding="#{emailValidator}" />
+					<f:ajax event="blur" render="emailMessage" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<p:message id="emailMessage" for="email" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Password : " />
+			</p:column>
+			<p:column>
+				<p:inputText id="password" value="#{user.password}" required="true" requiredMessage="Please enter your password" type="password" binding="#{passwordField}">
+					<f:validator binding="#{passwordValidator}" />
+					<f:ajax event="blur" execute="password confirmPassword" render="passwordMessage confirmPasswordMessage" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<p:message id="passwordMessage" for="password" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Confirm password : " />
+			</p:column>
+			<p:column>
+				<p:inputText id="confirmPassword" value="#{confirmPassword}" required="true" requiredMessage="Please confirm your password" type="password">
+					<f:validator binding="#{passwordConfirmationValidator}" />
+					<f:attribute name="passwordField" value="#{passwordField}" />
+					<f:ajax event="blur" execute="password confirmPassword" render="passwordMessage confirmPasswordMessage" />
+				</p:inputText>
+			</p:column>
+			<p:column>
+				<p:message id="confirmPasswordMessage" for="confirmPassword" />
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+
+</ui:composition>

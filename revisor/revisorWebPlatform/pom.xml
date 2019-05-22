@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.loria.orpailleur.revisor</groupId>
+		<artifactId>revisor</artifactId>
+		<version>3.0.0</version>
+	</parent>
+
+	<groupId>fr.loria.orpailleur.revisor.webplatform</groupId>
+	<artifactId>revisorWebPlatform</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>revisorWebPlatform</name>
+
+	<properties>
+		<contextRoot>/revisor-web-platform</contextRoot>
+		<m2eclipse.wtp.contextRoot>${contextRoot}</m2eclipse.wtp.contextRoot>
+	</properties>
+
+	<modules>
+		<module>revisorWebPlatform-lib</module>
+		<module>revisorWebPlatform-ejb</module>
+		<module>revisorWebPlatform-web</module>
+		<module>revisorWebPlatform-ear</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- LIB child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorWebPlatform-lib</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- EJB child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorWebPlatform-ejb</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- WEB child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorWebPlatform-web</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- EAR child -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>revisorWebPlatform-ear</artifactId>
+				<version>${project.version}</version>
+				<type>ear</type>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- Java EE -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>7.0</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- Java EE -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-web-api</artifactId>
+				<version>7.0</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- Primefaces -->
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>5.0</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- Prettyfaces -->
+			<dependency>
+				<groupId>org.ocpsoft.rewrite</groupId>
+				<artifactId>rewrite-servlet</artifactId>
+				<version>2.0.12.Final</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- Prettyfaces -->
+			<dependency>
+				<groupId>org.ocpsoft.rewrite</groupId>
+				<artifactId>rewrite-config-prettyfaces</artifactId>
+				<version>2.0.12.Final</version>
+				<scope>compile</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- Maven Dependency -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${endorsed.dir}</outputDirectory>
+								<silent>true</silent>
+								<artifactItems>
+									<artifactItem>
+										<groupId>javax</groupId>
+										<artifactId>javaee-endorsed-api</artifactId>
+										<version>7.0</version>
+										<type>jar</type>
+									</artifactItem>
+								</artifactItems>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Maven EAR -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>2.9</version>
+					<configuration>
+						<defaultLibBundleDir>lib</defaultLibBundleDir>
+						<version>7</version>
+						<modules>
+							<ejbModule>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>revisorWebPlatform-ejb</artifactId>
+								<bundleFileName>revisorWebPlatform-ejb.jar</bundleFileName>
+							</ejbModule>
+							<webModule>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>revisorWebPlatform-web</artifactId>
+								<bundleFileName>revisorWebPlatform-web.war</bundleFileName>
+								<contextRoot>${contextRoot}</contextRoot>
+							</webModule>
+						</modules>
+						<generateApplicationXml>true</generateApplicationXml>
+					</configuration>
+				</plugin>
+
+				<!-- Maven EJB -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ejb-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<ejbVersion>3.2</ejbVersion>
+					</configuration>
+				</plugin>
+
+				<!-- Maven WAR -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

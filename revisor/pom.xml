@@ -111,6 +111,15 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
+			
+			<!-- PCSFC child -->
+			<dependency>
+				<groupId>fr.loria.orpailleur.revisor.engine</groupId>
+				<artifactId>revisorEngine-pcsfc</artifactId>
+				<version>3.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
 
 			<!-- RDFS child -->
 			<dependency>

@@ -1,0 +1,15 @@
+% Domain knowledge pertaining to the classroom schedule problem
+
+% Spatial organisation of time periods
+8-10 { m } 10-12
+10-12 { b } 14-16
+
+% Each course occurs over a defined time period (3^3=27 configurations)
+or( english { eq } 8-10 ; english { eq } 10-12 ; english { eq } 14-16 ;  )
+or( mathematics { eq } 8-10 ; mathematics { eq } 10-12 ; mathematics { eq } 14-16 ;  )
+or( history { eq } 8-10 ; history { eq } 10-12 ; history { eq } 14-16 ;  )
+
+% No two courses occur over the same time period
+not( english { eq } mathematics )
+not( english { eq } history )
+not( history { eq } mathematics )

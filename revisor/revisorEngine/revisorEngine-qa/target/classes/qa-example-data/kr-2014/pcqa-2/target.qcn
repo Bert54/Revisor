@@ -1,0 +1,3 @@
+% The biology and history teachers must not meet
+
+not( biology { m, mi } history )

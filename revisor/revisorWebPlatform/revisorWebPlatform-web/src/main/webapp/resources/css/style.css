@@ -1,0 +1,7 @@
+/**
+ * author : William Philbert
+ */
+
+.noBorder tr, .noBorder td {
+    border: none !important;
+}

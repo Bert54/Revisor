@@ -1,0 +1,41 @@
+2.1.1 -- 11 May (?)
+
+    - Many Algebra optimisations, some specific to INDU
+    - Replaced PC1-inspired algebraic closure algorithms with PC2-VK (faster)
+    - Implemented other closure algorithms (but they are not reachable in code)
+    - Implemented explosion method (e.g. replacing "a(i+j)" with "a(i)" and
+      "a(j)") and other methods related methods (they are not used in Revisor,
+      but Craqpot calls them directly)
+    - With respect to the previous point, "+" cannot be used in parameter names
+
+2.1 -- 31 October 2013
+
+    - Added classes and methods for Revisor/PCQA
+    - Added options for backend debugging
+    - More stringent rules for QCN syntax
+
+2.0.2 -- 22 May 2013
+
+    - Added reviseExhaustively and adaptExhaustively to return all
+      possible scenarios at the minimal distance
+    - Added closed set, which is important for "exhaustive" revision
+    - Bug fix: the cost incurred by changes made through
+      QCN::enforce_total_path_consistency was not taken into
+      consideration when computing the g function
+    
+    /!\ Those features were not thoroughly tested. Consider using v2.0.1
+        for use in a propduction environment
+
+2.0.1 -- 21 May 2013
+
+    - Bug fix: the iterative algorithm was used instead of A*
+    - Bug fix: the server went on after the client had timed out
+    - Bug fix: asking to print a non-existent QCN crashed the server
+
+2.0 -- 13 April 2013
+
+    - No change to Revisor/QA
+
+1.0 -- 15 February 2013
+
+    - First public release

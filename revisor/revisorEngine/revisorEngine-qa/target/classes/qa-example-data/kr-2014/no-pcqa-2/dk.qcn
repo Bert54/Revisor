@@ -1,0 +1,51 @@
+% Temporal organisation of time periods
+
+8-9 { m } 9-10
+9-10 { m } 10-11
+10-11 { m } 11-12
+
+8-9 { s } 8-12
+9-10 { d } 8-12
+10-11 { d } 8-12
+11-12 { f } 8-12
+
+
+% No two courses may occur at the same time
+
+english { b, bi, m, mi } biology
+english { b, bi, m, mi } history
+english { b, bi, m, mi } mathematics
+biology { b, bi, m, mi } history
+biology { b, bi, m, mi } mathematics
+history { b, bi, m, mi } mathematics
+
+
+% All courses occur during the allowable time periods
+
+english { s, d, f } 8-12
+biology { s, d, f } 8-12
+history { s, d, f } 8-12
+mathematics { s, d, f } 8-12
+
+
+% Every course either occurs during a time period, or does not intersect with it
+
+english { b, bi, m, mi, eq } 8-9
+english { b, bi, m, mi, eq } 9-10
+english { b, bi, m, mi, eq } 10-11
+english { b, bi, m, mi, eq } 11-12
+
+biology { b, bi, m, mi, eq } 8-9
+biology { b, bi, m, mi, eq } 9-10
+biology { b, bi, m, mi, eq } 10-11
+biology { b, bi, m, mi, eq } 11-12
+
+history { b, bi, m, mi, eq } 8-9
+history { b, bi, m, mi, eq } 9-10
+history { b, bi, m, mi, eq } 10-11
+history { b, bi, m, mi, eq } 11-12
+
+mathematics { b, bi, m, mi, eq } 8-9
+mathematics { b, bi, m, mi, eq } 9-10
+mathematics { b, bi, m, mi, eq } 10-11
+mathematics { b, bi, m, mi, eq } 11-12

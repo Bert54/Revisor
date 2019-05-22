@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="revisorWebPlatform-ear-1.0.0">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="revisorWebPlatform-ejb.jar" deploy-path="/" handle="module:/resource/revisorWebPlatform-ejb/revisorWebPlatform-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="revisorWebPlatform-web.war" deploy-path="/" handle="module:/resource/revisorWebPlatform-web/revisorWebPlatform-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="revisorWebPlatform-lib-1.0.0.jar" deploy-path="/lib" handle="module:/resource/revisorWebPlatform-lib/revisorWebPlatform-lib">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-api-2.0-rc1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/logging/log4j/log4j-api/2.0-rc1/log4j-api-2.0-rc1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-core-2.0-rc1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/logging/log4j/log4j-core/2.0-rc1/log4j-core-2.0-rc1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="revisorEngine-core-3.0.0.jar" deploy-path="/lib" handle="module:/resource/revisorEngine-core/revisorEngine-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

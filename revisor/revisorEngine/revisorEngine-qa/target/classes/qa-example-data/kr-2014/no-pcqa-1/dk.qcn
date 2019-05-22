@@ -1,0 +1,36 @@
+% Domain knowledge pertaining to the classroom schedule problem
+
+% Temporal organisation of time periods
+8-10 { m } 10-12
+10-12 { m } 12-14
+12-14 { m } 14-16
+8-10 { s } 8-16
+10-12 { d } 8-16
+12-14 { d } 8-16
+14-16 { f } 8-16
+
+% Each cours occurs during the day
+english { d, s, f } 8-16
+mathematics { d, s, f } 8-16
+history { d, s, f } 8-16
+
+% No course occurs during lunch hour
+english { b, bi, m, mi } 12-14
+mathematics { b, bi, m, mi } 12-14
+history { b, bi, m, mi } 12-14
+
+% Each course either occurs for a whole period or is totally disjoint from this period
+english { eq, b, bi, m, mi } 8-10
+english { eq, b, bi, m, mi } 10-12
+english { eq, b, bi, m, mi } 14-16
+mathematics { eq, b, bi, m, mi } 8-10
+mathematics { eq, b, bi, m, mi } 10-12
+mathematics { eq, b, bi, m, mi } 14-16
+history { eq, b, bi, m, mi } 8-10
+history { eq, b, bi, m, mi } 10-12
+history { eq, b, bi, m, mi } 14-16
+
+% No two courses occur over the same time period
+english { b, bi, m, mi } mathematics
+english { b, bi, m, mi } history
+history { b, bi, m, mi } mathematics
