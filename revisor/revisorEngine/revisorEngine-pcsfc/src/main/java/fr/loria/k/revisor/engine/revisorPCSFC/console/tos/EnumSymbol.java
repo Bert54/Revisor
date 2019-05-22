@@ -2,6 +2,12 @@ package fr.loria.k.revisor.engine.revisorPCSFC.console.tos;
 
 import java.util.ArrayList;
 
+import fr.loria.k.revisor.engine.revisorPCSFC.RevisorEnginePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.RevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.config.PCSFCConfig;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
+
 public class EnumSymbol extends Symbol {
 
 	private final ArrayList<String> modalities;
@@ -16,16 +22,18 @@ public class EnumSymbol extends Symbol {
 	}
 
 	@Override
-	public String toString() {
+	public String toString(final boolean latex, AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>> console) {
 		StringBuilder str = new StringBuilder();
 		str.append(this.getSymbolName() + ": " + this.getVariableType());
-		str.append(" -- modalities: ");
-		int i = 0;
-		while (i != this.modalities.size() - 1) {
-			str.append(this.modalities.get(i) + ", ");
-			i++;
+		if (console.displayVariableContent()) {
+			str.append(" -- modalities: ");
+			int i = 0;
+			while (i != this.modalities.size() - 1) {
+				str.append(this.modalities.get(i) + ", ");
+				i++;
+			}
+			str.append(this.modalities.get(i));
 		}
-		str.append(this.modalities.get(i));
 		return str.toString();
 	}
 	

@@ -4,6 +4,7 @@ import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSF
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.IncorrectVariableTypeException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.exceptions.VariableNotDeclaredException;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.PCSFC_Identifier;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.formula.PCSFC_Revise;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Entry;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Symbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.TableOfSymbols;
@@ -14,6 +15,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionExec
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionValidationException;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
 import fr.loria.orpailleur.revisor.engine.core.console.instruction.Assignment;
+import fr.loria.orpailleur.revisor.engine.core.utils.string.LatexFormatable;
 
 public class PCSFC_Assignment<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends Assignment<C, PCSFC_Identifier<C>, Formula<C, PCSFCFormula>, PCSFCFormula> {
 
@@ -65,6 +67,29 @@ public class PCSFC_Assignment<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>>
 	
 	protected String createFormatedInputText() {
 		return String.format("%s %s %s;", this.left, this.operator(), this.right);
+	}
+	
+	@Override
+	protected String createOutput(boolean latex) {
+		StringBuilder str = new StringBuilder();
+		if (this.right instanceof PCSFC_Revise && this.console.displayPCLCFormulas()) {
+			String psiSymb;
+			String muSymb;
+			if (latex) {
+				psiSymb = "{\\psi}\\:"; 
+				muSymb = "{\\mu}\\:";
+			}
+			else {
+				psiSymb = "psi"; 
+				muSymb = "mu";
+			}
+			str.append("PCLC(" + psiSymb + ") = " + ((PCSFC_Revise<C>) this.right).getPsi().toString(latex) + System.lineSeparator());
+			str.append("PCLC(" + muSymb + ") = " +  ((PCSFC_Revise<C>) this.right).getMu().toString(latex) + System.lineSeparator());
+		}
+		String left = this.left.toString(latex);
+		String right = (this.result instanceof LatexFormatable) ? ((LatexFormatable) this.result).toString(latex) : this.result.toString();
+		str.append(String.format("%s = %s", left, right));
+		return str.toString();
 	}
 	
 	@Override

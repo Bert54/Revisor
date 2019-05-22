@@ -1,6 +1,11 @@
 package fr.loria.k.revisor.engine.revisorPCSFC.console.tos;
 
+import fr.loria.k.revisor.engine.revisorPCSFC.RevisorEnginePCSFC;
 import fr.loria.k.revisor.engine.revisorPCSFC.RevisorPCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.RevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.config.PCSFCConfig;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
 
 public class Symbol implements Comparable<Symbol> {
 
@@ -20,7 +25,7 @@ public class Symbol implements Comparable<Symbol> {
 		return this.type;
 	}
 	
-	public String toString(final boolean latex) {
+	public String toString(final boolean latex, AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>> console) {
 		StringBuilder str = new StringBuilder();
 		if (latex) {
 			str.append(RevisorPCSFC.formatNameToLatex(this.getSymbolName()) + ": " + this.getVariableType());

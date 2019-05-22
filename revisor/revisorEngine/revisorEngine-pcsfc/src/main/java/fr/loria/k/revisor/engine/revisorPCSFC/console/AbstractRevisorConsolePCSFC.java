@@ -49,7 +49,13 @@ public abstract class AbstractRevisorConsolePCSFC<C extends AbstractRevisorConso
 		return macros;
 	}
 	
+	public boolean displayPCLCFormulas() {
+		return this.getConfig().displayPCLCFormulaRevision.getValue();
+	}
 	
+	public boolean displayVariableContent() {
+		return this.getConfig().displayVariablesContent.getValue();
+	}
 
 	public PCSFCFormula revise(PCSFCFormula psi, PCSFCFormula mu, double epsilon) {
 		return this.getEngine().revise(psi, mu, epsilon);

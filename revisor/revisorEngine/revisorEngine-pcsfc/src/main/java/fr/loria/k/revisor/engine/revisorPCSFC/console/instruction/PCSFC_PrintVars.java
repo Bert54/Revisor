@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import fr.loria.k.revisor.engine.revisorPCSFC.RevisorEnginePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.AbstractRevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.RevisorConsolePCSFC;
+import fr.loria.k.revisor.engine.revisorPCSFC.console.config.PCSFCConfig;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.ConstantSymbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.EnumSymbol;
 import fr.loria.k.revisor.engine.revisorPCSFC.console.tos.Symbol;
@@ -14,6 +18,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.RevisorConsole;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionExecutionException;
 import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionValidationException;
 import fr.loria.orpailleur.revisor.engine.core.console.instruction.AbstractInstruction;
+import fr.loria.orpailleur.revisor.engine.core.console.instruction.Instruction;
 
 public class PCSFC_PrintVars<C extends RevisorConsole<C, ?, ?, ?>> extends AbstractInstruction<C> {
 
@@ -92,6 +97,7 @@ public class PCSFC_PrintVars<C extends RevisorConsole<C, ?, ?, ?>> extends Abstr
 		return this.simplifiedString(this.inputText);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected String createOutput(boolean latex) {
 		StringBuilder str = new StringBuilder();
@@ -107,11 +113,11 @@ public class PCSFC_PrintVars<C extends RevisorConsole<C, ?, ?, ?>> extends Abstr
 		else {
 			variableNames = (ArrayList<Symbol>) this.sortSymbolCollection(variableNames);
 			for (Symbol s : variableNames) {
-				if (s.getVariableType() == VariableType.FORMULA) {
-					str.append(s.toString(latex) + " -- formula: " + PCSFCFormulaVariableList.getInstance().getFormulaByIdentifier(s.getSymbolName()).toString(latex));
+				if (s.getVariableType() == VariableType.FORMULA && ((AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>>) this.console).displayVariableContent()) {
+					str.append(s.toString(latex, (AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>>) this.console) + " -- formula: " + PCSFCFormulaVariableList.getInstance().getFormulaByIdentifier(s.getSymbolName()).toString(latex));
 				}
 				else {
-					str.append(s.toString(latex));
+					str.append(s.toString(latex, (AbstractRevisorConsolePCSFC<RevisorConsolePCSFC, RevisorEnginePCSFC, PCSFCConfig, Instruction<RevisorConsolePCSFC>>) this.console));
 				}
 				str.append(System.lineSeparator());
 			}	

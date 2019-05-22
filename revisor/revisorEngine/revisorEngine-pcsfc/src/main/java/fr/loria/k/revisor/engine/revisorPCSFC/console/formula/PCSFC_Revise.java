@@ -17,6 +17,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.FormulaValidati
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Expression;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.Formula;
 import fr.loria.orpailleur.revisor.engine.core.console.formula.SpecialOperator;
+import fr.loria.orpailleur.revisor.engine.core.utils.string.StringUtils;
 
 public class PCSFC_Revise<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends SpecialOperator<C, PCSFCFormula> {
 
@@ -103,13 +104,19 @@ public class PCSFC_Revise<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> ext
 		}
 	}
 	
+	public PCSFCFormula getPsi() {
+		return this.psi;
+	}
+	
+	public PCSFCFormula getMu() {
+		return this.mu;
+	}
+	
 	/**
 	 * launches the revision
 	 */
 	@Override
 	public PCSFCFormula getValue(C console) {
-		System.out.println("psi:" + this.psi);
-		System.out.println("mu:" + this.mu);
 		final PCSFCFormula result = console.revise(this.psi, this.mu, this.epsilon);
 		return result;
 	}
@@ -119,6 +126,14 @@ public class PCSFC_Revise<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> ext
 		return "revise";
 	}
 
-	
+	@Override
+	public String toString(final boolean latex) {
+		if (!this.epsilonName.equals("")) {
+			return this.operator(latex) + "(" + this.psiName + ", " + this.muName + ", " + this.epsilon + ")";
+		}
+		else {
+			return this.operator(latex) + "(" + this.psiName + ", " + this.muName + ", " + this.epsilonName + ")";
+		}
+	}
 
 }
