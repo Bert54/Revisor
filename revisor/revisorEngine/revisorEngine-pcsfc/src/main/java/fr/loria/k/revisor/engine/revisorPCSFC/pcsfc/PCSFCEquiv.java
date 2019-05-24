@@ -15,6 +15,11 @@ public class PCSFCEquiv extends PCSFCBinaryFormula {
 	}
 
 	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCEquiv(this.leftChild.toPCSFC(), this.rightChild.toPCSFC());
+	}
+	
+	@Override
 	public boolean canRevise() {
 		return false;
 	}

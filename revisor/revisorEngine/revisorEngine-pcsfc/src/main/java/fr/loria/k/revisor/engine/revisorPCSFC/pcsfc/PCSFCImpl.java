@@ -15,6 +15,11 @@ public class PCSFCImpl extends PCSFCBinaryFormula {
 	}
 
 	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCImpl(this.leftChild.toPCSFC(), this.rightChild.toPCSFC());
+	}
+	
+	@Override
 	public boolean canRevise() {
 		return false;
 	}

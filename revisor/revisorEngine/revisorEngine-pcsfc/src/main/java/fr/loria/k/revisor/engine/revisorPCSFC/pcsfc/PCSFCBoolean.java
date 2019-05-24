@@ -29,6 +29,11 @@ public class PCSFCBoolean extends PCSFCFormula {
 	}
 
 	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCBoolean(this.name);
+	}
+	
+	@Override
 	public boolean canRevise() {
 		return false;
 	}

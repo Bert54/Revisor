@@ -16,9 +16,10 @@ public class PCSFCConstraint extends PCSFCFormula {
 	private Operator operator;
 	private RightMember<?> right;
 	
+	@SuppressWarnings("rawtypes")
 	public PCSFCConstraint(fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.LeftMember lm, ConstraintOperator co, fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.RightMember<Double> right) {
 		if (lm.isTerminal()) {
-			this.left = new LeftMemberElementTerminal((fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.LeftMemberElementTerminal) lm);
+			this.left = new LeftMemberElementTerminal<Object>((fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.LeftMemberElementTerminal) lm);
 		}
 		else {
 			this.left = new LeftMemberElement((fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.LeftMemberElement) lm);
@@ -62,7 +63,7 @@ public class PCSFCConstraint extends PCSFCFormula {
 		else {
 			this.left = new LeftMemberElement((LeftMemberElement)lm);
 		}
-		switch (co.toString()) {
+		switch (co.toString(false)) {
 		case LESS_EQUALS_OPERATOR:
 			this.operator = new OperatorLessEquals();
 			break;
@@ -98,6 +99,14 @@ public class PCSFCConstraint extends PCSFCFormula {
 
 	@Override
 	public PCSFCFormula toPCLC() {
+		return new PCSFCConstraint(this.left, this.operator, this.right);
+	}
+	
+	@Override
+	public PCSFCFormula toPCSFC() {
+		if (this.left.isTerminal() && ((double)((LeftMemberElementTerminal<?>) this.left).getCoefficient()) % 1 == 0 && (int)((double)((LeftMemberElementTerminal<?>) this.left).getCoefficient()) == 1 && this.operator.toString(false).equals(">=") && (double)this.right.getNumber() % 1 == 0 && (int)(double)this.right.getNumber() == PCSFCBoolean.DELIMITER) {
+			return new PCSFCBoolean(((LeftMemberElementTerminal<?>) this.left).getVariable().toString().replaceAll("integer_encoding_", ""));
+		}
 		return new PCSFCConstraint(this.left, this.operator, this.right);
 	}
 

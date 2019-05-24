@@ -42,5 +42,10 @@ public class PCSFCEnumeration extends PCSFCFormula {
 		}
 		return pclc;
 	}
+	
+	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCEnumeration(this.name, this.modality, this.unusedModalities);
+	}
 
 }

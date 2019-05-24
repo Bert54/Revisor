@@ -1195,7 +1195,12 @@ class CUP$PCSFCConsoleParser$actions {
 		int idfright = ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()).right;
 		String idf = (String)((java_cup.runtime.Symbol) CUP$PCSFCConsoleParser$stack.peek()).value;
 		
-									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									if (real.equals("-")) {
+										RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(-1.00, new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									}
+									else {
+										RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									}
 								
               CUP$PCSFCConsoleParser$result = parser.getSymbolFactory().newSymbol("CONSTRAINT_TERM",23, ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.elementAt(CUP$PCSFCConsoleParser$top-1)), ((java_cup.runtime.Symbol)CUP$PCSFCConsoleParser$stack.peek()), RESULT);
             }

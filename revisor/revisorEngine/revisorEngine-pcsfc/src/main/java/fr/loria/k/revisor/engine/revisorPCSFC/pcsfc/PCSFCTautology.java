@@ -20,6 +20,11 @@ public class PCSFCTautology extends PCSFCFormula {
 	public PCSFCFormula toPCLC() {
 		return new PCSFCTautology();
 	}
+	
+	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCTautology();
+	}
 
 	@Override
 	public boolean canRevise() {

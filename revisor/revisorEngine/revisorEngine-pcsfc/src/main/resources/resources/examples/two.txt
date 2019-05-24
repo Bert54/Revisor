@@ -1,0 +1,9 @@
+f1:formula;
+const const1 = 0.3;
+enum enum1("a", "b");
+int1, int2:integer;
+f2, f3, f4: formula;
+real1, real2: real;
+int3: integer;
+bool1: boolean;
+enum enum2("1", "2", "3");

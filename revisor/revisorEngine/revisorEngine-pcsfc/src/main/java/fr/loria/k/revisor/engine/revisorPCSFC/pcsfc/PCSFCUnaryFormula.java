@@ -8,6 +8,10 @@ public abstract class PCSFCUnaryFormula extends PCSFCFormula {
 		this.child = f;
 	}
 
+	public PCSFCFormula getFormulaWithoutUnaryConnector() {
+		return this.child;
+	}
+	
 	@Override
 	public String toString(boolean latex) {
 		StringBuilder str = new StringBuilder();

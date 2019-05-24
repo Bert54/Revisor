@@ -15,6 +15,11 @@ public class PCSFCXor extends PCSFCBinaryFormula {
 	}
 
 	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCXor(this.leftChild.toPCSFC(), this.rightChild.toPCSFC());
+	}
+	
+	@Override
 	public boolean canRevise() {
 		return false;
 	}

@@ -523,7 +523,12 @@ CONSTRAINT_TERM_LIST		::=	CONSTRAINT_TERM_LIST:ctl CONSTRAINT_TERM_OPERATOR:oper
 							
 CONSTRAINT_TERM				::=	REAL:real IDENTIFIER:idf
 								{:
-									RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									if (real.equals("-")) {
+										RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(-1.00, new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									}
+									else {
+										RESULT = new LeftMemberElementTerminal<Double, RevisorConsolePCSFC>(Double.parseDouble(real), new PCSFC_Identifier<RevisorConsolePCSFC>(idf));
+									}
 								:}
 								|
 								IDENTIFIER:idf

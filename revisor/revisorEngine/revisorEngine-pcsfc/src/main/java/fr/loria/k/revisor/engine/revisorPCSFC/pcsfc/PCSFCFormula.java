@@ -20,6 +20,13 @@ public abstract class PCSFCFormula implements LatexFormatable {
 	 */
 	public abstract PCSFCFormula toPCLC();
 	
+	/**
+	 * Method that transforms a formula of PCLC into a formula of PCSFC if possible.
+	 * @return Equivalent PCSFC formula
+	 * TODO method isn't fully implemented in every sub-classes. In addition, sub-classes may need to redefine
+	 * method equals() depending of how the PCLC revision algorithm generates new formulas.
+	 */
+	public abstract PCSFCFormula toPCSFC();
 	
 	@Override
 	public final String toLatex() {

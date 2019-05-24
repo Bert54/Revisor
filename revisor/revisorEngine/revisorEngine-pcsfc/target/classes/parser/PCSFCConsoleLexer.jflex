@@ -39,6 +39,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.LexerException;
 %yylexthrow LexerException
 
 %state FILE
+%state CONSTROPERS
 
 Comment = (#{1}.*\n?)
 
@@ -46,7 +47,7 @@ NotLineTerminator = [^\r\n]
 WhiteSpace = \s
 NotWhiteSpace = \S
 
-Integer = \-?[0-9]+
+Integer = \-?[0-9]+|\-
 Real = {Integer} | \-?(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+))
 Tautology = [tT]{1}[rR]{1}[uU]{1}[eE]{1}
 ConstraintOperators = (\=\=|\!\=|<\=?|>\=?)
@@ -54,6 +55,7 @@ ArithmeticOperators = (\+|\-)
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 BinaryFormulaOperators = (\&|\||\=>|<\=>|\^)
 Modality = \"[a-zA-Z0-9_]+\"
+EndOfInstruction = ;
 
 File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
@@ -63,7 +65,7 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
 	{Comment}					{/* This is a comment, therefore we do nothing */}
     
-    ";"							{ return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION); }
+    {EndOfInstruction}			{ return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION, yytext()); }
     
     "integer"					{ return symbol(PCSFCConsoleSymbols.INTEGER_DECLARATION_KEYWORD); }
     
@@ -80,8 +82,6 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     "revise"					{ return symbol(PCSFCConsoleSymbols.REVISE_KEYWORD); } 
     
     {ConstraintOperators}		{ return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext()); }
-    
-    {ArithmeticOperators}		{ return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext()); }
     
     "!"							{ return symbol(PCSFCConsoleSymbols.NEGATIVE_FORMULA_SYMBOL); }
     
@@ -111,7 +111,7 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
     
     {Real}						{ return symbol(PCSFCConsoleSymbols.REAL, yytext()); }
     
-    {Identifier}				{ return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext()); }
+    {Identifier}				{ yybegin(CONSTROPERS); return symbol(PCSFCConsoleSymbols.IDENTIFIER, yytext()); }
     
 }
 
@@ -119,6 +119,30 @@ File = {NotWhiteSpace} ({NotLineTerminator}* {NotWhiteSpace})?
 
     {File}            			{ return symbol(PCSFCConsoleSymbols.FILE, yytext()); }
     
+}
+
+<CONSTROPERS> {
+
+	{ArithmeticOperators}		{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.CONSTRAINT_TERM_OPERATOR, yytext()); }
+
+	"="							{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.SIMPLE_EQUAL); }
+
+    ":"							{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.COLON); }
+
+    {BinaryFormulaOperators}	{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.BINARY_FORMULA_OPERATOR, yytext()); }
+
+    {EndOfInstruction}			{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.END_OF_INSTRUCTION, yytext()); }
+
+	":="						{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.ASSIGNMENT_OPERATOR); }
+
+  	"("							{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.OPENING_PARENTHESIS); }
+
+  	")"							{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.CLOSING_PARENTHESIS); }
+
+    ","							{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.COMMA); }
+
+	{ConstraintOperators}		{ yybegin(YYINITIAL); return symbol(PCSFCConsoleSymbols.CONSTRAINT_OPERATOR, yytext()); }
+
 }
 
 {WhiteSpace}            		{ /* Just skip what was found, do nothing */ }

@@ -15,6 +15,11 @@ public class PCSFCNot extends PCSFCUnaryFormula {
 	}
 
 	@Override
+	public PCSFCFormula toPCSFC() {
+		return new PCSFCNot(this.child.toPCSFC());
+	}
+	
+	@Override
 	public boolean canRevise() {
 		return this.child.canRevise();
 	}

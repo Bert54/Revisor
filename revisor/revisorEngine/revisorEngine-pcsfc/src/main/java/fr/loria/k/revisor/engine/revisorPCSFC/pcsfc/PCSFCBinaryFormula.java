@@ -10,6 +10,14 @@ public abstract class PCSFCBinaryFormula extends PCSFCFormula {
 		this.rightChild = rc;
 	}
 
+	public PCSFCFormula getLeftFormula() {
+		return this.leftChild;
+	}
+	
+	public PCSFCFormula getRightFormula() {
+		return this.rightChild;
+	}
+	
 	@Override
 	public String toString(final boolean latex) {
 		StringBuilder str = new StringBuilder();

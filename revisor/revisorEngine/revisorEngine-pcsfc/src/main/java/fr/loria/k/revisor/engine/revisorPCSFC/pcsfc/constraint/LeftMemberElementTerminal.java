@@ -27,6 +27,16 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 			}
 	}
 
+	public LeftMemberElementTerminal(T coefficient, String variableName) {
+		this.coefficient = coefficient;
+		if (((double)coefficient % 1) == 0) {
+			this.variable = new IntegerVariable(variableName);
+		}
+		else {
+			this.variable = new RealVariable(variableName);
+		}
+	}
+	
 	public LeftMemberElementTerminal(LeftMemberElementTerminal<T> lm) {
 		this.coefficient = lm.getCoefficient();
 		this.variable = lm.getVariable();
@@ -38,11 +48,11 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 		this.variable = new RealVariable(termName);
 	}
 
-	protected T getCoefficient() {
+	public T getCoefficient() {
 		return this.coefficient;
 	}
 	
-	protected Variable getVariable() {
+	public Variable getVariable() {
 		return this.variable;
 	}
 	
@@ -51,7 +61,10 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 		StringBuilder str = new StringBuilder();
 		if (((double)coefficient == Math.floor((double)coefficient)) && !Double.isInfinite((double)coefficient)) {
 			int coeffInt = ((Double) this.coefficient).intValue();
-			if (coeffInt != 1) {
+			if (coeffInt == -1) {
+				str.append("-");
+			}
+			else if (coeffInt != 1) {
 				str.append(coeffInt);
 			}
 		}
