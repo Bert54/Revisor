@@ -72,7 +72,20 @@ public class PCSFC_Assignment<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>>
 	@Override
 	protected String createOutput(boolean latex) {
 		StringBuilder str = new StringBuilder();
-		if (this.right instanceof PCSFC_Revise && this.console.displayPCLCFormulas()) {
+		// The next bloc is used when we are trying to assign a revised formula to a formula identifier.
+		// If the boolean parameter in the engine's settings that asks if the two formulas we need to
+		// revise need to be displayed in their PCLC form, then this next bloc generate an output that
+		// contains these two formulas in said form.
+		if (this.right instanceof PCSFC_Revise) {
+			
+			// TODO this next warning message is temporary. It states that the algorithm revision hasn't been
+			// implemented yet. Remove it once it is done.
+			
+			if (!this.hasWarningMessages()) {	
+				this.addWarningMessage("WARNING: the revision algorithm hasn't been implemented yet. The returned formula is a hardcoded place-holder formula that needs to be removed (alongside this warning) once the algorithm has been implemented.");
+			}
+			
+			if (this.console.displayPCLCFormulas()) {
 			String psiSymb;
 			String muSymb;
 			if (latex) {
@@ -85,6 +98,7 @@ public class PCSFC_Assignment<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>>
 			}
 			str.append("PCLC(" + psiSymb + ") = " + ((PCSFC_Revise<C>) this.right).getPsi().toString(latex) + System.lineSeparator());
 			str.append("PCLC(" + muSymb + ") = " +  ((PCSFC_Revise<C>) this.right).getMu().toString(latex) + System.lineSeparator());
+			}
 		}
 		String left = this.left.toString(latex);
 		String right = (this.result instanceof LatexFormatable) ? ((LatexFormatable) this.result).toString(latex) : this.result.toString();

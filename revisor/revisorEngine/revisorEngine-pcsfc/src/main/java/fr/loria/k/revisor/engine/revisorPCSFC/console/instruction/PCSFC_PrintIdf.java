@@ -46,12 +46,7 @@ public class PCSFC_PrintIdf<C extends RevisorConsole<C, ?, ?, ?>> extends Abstra
 
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
-		if (this.symbol.getVariableType() == VariableType.FORMULA) {
-			System.out.println(this.symbol + " -- formula: " + PCSFCFormulaVariableList.getInstance().getFormulaByIdentifier(this.symbol.getSymbolName()).toString(false));
-		}
-		else {
-			System.out.println(this.symbol);
-		}
+
 	}
 
 	@Override

@@ -116,7 +116,7 @@ public class PCSFC_Revise<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> ext
 	 * launches the revision
 	 */
 	@Override
-	public PCSFCFormula getValue(C console) {
+	public PCSFCFormula getValue(C console) {	
 		final PCSFCFormula result = console.revise(this.psi, this.mu, this.epsilon);
 		if (console.mustConvertPCLCFormulaAfterRevision()) {
 			return result.toPCSFC();

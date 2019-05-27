@@ -35,9 +35,15 @@ public class PCSFC_PrintVars<C extends RevisorConsole<C, ?, ?, ?>> extends Abstr
 
 	@Override
 	protected void doExecute() throws InstructionExecutionException {
-		
+		// Nothing to so here.
 	}
 
+	/**
+	 * This method sorts a collection of PCSFC's ToS Symbols starting by the type and then by the names
+	 * according the types
+	 * @param collection Java collection that needs to be sorted
+	 * @return sorted Java collection
+	 */
 	protected Collection<Symbol> sortSymbolCollection(Collection<Symbol> collection) {
 		ArrayList<Symbol> sortedList = new ArrayList<Symbol>();
 		ArrayList<Symbol> temp = new ArrayList<>();

@@ -104,6 +104,9 @@ public class PCSFCConstraint extends PCSFCFormula {
 	
 	@Override
 	public PCSFCFormula toPCSFC() {
+		// Check if this constraint can be convert as a boolean (integer_enconding_bool_var >= 1). If so,
+		// then we can simplify this constraint with a boolean
+		// (integer_enconding_bool_var >= 1 becomes bool_var)
 		if (this.left.isTerminal() && ((double)((LeftMemberElementTerminal<?>) this.left).getCoefficient()) % 1 == 0 && (int)((double)((LeftMemberElementTerminal<?>) this.left).getCoefficient()) == 1 && this.operator.toString(false).equals(">=") && (double)this.right.getNumber() % 1 == 0 && (int)(double)this.right.getNumber() == PCSFCBoolean.DELIMITER) {
 			return new PCSFCBoolean(((LeftMemberElementTerminal<?>) this.left).getVariable().toString().replaceAll("integer_encoding_", ""));
 		}

@@ -22,6 +22,8 @@ public class PCSFCAnd extends PCSFCBinaryFormula {
 		// TODO find a way to convert compatible PCLC formulas to PCSFC Enumerations
 		// (this todo has been put here as it might need to be done here)
 		
+		// Checks if this formula is of the form (a => b) & (b => a). If so, then we
+		// can simplify this formula by a <=> b.
 		if (pcsfcLeft instanceof PCSFCImpl && pcsfcRight instanceof PCSFCImpl && ((PCSFCImpl) pcsfcLeft).getLeftFormula().equals(((PCSFCBinaryFormula) pcsfcRight).getRightFormula()) && ((PCSFCImpl) pcsfcLeft).getRightFormula().equals(((PCSFCBinaryFormula) pcsfcRight).getLeftFormula())) {
 			return new PCSFCEquiv(((PCSFCBinaryFormula) pcsfcLeft).getLeftFormula(), ((PCSFCBinaryFormula) pcsfcLeft).getRightFormula());
 		}

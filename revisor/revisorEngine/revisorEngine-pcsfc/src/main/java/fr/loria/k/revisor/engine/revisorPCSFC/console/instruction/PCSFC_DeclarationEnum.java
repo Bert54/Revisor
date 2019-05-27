@@ -17,7 +17,7 @@ import fr.loria.orpailleur.revisor.engine.core.console.exception.InstructionVali
 public class PCSFC_DeclarationEnum<C extends AbstractRevisorConsolePCSFC<C, ?, ?, ?>> extends PCSFC_Declaration<C> {
 
 	private static final String DETECTED_DUPLICATE_MODALITY = "Duplicated modality";
-	private static final String DUPLICATED_MODALITIES = "Duplicate modalities detected. Removing duplicates.";
+	private static final String DUPLICATED_MODALITIES = "	WARNING: Duplicated modalities detected. Removing duplicates.";
 	
 	private ArrayList<String> modalities;
 	

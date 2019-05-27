@@ -1,0 +1,15 @@
+psi, mu, rho: formula;
+a, b: boolean;
+m, n: integer;
+x, y, z: real;
+enum coul("bleu", "rouge", "vert");
+psi := a & !(x + 3n <= 5.0 | !coul = "vert");
+mu := b;
+mu
+rho
+const eps = 0.1;
+rho := revise(psi, mu, 0.0);
+alpha, Gamma: formula;
+Gamma := a & a & a & a & a;
+alpha := Gamma | Gamma | Gamma | Gamma | Gamma | Gamma;
+psi := a & !b;

@@ -16,9 +16,13 @@ public class PCSFCOr extends PCSFCBinaryFormula {
 	
 	@Override
 	public PCSFCFormula toPCSFC() {
+		// Checks if this formula is of the form !a | b. If so, then we can simplify this formula
+		// by a => b.
 		if (this.leftChild instanceof PCSFCNot) {
 			return new PCSFCImpl(((PCSFCNot) this.leftChild).getFormulaWithoutUnaryConnector().toPCSFC(), this.rightChild);
 		}
+		// Checks if this formula is of the form (a & !b) | (!a & b). If so, then we can simplify
+		// this formula by a ^ b.
 		else if (this.leftChild instanceof PCSFCAnd && ((PCSFCAnd) this.leftChild).getRightFormula() instanceof PCSFCNot && this.rightChild instanceof PCSFCAnd && ((PCSFCBinaryFormula) this.rightChild).getLeftFormula() instanceof PCSFCNot) {
 			if (((PCSFCBinaryFormula) this.leftChild).getLeftFormula().equals(((PCSFCUnaryFormula) ((PCSFCBinaryFormula) this.rightChild).getLeftFormula()).getFormulaWithoutUnaryConnector()) && ((PCSFCUnaryFormula) ((PCSFCBinaryFormula) this.leftChild).getRightFormula()).getFormulaWithoutUnaryConnector().equals(((PCSFCBinaryFormula) this.rightChild).getRightFormula())) {
 				return new PCSFCXor(((PCSFCBinaryFormula) this.leftChild).getLeftFormula().toPCSFC(), ((PCSFCBinaryFormula) this.rightChild).getRightFormula().toPCSFC());

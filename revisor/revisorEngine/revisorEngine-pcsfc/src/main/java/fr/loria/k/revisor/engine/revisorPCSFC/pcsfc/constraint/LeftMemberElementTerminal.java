@@ -10,6 +10,8 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 	private T coefficient;
 	private Variable variable;
 	
+	// Constructs a terminal left element of a PCSFCFormula constraint from a terminal left member of a 
+	// constraint of the engine itself
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public LeftMemberElementTerminal(fr.loria.k.revisor.engine.revisorPCSFC.console.formula.constraint.LeftMemberElementTerminal element) {
 		try {
@@ -27,6 +29,7 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 			}
 	}
 
+	// Constructs a terminal left element of a PCSFCFormula constraint with a coefficient and a name
 	public LeftMemberElementTerminal(T coefficient, String variableName) {
 		this.coefficient = coefficient;
 		if (((double)coefficient % 1) == 0) {
@@ -37,6 +40,7 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 		}
 	}
 	
+	// Constructor that copies an existing terminal left element of a PCSFCFormula constraint
 	public LeftMemberElementTerminal(LeftMemberElementTerminal<T> lm) {
 		this.coefficient = lm.getCoefficient();
 		this.variable = lm.getVariable();
@@ -59,14 +63,17 @@ public class LeftMemberElementTerminal<T> extends LeftMember {
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
+		// This next conditional bloc determines whether the coefficient should be printed or no
+		// in order to display this term in a mathematical way.
 		if (((double)coefficient == Math.floor((double)coefficient)) && !Double.isInfinite((double)coefficient)) {
 			int coeffInt = ((Double) this.coefficient).intValue();
-			if (coeffInt == -1) {
+			if (coeffInt == -1) { // coefficient = -1 : this term can be written like "-x" since -1x <=> -x
 				str.append("-");
 			}
-			else if (coeffInt != 1) {
+			else if (coeffInt != 1) { // coefficient != -1 : we need to fully write this term
 				str.append(coeffInt);
 			}
+			// reaching this part means coefficient = 1. We don't need to print it since 1x <=> x
 		}
 		else {
 			str.append(this.coefficient.toString());
