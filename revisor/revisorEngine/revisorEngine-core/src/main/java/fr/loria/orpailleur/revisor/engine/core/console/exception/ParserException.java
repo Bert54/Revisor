@@ -26,5 +26,10 @@ public class ParserException extends InstructionValidationException {
 	public ParserException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
+
+	public ParserException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+				super(message, cause, enableSuppression, writableStackTrace);
+			}
 	
 }

@@ -27,4 +27,9 @@ public class InstructionException extends Exception {
 		super(message, throwable);
 	}
 	
+	public InstructionException(String message, Throwable cause, boolean enableSuppression,
+	boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+	
 }

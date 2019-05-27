@@ -35,10 +35,11 @@ For help about how to install Revisor, see README_INSTALL.
   | |
   | +[GlassfishConfigHelp] (6)
   |
-  +[revisor] (7)
+  +[revisor] (8)
   | +[revisorEngine]
   | | +[revisorEngine-clc]
   | | +[revisorEngine-core]
+  | | +[revisorEngine-pcsfc]
   | | +[revisorEngine-pl]
   | | +[revisorEngine-plak]
   | | +[revisorEngine-qa]
@@ -139,6 +140,7 @@ If you use an IDE, you may need to update project configuration when you change 
 	- revisorEngine
 	- revisorEngine-clc
 	- revisorEngine-core
+	- revisorEngine-pcsfc
 	- revisorEngine-pl
 	- revisorEngine-plak
 	- revisorEngine-qa

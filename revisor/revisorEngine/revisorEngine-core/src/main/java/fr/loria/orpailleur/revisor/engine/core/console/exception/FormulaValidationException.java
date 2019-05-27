@@ -26,5 +26,10 @@ public class FormulaValidationException extends InstructionValidationException {
 	public FormulaValidationException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
+
+	public FormulaValidationException(String message, Throwable cause, boolean enableSuppression,
+	boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
 	
 }

@@ -27,4 +27,9 @@ public class InstructionValidationException extends InstructionException {
 		super(message, throwable);
 	}
 	
+	public InstructionValidationException(String message, Throwable cause, boolean enableSuppression,
+	boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+	
 }

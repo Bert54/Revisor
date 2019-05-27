@@ -26,5 +26,10 @@ public class LexerException extends InstructionValidationException {
 	public LexerException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
+
+	public LexerException(String message, Throwable cause, boolean enableSuppression,
+	boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
 	
 }
