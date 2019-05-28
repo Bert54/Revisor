@@ -7,7 +7,7 @@ public class OperatorEquals extends Operator {
 
 	@Override
 	public String toString(final boolean latex) {
-		return "=";
+		return "==";
 	}
 
 }

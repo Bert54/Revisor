@@ -38,10 +38,10 @@ public class LeftMemberElement extends LeftMember {
 	@SuppressWarnings("unchecked")
 	public LeftMemberElement(LeftMemberElement lm) {
 		if (lm.getLeftTerm().isTerminal()) {
-			this.left = new LeftMemberElementTerminal<Float>((LeftMemberElementTerminal<Float>) lm.getLeftTerm());
+			this.right = new LeftMemberElementTerminal<Float>((LeftMemberElementTerminal<Float>) lm.getLeftTerm());
 		}
 		else {
-			this.left = new LeftMemberElement((LeftMemberElement) lm.getLeftTerm());
+			this.right = new LeftMemberElement((LeftMemberElement) lm.getLeftTerm());
 		}
 		switch (lm.getBinaryArithmeticOperator().toString()) {
 			case ADD_OPERATOR :
@@ -54,10 +54,10 @@ public class LeftMemberElement extends LeftMember {
 				this.operator = new LeftMemberArithmeticOperatorAdd();
 		}
 		if (lm.getRightTerm().isTerminal()) {
-			this.right = new LeftMemberElementTerminal<Float>((LeftMemberElementTerminal<Float>) lm.getRightTerm());
+			this.left = new LeftMemberElementTerminal<Float>((LeftMemberElementTerminal<Float>) lm.getRightTerm());
 		}
 		else {
-			this.right = new LeftMemberElement((LeftMemberElement) lm.getRightTerm());
+			this.left = new LeftMemberElement((LeftMemberElement) lm.getRightTerm());
 		}
 	}
 
