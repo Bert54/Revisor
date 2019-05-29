@@ -26,5 +26,8 @@ classes. If you need to modify already existing methods, constructors or fields,
 Note that you are also free to add new methods and fields in the class `RevisorEnginePCSFC` (the class where is located the
 method that links the interface and your algorithm).
 
+Another person has previously worked on the algorithm. You can find his code in the folder called "RevisorPCLC" which is located
+at the root of this engine's folder. You may or may not use the code or parts of it, it's up to you.
+
 Finally, if you have succesfully implemented your algorithm, don't forget to update every README files, as your algorithm
 probably needs external librarie(s) that will need to be installed by future users and/or developpers.
